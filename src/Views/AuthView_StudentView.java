@@ -22,9 +22,13 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import Controllers.AuthController_Home;
+import Controllers.AuthController_Student;
+
 public class AuthView_StudentView {
 
 	private JFrame frame;
+	public AuthController_Home home;
 
 	public AuthView_StudentView() {
 		// TODO Auto-generated constructor stub
@@ -57,6 +61,9 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				buscarIDPanel2();
 			}
 		});
 		panel_1.add(btnNewButton_16);
@@ -70,6 +77,9 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				buscarIDPanel2();
 			}
 		});
 		panel_1.add(btnNewButton_17);
@@ -83,6 +93,9 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();;
+				buscarIDPanel2();
 			}
 		});
 		panel_1.add(btnNewButton_18);
@@ -96,6 +109,9 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				buscarIDPanel2();
 			}
 		});
 		panel_1.add(btnNewButton_19);
@@ -114,6 +130,11 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+
+				home = new AuthController_Home();
+				home.alumnoPanel();
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -167,6 +188,9 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				descargarInformacionAlumno();
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -180,6 +204,85 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+
+				home = new AuthController_Home();
+				home.alumnoPanel();
+			}
+		});
+		panel.add(btnNewButton_15);
+	
+		ImageIcon iconoCerrarSesion = new ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion.png"));
+		JButton btnNewButton_13 = new JButton("Cerrar Sesión", iconoCerrarSesion);
+		btnNewButton_13.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_13.setBounds(615, 402, 150, 33);
+		btnNewButton_13.setBorderPainted(false);
+		btnNewButton_13.setContentAreaFilled(false);
+		btnNewButton_13.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		panel.add(btnNewButton_13);
+		
+		metodoMenu(panel);
+		
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+	}
+	
+	public void buscarIDPanel2() {
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		JLabel lblNewLabel_15 = new JLabel("No.Control");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
+		lblNewLabel_15.setBounds(310, 130, 139, 30);
+		panel.add(lblNewLabel_15);
+		
+		JTextField textField_2 = new JTextField();
+		textField_2.setBounds(229, 194, 300, 30);
+		textField_2.setBackground(Color.decode("#D9D9D9"));
+		panel.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JButton btnNewButton_14 = new JButton("Buscar alumno");
+		btnNewButton_14.setForeground(new Color(255, 255, 255));
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(229, 274, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+
+				descargarInformacionAlumno2();
+			}
+		});
+		panel.add(btnNewButton_14);
+		
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(71, 79, 110, 30);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+
+				alumnosRegistradosPanel();
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -233,6 +336,9 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				buscarIDPanel();
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -267,7 +373,69 @@ public class AuthView_StudentView {
 		frame.revalidate();
 	}
 	
+	public void descargarInformacionAlumno2() {
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(59, 128, 652, 243);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_15 = new JLabel("Descargar Información");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_15.setBounds(59, 92, 186, 30);		
+		panel.add(lblNewLabel_15);
+		
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(59, 50, 110, 25);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+				buscarIDPanel2();
+			}
+		});
+		panel.add(btnNewButton_15);
+		
+		JButton btnNewButton_14 = new JButton("Descargar Información");
+		btnNewButton_14.setForeground(new Color(255, 255, 255));
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(229, 384, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		panel.add(btnNewButton_14);
 	
+		ImageIcon iconoCerrarSesion = new ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion.png"));
+		JButton btnNewButton_13 = new JButton("Cerrar Sesión", iconoCerrarSesion);
+		btnNewButton_13.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_13.setBounds(615, 402, 150, 33);
+		btnNewButton_13.setBorderPainted(false);
+		btnNewButton_13.setContentAreaFilled(false);
+		panel.add(btnNewButton_13);
+		
+		metodoMenu(panel);
+		
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+	}
 	
 
 	
@@ -275,19 +443,7 @@ public class AuthView_StudentView {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
@@ -321,6 +477,10 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+				seleccionAvatar();
 			}
 		});
 		panel_1.add(btnNewButton_20);
@@ -340,6 +500,10 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+				crearAlumnoAvatarPanel();
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -353,6 +517,11 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+				home = new AuthController_Home();
+				home.alumnoPanel();
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -428,6 +597,7 @@ public class AuthView_StudentView {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
+					
 				}
 			});
 			panel_1.add(button);
@@ -437,6 +607,17 @@ public class AuthView_StudentView {
 			btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
 			btnNewButton_14.setBackground(Color.decode("#4A85A4"));
 			btnNewButton_14.setBounds(229, 384, 300, 30);
+			btnNewButton_14.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					frame.remove(panelseleccionAvatar);
+
+					frame.dispose();
+					crearAlumnoAvatarPanel();
+				}
+			});
 			panelseleccionAvatar.add(btnNewButton_14);
 		}	
 		
@@ -475,6 +656,10 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+				seleccionAvatar();
 			}
 		});
 		panel_1.add(btnNewButton_20);
@@ -494,6 +679,11 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+
+				confirmarCrearPanel();
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -507,6 +697,10 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+				crearAlumnoPanel();
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -562,6 +756,10 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+				crearAlumnoAvatarPanel();
 			}
 		});
 		panel_1.add(btnNewButton_7);
@@ -580,6 +778,10 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+				alumnoCreadoPanel();
 			}
 		});
 		panel_1.add(btnNewButton_21);
@@ -590,7 +792,7 @@ public class AuthView_StudentView {
 		frame.revalidate();
 	}
 	
-	public void AlumnoCreadoPanel() {
+	public void alumnoCreadoPanel() {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -624,6 +826,10 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+
+				home = new AuthController_Home();
+				home.alumnoPanel();
 			}
 		});
 		panel_1.add(btnNewButton_7);
@@ -646,7 +852,81 @@ public class AuthView_StudentView {
 	
 	
 	
+	public void buscarIDPanel3() {
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		JLabel lblNewLabel_15 = new JLabel("No.Control");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
+		lblNewLabel_15.setBounds(310, 130, 139, 30);
+		panel.add(lblNewLabel_15);
+		
+		JTextField textField_2 = new JTextField();
+		textField_2.setBounds(229, 194, 300, 30);
+		textField_2.setBackground(Color.decode("#D9D9D9"));
+		panel.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JButton btnNewButton_14 = new JButton("Buscar alumno");
+		btnNewButton_14.setForeground(new Color(255, 255, 255));
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(229, 274, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+
+				editarInformacionAlumno();
+			}
+		});
+		panel.add(btnNewButton_14);
+		
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(71, 79, 110, 30);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+
+				home = new AuthController_Home();
+				home.alumnoPanel();
+			}
+		});
+		panel.add(btnNewButton_15);
 	
+		ImageIcon iconoCerrarSesion = new ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion.png"));
+		JButton btnNewButton_13 = new JButton("Cerrar Sesión", iconoCerrarSesion);
+		btnNewButton_13.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_13.setBounds(615, 402, 150, 33);
+		btnNewButton_13.setBorderPainted(false);
+		btnNewButton_13.setContentAreaFilled(false);
+		btnNewButton_13.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		panel.add(btnNewButton_13);
+		
+		metodoMenu(panel);
+		
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+	}
+
 	
 	public void editarInformacionAlumno() {
 		JPanel panel = new JPanel();
@@ -674,6 +954,10 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+
+				buscarIDPanel3();
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -688,6 +972,10 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+
+				confirmarEditarAlumno();
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -708,7 +996,7 @@ public class AuthView_StudentView {
 		frame.revalidate();
 	}
 	
-	public void confirmarEditarDocente() {
+	public void confirmarEditarAlumno() {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -734,8 +1022,13 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+
+				seleccionAvatar2();
 			}
 		});
+		panel_1.add(btnNewButton_20);
 		
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
@@ -746,6 +1039,10 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+
+				editarInformacionAlumno();
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -760,6 +1057,10 @@ public class AuthView_StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+
+				crearAlumnoAvatarPanel2();
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -779,6 +1080,186 @@ public class AuthView_StudentView {
 		frame.repaint();
 		frame.revalidate();
 	}
+	
+	public void seleccionAvatar2() {
+		
+		JPanel panelseleccionAvatar = new JPanel();
+		panelseleccionAvatar.setLayout(null);
+		panelseleccionAvatar.setBackground(Color.decode("#C3E1F1"));
+		
+		JLabel lblNewLabel_13 = new JLabel("Selecciona tu avatar");
+		lblNewLabel_13.setFont(new Font("Inter", Font.BOLD, 24));
+		lblNewLabel_13.setBounds(259, 32, 256, 30);
+		panelseleccionAvatar.add(lblNewLabel_13);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(120, 70, 536, 304);
+		panelseleccionAvatar.add(scrollPane);		
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.decode("#4A85A4"));
+		panel_1.setLayout(new GridLayout(5, 3, 50, 40));
+		panel_1.setBorder(new EmptyBorder(40, 60, 40, 60));
+		scrollPane.setViewportView(panel_1);
+		
+		String[] imagePaths = {
+				"/Imagenes/Icono_Avatar_Hacker.png",
+	            "/Imagenes/Icono_Avatar_Panda.png",
+	            "/Imagenes/Icono_Avatar_Gallina.png",
+	            "/Imagenes/Icono_Avatar_Chico.png",
+	            "/Imagenes/Icono_Avatar_Chico_2.png",
+	            "/Imagenes/Icono_Avatar_Dinosaurio.png",
+	            "/Imagenes/Icono_Avatar_Hombre.png",
+	            "/Imagenes/Icono_Avatar_Mujer.png",
+	            "/Imagenes/Icono_Avatar_Oso.png",
+	            "/Imagenes/Icono_Avatar_Astronauta.png",
+	            "/Imagenes/Icono_Avatar_Lobo_Marino.png",
+	            "/Imagenes/Icono_Avatar_Robot.png",
+	            "/Imagenes/Icono_Avatar_Zorro.png",
+	            "/Imagenes/Icono_Avatar_Bot.png",
+	            "/Imagenes/Icono_Avatar_Gato.png"
+	        };
+		
+		for (int i = 0; i <= 14; i++) {
+			ImageIcon iconoAvatar = new ImageIcon(getClass().getResource(imagePaths[i]));
+			RoundedButton button = new RoundedButton(iconoAvatar, Color.decode("#D9D9D9"));
+			button.setPreferredSize(new Dimension(94, 94));
+			button.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			panel_1.add(button);
+			
+			JButton btnNewButton_14 = new JButton("Guardar");
+			btnNewButton_14.setForeground(new Color(255, 255, 255));
+			btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+			btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+			btnNewButton_14.setBounds(229, 384, 300, 30);
+			btnNewButton_14.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					frame.remove(panelseleccionAvatar);
+
+					frame.dispose();
+					crearAlumnoAvatarPanel();
+				}
+			});
+			panelseleccionAvatar.add(btnNewButton_14);
+		}	
+		
+		frame.add(panelseleccionAvatar);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+	}
+
+	public void crearAlumnoAvatarPanel2() {
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(59, 128, 652, 243);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		ImageIcon iconoAvatar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Avatar_Chico.png"));
+		JLabel lblNewLabel_23 = new JLabel(iconoAvatar);
+		lblNewLabel_23.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_23.setBounds(486, 39, 131, 123);
+		lblNewLabel_23.setOpaque(true);
+		lblNewLabel_23.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(lblNewLabel_23);
+		
+		JButton btnNewButton_20 = new JButton("Cambiar avatar");
+		btnNewButton_20.setBounds(486, 185, 131, 25);
+		btnNewButton_20.setOpaque(true);
+		btnNewButton_20.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_20.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+				seleccionAvatar2();
+			}
+		});
+		panel_1.add(btnNewButton_20);
+		
+		JLabel lblNewLabel_15 = new JLabel("Editar Alumno");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_15.setBounds(59, 92, 118, 30);
+		panel.add(lblNewLabel_15);
+		
+		JButton btnNewButton_14 = new JButton("Confirmar cambios");
+		btnNewButton_14.setForeground(new Color(255, 255, 255));
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(229, 384, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+
+				confirmarCrearPanel();
+			}
+		});
+		panel.add(btnNewButton_14);
+		
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(59, 50, 110, 25);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+				confirmarEditarAlumno();
+			}
+		});
+		panel.add(btnNewButton_15);
+	
+		ImageIcon iconoCerrarSesion = new ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion.png"));
+		JButton btnNewButton_13 = new JButton("Cerrar Sesión", iconoCerrarSesion);
+		btnNewButton_13.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_13.setBounds(615, 402, 167, 25);
+		btnNewButton_13.setBorderPainted(false);
+		btnNewButton_13.setContentAreaFilled(false);
+		btnNewButton_13.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		panel.add(btnNewButton_13);
+		
+		metodoMenu(panel);
+		
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+	}	
+
 	
 public void confirmacionEditarPanel() {
 	
@@ -808,6 +1289,10 @@ public void confirmacionEditarPanel() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			frame.remove(panel);
+
+			frame.dispose();
+			crearAlumnoAvatarPanel2();
 		}
 	});
 	panel_1.add(btnNewButton_7);
@@ -826,6 +1311,10 @@ public void confirmacionEditarPanel() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			frame.remove(panel);
+
+			frame.dispose();
+			cambiosGuardadosPanel();
 		}
 	});
 	panel_1.add(btnNewButton_21);
@@ -870,6 +1359,10 @@ public void cambiosGuardadosPanel() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			frame.dispose();
+
+			home = new AuthController_Home();
+			home.alumnoPanel();
 		}
 	});
 	panel_1.add(btnNewButton_7);
@@ -902,6 +1395,80 @@ public void cambiosGuardadosPanel() {
 
 
 
+public void buscarIDPanel4() {
+	JPanel panel = new JPanel();
+	panel.setLayout(null);
+	panel.setBackground(Color.decode("#C3E1F1"));
+	
+	JLabel lblNewLabel_15 = new JLabel("No.Control");
+	lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
+	lblNewLabel_15.setBounds(310, 130, 139, 30);
+	panel.add(lblNewLabel_15);
+	
+	JTextField textField_2 = new JTextField();
+	textField_2.setBounds(229, 194, 300, 30);
+	textField_2.setBackground(Color.decode("#D9D9D9"));
+	panel.add(textField_2);
+	textField_2.setColumns(10);
+	
+	JButton btnNewButton_14 = new JButton("Buscar alumno");
+	btnNewButton_14.setForeground(new Color(255, 255, 255));
+	btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+	btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+	btnNewButton_14.setBounds(229, 274, 300, 30);
+	btnNewButton_14.addActionListener(new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			frame.remove(panel);
+			frame.dispose();
+
+			eliminarAlumnoPanel();
+		}
+	});
+	panel.add(btnNewButton_14);
+	
+	JButton btnNewButton_15 = new JButton("Volver");
+	btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+	btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+	btnNewButton_15.setBounds(71, 79, 110, 30);
+	btnNewButton_15.addActionListener(new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			frame.remove(panel);
+			frame.dispose();
+
+			home = new AuthController_Home();
+			home.alumnoPanel();
+		}
+	});
+	panel.add(btnNewButton_15);
+
+	ImageIcon iconoCerrarSesion = new ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion.png"));
+	JButton btnNewButton_13 = new JButton("Cerrar Sesión", iconoCerrarSesion);
+	btnNewButton_13.setFont(new Font("Inter", Font.BOLD, 11));
+	btnNewButton_13.setBounds(615, 402, 150, 33);
+	btnNewButton_13.setBorderPainted(false);
+	btnNewButton_13.setContentAreaFilled(false);
+	btnNewButton_13.addActionListener(new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+		}
+	});
+	panel.add(btnNewButton_13);
+	
+	metodoMenu(panel);
+	
+	frame.add(panel);
+	frame.setVisible(true);
+	frame.repaint();
+	frame.revalidate();
+}
 
 
 
@@ -924,18 +1491,6 @@ public void eliminarAlumnoPanel() {
 	lblNewLabel_23.setBackground(Color.decode("#D9D9D9"));
 	panel_1.add(lblNewLabel_23);
 	
-	JButton btnNewButton_20 = new JButton("Elegir avatar");
-	btnNewButton_20.setBounds(486, 185, 131, 25);
-	btnNewButton_20.setOpaque(true);
-	btnNewButton_20.setBackground(Color.decode("#D9D9D9"));
-	btnNewButton_20.addActionListener(new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-		}
-	});
-	panel_1.add(btnNewButton_20);
 	
 	JLabel lblNewLabel_15 = new JLabel("Eliminar Alumno");
 	lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
@@ -952,6 +1507,9 @@ public void eliminarAlumnoPanel() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			frame.remove(panel);
+			frame.dispose();
+			confirmarEliminarPanel();
 		}
 	});
 	panel.add(btnNewButton_14);
@@ -965,6 +1523,10 @@ public void eliminarAlumnoPanel() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			frame.remove(panel);
+			frame.dispose();
+
+			buscarIDPanel4();
 		}
 	});
 	panel.add(btnNewButton_15);
@@ -1020,6 +1582,10 @@ public void confirmarEliminarPanel() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			frame.remove(panel);
+			frame.dispose();
+
+			eliminarAlumnoPanel();
 		}
 	});
 	panel_1.add(btnNewButton_7);
@@ -1038,6 +1604,10 @@ public void confirmarEliminarPanel() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			frame.remove(panel);
+			frame.dispose();
+
+			alumnoEliminadoPanel();
 		}
 	});
 	panel_1.add(btnNewButton_21);
@@ -1069,7 +1639,7 @@ public void alumnoEliminadoPanel() {
 	
 	JLabel lblNewLabel_12 = new JLabel("Alumno eliminado con éxito");
 	lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
-	lblNewLabel_12.setBounds(100, 130, 258, 21);
+	lblNewLabel_12.setBounds(80, 130, 350, 21);
 	panel_1.add(lblNewLabel_12);
 	
 	JButton btnNewButton_7 = new JButton("Volver a inicio");
@@ -1082,6 +1652,10 @@ public void alumnoEliminadoPanel() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			frame.dispose();
+
+			home = new AuthController_Home();
+			home.alumnoPanel();
 		}
 	});
 	panel_1.add(btnNewButton_7);

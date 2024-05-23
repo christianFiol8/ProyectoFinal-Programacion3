@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -124,6 +125,16 @@ public class AuthView {
 		btnNewButton_1.setBounds(140, 237, 173, 21);
 		btnNewButton_1.setBorderPainted(false);
 		btnNewButton_1.setContentAreaFilled(false);
+		btnNewButton_1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+
+				frame.remove(loginPanel);
+				recuperarContraseñaPanel();
+
+			}});
 		panel2.add(btnNewButton_1);
 
 		JPanel panel3 = new JPanel();
@@ -220,7 +231,7 @@ public class AuthView {
 		lblNewLabel_3.setBounds(17, 166, 82, 13);
 		panel2.add(lblNewLabel_3);
 
-		JTextField textField3 = new JTextField();
+		JPasswordField textField3 = new JPasswordField();
 		textField3.setBackground(Color.decode("#D9D9D9"));
 		textField3.setBounds(17, 187, 276, 25);
 		panel2.add(textField3);
@@ -259,7 +270,9 @@ public class AuthView {
 					textField.setText("");
 					textField2.setText("");
 					textField3.setText("");
-					JOptionPane.showMessageDialog(null, "Usuario creado");
+					//JOptionPane.showMessageDialog(null, "Usuario creado");
+					frame.remove(panelRegistro);
+					seleccionAvatar();
 				}			
 
 			}
@@ -310,7 +323,7 @@ public class AuthView {
 		frame.revalidate();
 	}
 
-public void recuperarContraseñaPanel() {
+	public void recuperarContraseñaPanel() {
 		
 		JPanel panelRecuperarContraseña = new JPanel();
 		panelRecuperarContraseña.setLayout(null);
@@ -364,13 +377,16 @@ public void recuperarContraseñaPanel() {
 		btnNewButton_4.setBounds(142, 254, 181, 21);
 		btnNewButton_4.setBorderPainted(false);
 		btnNewButton_4.setContentAreaFilled(false);
-		btnNewButton_3.addActionListener(new ActionListener() {
+		btnNewButton_4.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-			}
-		});
+
+				frame.remove(panelRecuperarContraseña);
+				loginPanel();
+
+			}});
 		panel_1.add(btnNewButton_4);
 		
 		JTextField textField_1 = new JTextField();
@@ -433,6 +449,8 @@ public void recuperarContraseñaPanel() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
+					frame.remove(panelseleccionAvatar);
+					loginPanel();
 				}
 			});
 			panel_1.add(button);

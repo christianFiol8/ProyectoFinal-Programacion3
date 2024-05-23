@@ -19,12 +19,23 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import Controllers.AuthController;
+import Controllers.AuthController_Group;
 import Controllers.AuthController_Home;
+import Controllers.AuthController_Student;
+import Controllers.AuthController_Subject;
+import Controllers.AuthController_Teacher;
 
 public class AuthView_HomeView {
 	
 	private JFrame frame;
+	private AuthController_Teacher teacher;
 	private AuthController_Home home;
+	private AuthController_Student student;
+	private AuthController_Group group;
+	private AuthController_Subject subject;
+	private AuthController view;
+
 
 	public AuthView_HomeView() {
 		// TODO Auto-generated constructor stub
@@ -57,6 +68,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				group = new AuthController_Group();
+				group.gruposRegistradosPanel();
 			}
 		});
 		panel.add(btnNewButton_8);
@@ -90,6 +104,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				group = new AuthController_Group();
+				group.buscarGrupo2();
 			}
 		});
 		panel.add(btnNewButton_9);
@@ -123,6 +140,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				group = new AuthController_Group();
+				group.crearGrupo();
 			}
 		});
 		panel.add(btnNewButton_10);
@@ -146,6 +166,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				group = new AuthController_Group();
+				group.buscarGrupo3();
 			}
 		});
 		panel.add(btnNewButton_11);
@@ -169,6 +192,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				group = new AuthController_Group();
+				group.buscarGrupo4();
 			}
 		});
 		panel.add(btnNewButton_12);
@@ -226,6 +252,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				student = new AuthController_Student();
+				student.alumnosRegistradosPanel();
 			}
 		});
 		panel.add(btnNewButton_8);
@@ -259,6 +288,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				student = new AuthController_Student();
+				student.buscarIDPanel();
 			}
 		});
 		panel.add(btnNewButton_9);
@@ -292,6 +324,10 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+
+				student = new AuthController_Student();
+				student.crearAlumnoPanel();
 			}
 		});
 		panel.add(btnNewButton_10);
@@ -315,6 +351,10 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+
+				student = new AuthController_Student();
+				student.buscarIDPanel3();
 			}
 		});
 		panel.add(btnNewButton_11);
@@ -338,6 +378,10 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+
+				student = new AuthController_Student();
+				student.buscarIDPanel4();
 			}
 		});
 		panel.add(btnNewButton_12);
@@ -362,6 +406,8 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				
 			}
 		});
 		panel.add(btnNewButton_13);
@@ -395,6 +441,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				teacher = new AuthController_Teacher();
+				teacher.docenteRegistradosPanel();
 			}
 		});
 		panel.add(btnNewButton_8);
@@ -428,6 +477,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				teacher = new AuthController_Teacher();
+				teacher.buscarIDPanel2();
 			}
 		});
 		panel.add(btnNewButton_9);
@@ -461,6 +513,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				teacher = new AuthController_Teacher();
+				teacher.crearDocentePanel();
 			}
 		});
 		panel.add(btnNewButton_10);
@@ -484,6 +539,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				teacher = new AuthController_Teacher();
+				teacher.buscarIDPanel3();
 			}
 		});
 		panel.add(btnNewButton_11);
@@ -507,6 +565,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				teacher = new AuthController_Teacher();
+				teacher.buscarIDPanel4();
 			}
 		});
 		panel.add(btnNewButton_12);
@@ -531,6 +592,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				teacher = new AuthController_Teacher();
+				teacher.buscarIDPanel4();
 			}
 		});
 		panel.add(btnNewButton_13);
@@ -564,6 +628,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				subject = new AuthController_Subject();
+				subject.gruposRegistradosPanel();
 			}
 		});
 		panel.add(btnNewButton_8);
@@ -597,6 +664,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				subject = new AuthController_Subject();
+				subject.buscarGrupo2();
 			}
 		});
 		panel.add(btnNewButton_9);
@@ -630,6 +700,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				subject = new AuthController_Subject();
+				subject.crearGrupo();
 			}
 		});
 		panel.add(btnNewButton_10);
@@ -653,6 +726,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				subject = new AuthController_Subject();
+				subject.buscarGrupo3();
 			}
 		});
 		panel.add(btnNewButton_11);
@@ -676,6 +752,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				subject = new AuthController_Subject();
+				subject.crearGrupo();
 			}
 		});
 		panel.add(btnNewButton_12);
@@ -700,6 +779,10 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				ConfirmarCerrarSesionPanel();
+				
 			}
 		});
 		panel.add(btnNewButton_13);
@@ -731,6 +814,8 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panelAdministrar);
+				gruposPanel();
 			}
 		});
 		panelAdministrar.add(btnNewButton_8);
@@ -757,6 +842,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				frame.remove(panelAdministrar);
+				alumnoPanel();
 			}
 		});
 		panelAdministrar.add(btnNewButton_9);
@@ -783,6 +871,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				frame.remove(panelAdministrar);
+				docentePanel();
 			}
 		});
 		panelAdministrar.add(btnNewButton_10);
@@ -806,6 +897,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				frame.remove(panelAdministrar);
+				asignaturasPanel();
 			}
 		});
 		panelAdministrar.add(btnNewButton_11);
@@ -831,6 +925,9 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.remove(panelAdministrar);
+				frame.dispose();
+				ConfirmarCerrarSesionPanel();
 			}
 		});
 		panelAdministrar.add(btnNewButton_13);
@@ -841,6 +938,127 @@ public class AuthView_HomeView {
 		frame.revalidate();
 	}
 	
+	
+public void ConfirmarCerrarSesionPanel() {
+		
+		JPanel panel = new JPanel();
+		panel.setForeground(new Color(0, 0, 0));
+		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(170, 67, 450, 295);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/logout.png"));
+		JLabel lblNewLabel_14 = new JLabel();
+		lblNewLabel_14.setIcon(iconoPregunta);
+		lblNewLabel_14.setBounds(190, 34, 70, 70);
+		panel_1.add(lblNewLabel_14);
+		
+		JLabel lblNewLabel_10 = new JLabel("¡Vuelve pronto!");
+		lblNewLabel_10.setFont(new Font("Inter", Font.BOLD, 20));
+		lblNewLabel_10.setBounds(148, 123, 163, 25);
+		panel_1.add(lblNewLabel_10);
+		
+		JLabel lblNewLabel_11 = new JLabel("¿Seguro que quieres cerrar sesión?");
+		lblNewLabel_11.setFont(new Font("Inter", Font.BOLD, 11));
+		lblNewLabel_11.setBounds(124, 163, 194, 13);
+		panel_1.add(lblNewLabel_11);
+		
+		JButton btnNewButton_5 = new JButton("No,volver");
+		btnNewButton_5.setForeground(new Color(255, 255, 255));
+		btnNewButton_5.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_5.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_5.setBounds(46, 217, 163, 25);
+		panel_1.add(btnNewButton_5);
+		
+		JButton btnNewButton_6 = new JButton("Si,cerrar sesión");
+		btnNewButton_6.setBackground(new Color(255, 255, 255));
+		btnNewButton_6.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_6.setBounds(225, 217, 163, 25);
+		btnNewButton_6.setBorder(BorderFactory.createLineBorder(Color.decode("#4A85A4") , 2));
+		btnNewButton_6.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				cerrarSesionPanel();
+				
+			}
+		});
+		panel_1.add(btnNewButton_6);
+		
+		
+		
+		
+		
+		
+	metodoMenu(panel);
+		
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+}
+
+
+
+
+public void cerrarSesionPanel() {
+	
+	JPanel panel = new JPanel();
+	panel.setForeground(new Color(0, 0, 0));
+	frame.getContentPane().add(panel, BorderLayout.CENTER);
+	panel.setLayout(null);
+	panel.setBackground(Color.decode("#C3E1F1"));
+	
+	JPanel panel_1 = new JPanel();
+	panel_1.setBackground(new Color(255, 255, 255));
+	panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+	panel_1.setBounds(170, 67, 450, 295);
+	panel.add(panel_1);
+	panel_1.setLayout(null);
+	
+	ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/like.png"));
+	JLabel lblNewLabel_14 = new JLabel();
+	lblNewLabel_14.setIcon(iconoPregunta);
+	lblNewLabel_14.setBounds(190, 34, 70, 70);
+	panel_1.add(lblNewLabel_14);
+	
+	JLabel lblNewLabel_12 = new JLabel("Usted cerró sesión");
+	lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
+	lblNewLabel_12.setBounds(128, 130, 200, 21);
+	panel_1.add(lblNewLabel_12);
+	
+	JButton btnNewButton_7 = new JButton("Volver a inicio de sesión");
+	btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
+	btnNewButton_7.setForeground(new Color(255, 255, 255));
+	btnNewButton_7.setBackground(Color.decode("#4A85A4"));
+	btnNewButton_7.setBounds(142, 182, 167, 25);
+	btnNewButton_7.addActionListener(new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			frame.dispose();
+			view = new AuthController();
+			view.login();
+			
+		}
+	});
+	
+	panel_1.add(btnNewButton_7);
+	
+}
+
+
 	public void metodoMenu(JPanel panel) {
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -872,6 +1090,7 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
@@ -882,6 +1101,7 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_2);
@@ -892,6 +1112,7 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_3);
@@ -902,6 +1123,7 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_4);
@@ -912,6 +1134,7 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_5);
@@ -931,6 +1154,8 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				student = new AuthController_Student();
+				student.alumnosRegistradosPanel();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_6);
@@ -941,6 +1166,8 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				student = new AuthController_Student();
+				student.buscarIDPanel();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_7);
@@ -951,6 +1178,8 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				student = new AuthController_Student();
+				student.crearAlumnoPanel();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_8);
@@ -961,6 +1190,8 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				student = new AuthController_Student();
+				student.editarInformacionAlumno();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_9);
@@ -971,6 +1202,8 @@ public class AuthView_HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				student = new AuthController_Student();
+				student.eliminarAlumnoPanel();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_10);
