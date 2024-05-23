@@ -14,7 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import Models.AuthModel;
@@ -75,7 +74,7 @@ public class AuthView {
 		lblNewLabel_3.setBounds(17, 120, 82, 13);
 		panel2.add(lblNewLabel_3);
 
-		JPasswordField textField2 = new JPasswordField();
+		JTextField textField2 = new JTextField();
 		textField2.setBackground(Color.decode("#D9D9D9"));
 		textField2.setBounds(17, 142, 276, 25);
 		panel2.add(textField2);
@@ -91,7 +90,7 @@ public class AuthView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+
 				if (textField.getText().equals("") || textField2.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Ingrese los datos faltantes");
 				} else {
@@ -250,6 +249,10 @@ public class AuthView {
 				else 
 				{
 					model.anadirUsuario(textField.getText(), textField2.getText(), textField3.getText());
+					textField.setText("");
+					textField2.setText("");
+					textField3.setText("");
+					JOptionPane.showMessageDialog(null, "Usuario creado");
 				}			
 
 			}
