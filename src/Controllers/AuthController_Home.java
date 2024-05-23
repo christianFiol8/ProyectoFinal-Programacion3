@@ -16,4 +16,24 @@ public class AuthController_Home {
 		
 		vista.administrarPanel();
 	}
+	
+	public void alumnoPanel() {
+		vista.alumnoPanel();
+	}
+	
+	public void gruposPanel() {
+		vista.gruposPanel();
+	}
+	
+	public void asignaturasPanel() {
+		vista.asignaturasPanel();
+	}
+	
+	public void docentePanel() {
+		vista.docentePanel();
+	}
+	
+	
+	
+	
 }
