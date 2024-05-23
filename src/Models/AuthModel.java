@@ -1,10 +1,14 @@
 package Models;
 import java.sql.*;
+
 import Views.AuthView;
 import javax.swing.JOptionPane;
 import javax.swing.text.View;
 
+import Controllers.AuthController_Home;
 import Views.AuthView;
+
+
 public class AuthModel {
 
 	
@@ -14,6 +18,7 @@ public class AuthModel {
 	AuthView view;
 	PreparedStatement ps = null;
 	ResultSet rs= null;	
+	public AuthController_Home home;
 	public AuthModel() {
 		// TODO Auto-generated constructor stub
 	}
@@ -30,7 +35,9 @@ public class AuthModel {
 			
 			while (rs.next()) {
 				
+				home = new AuthController_Home();
 				
+				home.administrarPanel();
 				return true;
 			}
 		}

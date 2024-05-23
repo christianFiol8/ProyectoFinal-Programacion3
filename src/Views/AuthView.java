@@ -103,7 +103,7 @@ public class AuthView {
 				} else {
 					if (model.iniciarSesion(textField.getText(), textField2.getText())) {
 						frame.remove(loginPanel);
-						registroPanel();
+						frame.dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
 					}

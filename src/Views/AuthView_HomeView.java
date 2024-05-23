@@ -19,9 +19,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import Controllers.AuthController_Home;
+
 public class AuthView_HomeView {
 	
 	private JFrame frame;
+	private AuthController_Home home;
 
 	public AuthView_HomeView() {
 		// TODO Auto-generated constructor stub
