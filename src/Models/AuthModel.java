@@ -5,7 +5,7 @@ import Views.AuthView;
 import javax.swing.JOptionPane;
 import javax.swing.text.View;
 
-import Controllers.AuthController_Home;
+import Controllers.HomeController;
 import Views.AuthView;
 
 
@@ -18,7 +18,7 @@ public class AuthModel {
 	AuthView view;
 	PreparedStatement ps = null;
 	ResultSet rs= null;	
-	public AuthController_Home home;
+	public HomeController home;
 	public AuthModel() {
 		// TODO Auto-generated constructor stub
 	}
@@ -35,7 +35,7 @@ public class AuthModel {
 			
 			while (rs.next()) {
 				
-				home = new AuthController_Home();
+				home = new HomeController();
 				
 				home.administrarPanel();
 				return true;
