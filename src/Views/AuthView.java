@@ -82,7 +82,7 @@ public class AuthView {
 		lblNewLabel_3.setBounds(17, 120, 82, 13);
 		panel2.add(lblNewLabel_3);
 
-		JTextField textField2 = new JTextField();
+		JPasswordField textField2 = new JPasswordField();
 		textField2.setBackground(Color.decode("#D9D9D9"));
 		textField2.setBounds(17, 142, 276, 25);
 		panel2.add(textField2);
