@@ -1498,7 +1498,7 @@ public void metodoMenu(JPanel panel) {
 	menuBar.setBorder(BorderFactory.createLineBorder(Color.decode("#4A85A4")));
 	panel.add(menuBar);
     
-	ImageIcon iconoControlEscolar = new ImageIcon(getClass().getResource("/Imagenes/school.png"));
+	ImageIcon iconoControlEscolar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Control_Escolar.png"));
     JLabel controlEscolar = new JLabel("Control Escolar");
     controlEscolar.setForeground(new Color(255, 255, 255));
     controlEscolar.setFont(new Font("Inter", Font.BOLD, 12));
@@ -1508,7 +1508,7 @@ public void metodoMenu(JPanel panel) {
 	
     menuBar.add(Box.createHorizontalStrut(35));
 	
-	ImageIcon iconoGrupos = new ImageIcon(getClass().getResource("/Imagenes/multiple-users-silhouette.png")); 
+	ImageIcon iconoGrupos = new ImageIcon(getClass().getResource("/Imagenes/Icono_Grupos.png")); 
 	JMenu mnNewMenu = new JMenu("Grupos");
 	mnNewMenu.setIcon(iconoGrupos);
 	mnNewMenu.setForeground(new Color(255, 255, 255));

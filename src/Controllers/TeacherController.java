@@ -45,10 +45,10 @@ public void buscarIDPanel4() {
 		vista.seleccionAvatar();
 	}
 	
-	public void crearDocenteAvatarPanel() {
+	/*public void crearDocenteAvatarPanel() {
 		
 		vista.crearDocenteAvatarPanel();
-	}
+	}*/
 	
 	public void confirmarCrearPanel() {
 		

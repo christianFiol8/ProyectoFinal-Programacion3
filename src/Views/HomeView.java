@@ -748,7 +748,8 @@ public class HomeView {
 		lblNewLabel_13.setBounds(312, 57, 183, 30);
 		panelAdministrar.add(lblNewLabel_13);
 		
-		JButton btnNewButton_8 = new JButton();
+		ImageIcon iconoGruposGrande = new ImageIcon(getClass().getResource("/Imagenes/Icono_Grupos_Grande.png"));
+		JButton btnNewButton_8 = new JButton(iconoGruposGrande);
 		btnNewButton_8.setBackground(Color.decode("#D9D9D9"));
 		btnNewButton_8.setBorder(BorderFactory.createLineBorder(Color.black , 2));
 		btnNewButton_8.setBounds(80, 149, 116, 129);
@@ -770,13 +771,15 @@ public class HomeView {
 		panelAdministrar.add(panel2);
 		panel2.setLayout(null);
 		
+		
 		JLabel lblNewLabel_21 = new JLabel("Grupos");
 		lblNewLabel_21.setFont(new Font("Inter", Font.BOLD, 12));
 		lblNewLabel_21.setForeground(new Color(255, 255, 255));
 		lblNewLabel_21.setBounds(37, 15, 70, 13);
 		panel2.add(lblNewLabel_21);
 		
-		JButton btnNewButton_9 = new JButton();
+		ImageIcon iconoAlumnosGrande = new ImageIcon(getClass().getResource("/Imagenes/Icono_Alumnos_Grande.png"));
+		JButton btnNewButton_9 = new JButton(iconoAlumnosGrande);
 		btnNewButton_9.setBorder(BorderFactory.createLineBorder(Color.black , 2));
 		btnNewButton_9.setBackground(Color.decode("#D9D9D9"));
 		btnNewButton_9.setBounds(240, 149, 116, 129);
@@ -805,7 +808,8 @@ public class HomeView {
 		lblNewLabel_17.setBounds(33, 16, 74, 13);
 		panel3.add(lblNewLabel_17);
 		
-		JButton btnNewButton_10 = new JButton();
+		ImageIcon iconoDocenteGrande = new ImageIcon(getClass().getResource("/Imagenes/Icono_Docentes_Grande.png"));
+		JButton btnNewButton_10 = new JButton(iconoDocenteGrande);
 		btnNewButton_10.setBorder(BorderFactory.createLineBorder(Color.black , 2));
 		btnNewButton_10.setBackground(Color.decode("#D9D9D9"));
 		btnNewButton_10.setBounds(400, 149, 116, 129);
@@ -831,7 +835,8 @@ public class HomeView {
 		lblNewLabel_18.setBounds(400, 277, 116, 44);
 		panelAdministrar.add(lblNewLabel_18);
 		
-		JButton btnNewButton_11 = new JButton();
+		ImageIcon iconoAsignaturasGrande = new ImageIcon(getClass().getResource("/Imagenes/Icono_Asignaturas_Grande.png"));
+		JButton btnNewButton_11 = new JButton(iconoAsignaturasGrande);
 		btnNewButton_11.setBorder(BorderFactory.createLineBorder(Color.black , 2));
 		btnNewButton_11.setBackground(Color.decode("#D9D9D9"));
 		btnNewButton_11.setBounds(558, 149, 116, 129);
@@ -1034,7 +1039,7 @@ public void cerrarSesionPanel() {
 		menuBar.setBorder(BorderFactory.createLineBorder(Color.decode("#4A85A4")));
 		panel.add(menuBar);
         
-		ImageIcon iconoControlEscolar = new ImageIcon(getClass().getResource("/Imagenes/school.png"));
+		ImageIcon iconoControlEscolar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Control_Escolar.png"));
 	    JLabel controlEscolar = new JLabel("Control Escolar");
 	    controlEscolar.setForeground(new Color(255, 255, 255));
 	    controlEscolar.setFont(new Font("Inter", Font.BOLD, 12));
@@ -1044,7 +1049,7 @@ public void cerrarSesionPanel() {
 		
         menuBar.add(Box.createHorizontalStrut(35));
 		
-		ImageIcon iconoGrupos = new ImageIcon(getClass().getResource("/Imagenes/multiple-users-silhouette.png")); 
+		ImageIcon iconoGrupos = new ImageIcon(getClass().getResource("/Imagenes/Icono_Grupos.png")); 
 		JMenu mnNewMenu = new JMenu("Grupos");
 		mnNewMenu.setIcon(iconoGrupos);
 		mnNewMenu.setForeground(new Color(255, 255, 255));
