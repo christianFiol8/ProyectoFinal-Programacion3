@@ -471,10 +471,10 @@ public class HomeView {
 		lblNewLabel_17.setBounds(25, 7, 74, 13);
 		panel3.add(lblNewLabel_17);
 
-		JLabel lblNewLabel_22 = new JLabel("alumno");
+		JLabel lblNewLabel_22 = new JLabel("docente");
 		lblNewLabel_22.setFont(new Font("Inter", Font.BOLD, 12));
 		lblNewLabel_22.setForeground(new Color(255, 255, 255));
-		lblNewLabel_22.setBounds(35, 23, 45, 13);
+		lblNewLabel_22.setBounds(36, 23, 63, 13);
 		panel3.add(lblNewLabel_22);
 
 		ImageIcon iconoCrearAlumno = new ImageIcon(getClass().getResource("/Imagenes/round.png"));
