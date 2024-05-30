@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.text.View;
 
 import Controllers.HomeController;
-import Views.AuthView;
+
 
 
 public class AuthModel {
