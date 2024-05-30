@@ -89,9 +89,10 @@ public class AuthView {
 		textField2.setColumns(10);
 
 		JButton btnNewButton = new JButton("Acceder");
-		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setForeground(Color.white);
 		btnNewButton.setFont(new Font("Inter", Font.BOLD, 10));
 		btnNewButton.setBounds(17, 189, 276, 25);
+		btnNewButton.setOpaque(true);
 		btnNewButton.setBackground(Color.decode("#4A85A4"));
 		btnNewButton.addActionListener(new ActionListener() {
 
@@ -101,12 +102,16 @@ public class AuthView {
 				
 				if (textField.getText().equals("") || textField2.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Ingrese los datos faltantes");
+	            	textField.setBorder(BorderFactory.createLineBorder(Color.red , 2));
+	            	textField2.setBorder(BorderFactory.createLineBorder(Color.red , 2));
 				} else {
 					if (model.iniciarSesion(textField.getText(), textField2.getText())) {
 						frame.remove(loginPanel);
 						frame.dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
+						textField.setBorder(BorderFactory.createLineBorder(Color.red , 2));
+		            	textField2.setBorder(BorderFactory.createLineBorder(Color.red , 2));
 					}
 				}
 			}
@@ -122,7 +127,7 @@ public class AuthView {
 
 		JButton btnNewButton_1 = new JButton("¿Olvidaste tu contraseña?");
 		btnNewButton_1.setFont(new Font("Inter", Font.BOLD, 10));
-		btnNewButton_1.setBounds(140, 237, 173, 21);
+		btnNewButton_1.setBounds(130, 237, 183, 21);
 		btnNewButton_1.setBorderPainted(false);
 		btnNewButton_1.setContentAreaFilled(false);
 		btnNewButton_1.addActionListener(new ActionListener() {

@@ -1243,7 +1243,7 @@ public class HomeView {
 				// TODO Auto-generated method stub
 				frame.dispose();
 				teacher = new TeacherController();
-				teacher.editarInformacionDocente();
+				teacher.buscarIDPanel3();
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_14);
@@ -1256,7 +1256,7 @@ public class HomeView {
 				// TODO Auto-generated method stub
 				frame.dispose();
 				teacher = new TeacherController();
-				teacher.eliminarDocentePanel();
+				teacher.buscarIDPanel4();
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_15);
