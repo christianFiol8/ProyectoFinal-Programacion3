@@ -1468,12 +1468,10 @@ public void cerrarSesionPanel() {
 
 
 	
-	
-	
 public void metodoMenu(JPanel panel) {
 	JPanel panelCopia;
 	panelCopia = panel;
-	
+
 	ImageIcon iconoCerrarSesion = new ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion.png"));
 	JButton btnNewButton_13 = new JButton("Cerrar Sesión", iconoCerrarSesion);
 	btnNewButton_13.setFont(new Font("Inter", Font.BOLD, 11));
@@ -1491,30 +1489,30 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	panel.add(btnNewButton_13);
-	
+
 	JMenuBar menuBar = new JMenuBar();
 	menuBar.setBounds(0, 0, 932, 40);
 	menuBar.setBackground(Color.decode("#4A85A4"));
 	menuBar.setBorder(BorderFactory.createLineBorder(Color.decode("#4A85A4")));
 	panel.add(menuBar);
-    
+
 	ImageIcon iconoControlEscolar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Control_Escolar.png"));
-    JLabel controlEscolar = new JLabel("Control Escolar");
-    controlEscolar.setForeground(new Color(255, 255, 255));
-    controlEscolar.setFont(new Font("Inter", Font.BOLD, 12));
-    controlEscolar.setIcon(iconoControlEscolar);
-    
-    menuBar.add(controlEscolar);
-	
-    menuBar.add(Box.createHorizontalStrut(35));
-	
+	JLabel controlEscolar = new JLabel("Control Escolar");
+	controlEscolar.setForeground(new Color(255, 255, 255));
+	controlEscolar.setFont(new Font("Inter", Font.BOLD, 12));
+	controlEscolar.setIcon(iconoControlEscolar);
+
+	menuBar.add(controlEscolar);
+
+	menuBar.add(Box.createHorizontalStrut(35));
+
 	ImageIcon iconoGrupos = new ImageIcon(getClass().getResource("/Imagenes/Icono_Grupos.png")); 
 	JMenu mnNewMenu = new JMenu("Grupos");
 	mnNewMenu.setIcon(iconoGrupos);
 	mnNewMenu.setForeground(new Color(255, 255, 255));
 	mnNewMenu.setFont(new Font("Inter", Font.BOLD, 12));
 	menuBar.add(mnNewMenu);
-	
+
 	JMenuItem mntmNewMenuItem_1 = new JMenuItem("Descargar Información");
 	mntmNewMenuItem_1.addActionListener(new ActionListener() {
 
@@ -1523,13 +1521,13 @@ public void metodoMenu(JPanel panel) {
 			// TODO Auto-generated method stub
 			frame.remove(panel);
 			frame.dispose();
-			
+
 			group = new GroupController();
 			group.gruposRegistradosPanel();
 		}
 	});
 	mnNewMenu.add(mntmNewMenuItem_1);
-	
+
 	JMenuItem mntmNewMenuItem_2 = new JMenuItem("Consultar");
 	mntmNewMenuItem_2.addActionListener(new ActionListener() {
 
@@ -1538,13 +1536,13 @@ public void metodoMenu(JPanel panel) {
 			// TODO Auto-generated method stub
 			frame.remove(panel);
 			frame.dispose();
-			
+
 			group = new GroupController();
 			group.buscarGrupo2();
 		}
 	});
 	mnNewMenu.add(mntmNewMenuItem_2);
-	
+
 	JMenuItem mntmNewMenuItem_3 = new JMenuItem("Crear");
 	mntmNewMenuItem_3.addActionListener(new ActionListener() {
 
@@ -1557,7 +1555,7 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu.add(mntmNewMenuItem_3);
-	
+
 	JMenuItem mntmNewMenuItem_4 = new JMenuItem("Editar");
 	mntmNewMenuItem_4.addActionListener(new ActionListener() {
 
@@ -1570,7 +1568,7 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu.add(mntmNewMenuItem_4);
-	
+
 	JMenuItem mntmNewMenuItem_5 = new JMenuItem("Eliminar");
 	mntmNewMenuItem_5.addActionListener(new ActionListener() {
 
@@ -1583,16 +1581,16 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu.add(mntmNewMenuItem_5);
-	
+
 	menuBar.add(Box.createHorizontalStrut(12));
-	
+
 	ImageIcon iconoAlumnos = new ImageIcon(getClass().getResource("/Imagenes/student-with-graduation-cap.png")); 
 	JMenu mnNewMenu_1 = new JMenu("Alumnos");
 	mnNewMenu_1.setIcon(iconoAlumnos);
 	mnNewMenu_1.setForeground(new Color(255, 255, 255));
 	mnNewMenu_1.setFont(new Font("Inter", Font.BOLD, 12));
 	menuBar.add(mnNewMenu_1);
-	
+
 	JMenuItem mntmNewMenuItem_6 = new JMenuItem("Descargar Información");
 	mntmNewMenuItem_6.addActionListener(new ActionListener() {
 
@@ -1605,7 +1603,7 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu_1.add(mntmNewMenuItem_6);
-	
+
 	JMenuItem mntmNewMenuItem_7 = new JMenuItem("Consultar");
 	mntmNewMenuItem_7.addActionListener(new ActionListener() {
 
@@ -1618,7 +1616,7 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu_1.add(mntmNewMenuItem_7);
-	
+
 	JMenuItem mntmNewMenuItem_8 = new JMenuItem("Crear");
 	mntmNewMenuItem_8.addActionListener(new ActionListener() {
 
@@ -1631,7 +1629,7 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu_1.add(mntmNewMenuItem_8);
-	
+
 	JMenuItem mntmNewMenuItem_9 = new JMenuItem("Editar");
 	mntmNewMenuItem_9.addActionListener(new ActionListener() {
 
@@ -1644,7 +1642,7 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu_1.add(mntmNewMenuItem_9);
-	
+
 	JMenuItem mntmNewMenuItem_10 = new JMenuItem("Eliminar");
 	mntmNewMenuItem_10.addActionListener(new ActionListener() {
 
@@ -1657,16 +1655,16 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu_1.add(mntmNewMenuItem_10);
-	
+
 	menuBar.add(Box.createHorizontalStrut(12));
-	
+
 	ImageIcon iconoDocentes = new ImageIcon(getClass().getResource("/Imagenes/school (1).png")); 
 	JMenu mnNewMenu_2 = new JMenu("Docentes");
 	mnNewMenu_2.setIcon(iconoDocentes);
 	mnNewMenu_2.setForeground(new Color(255, 255, 255));
 	mnNewMenu_2.setFont(new Font("Inter", Font.BOLD, 12));
 	menuBar.add(mnNewMenu_2);
-	
+
 	JMenuItem mntmNewMenuItem_11 = new JMenuItem("Descargar información");
 	mntmNewMenuItem_11.addActionListener(new ActionListener() {
 
@@ -1676,10 +1674,10 @@ public void metodoMenu(JPanel panel) {
 			frame.dispose();
 			teacher = new TeacherController();
 			teacher.docenteRegistradosPanel();			
-			}
+		}
 	});
 	mnNewMenu_2.add(mntmNewMenuItem_11);
-	
+
 	JMenuItem mntmNewMenuItem_12 = new JMenuItem("Consultar");
 	mntmNewMenuItem_12.addActionListener(new ActionListener() {
 
@@ -1692,7 +1690,7 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu_2.add(mntmNewMenuItem_12);
-	
+
 	JMenuItem mntmNewMenuItem_13 = new JMenuItem("Crear");
 	mntmNewMenuItem_13.addActionListener(new ActionListener() {
 
@@ -1705,7 +1703,7 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu_2.add(mntmNewMenuItem_13);
-	
+
 	JMenuItem mntmNewMenuItem_14 = new JMenuItem("Editar");
 	mntmNewMenuItem_14.addActionListener(new ActionListener() {
 
@@ -1714,11 +1712,11 @@ public void metodoMenu(JPanel panel) {
 			// TODO Auto-generated method stub
 			frame.dispose();
 			teacher = new TeacherController();
-			teacher.editarInformacionDocente();
+			teacher.buscarIDPanel3();
 		}
 	});
 	mnNewMenu_2.add(mntmNewMenuItem_14);
-	
+
 	JMenuItem mntmNewMenuItem_15 = new JMenuItem("Eliminar");
 	mntmNewMenuItem_15.addActionListener(new ActionListener() {
 
@@ -1727,20 +1725,20 @@ public void metodoMenu(JPanel panel) {
 			// TODO Auto-generated method stub
 			frame.dispose();
 			teacher = new TeacherController();
-			teacher.eliminarDocentePanel();
+			teacher.buscarIDPanel4();
 		}
 	});
 	mnNewMenu_2.add(mntmNewMenuItem_15);
-	
+
 	menuBar.add(Box.createHorizontalStrut(12));
-	
+
 	ImageIcon iconoAsignaturas = new ImageIcon(getClass().getResource("/Imagenes/educacion.png")); 
 	JMenu mnNewMenu_3 = new JMenu("Asignaturas");
 	mnNewMenu_3.setIcon(iconoAsignaturas);
 	mnNewMenu_3.setForeground(new Color(255, 255, 255));
 	mnNewMenu_3.setFont(new Font("Inter", Font.BOLD, 12));
 	menuBar.add(mnNewMenu_3);
-	
+
 	JMenuItem mntmNewMenuItem_16 = new JMenuItem("Descargar información");
 	mntmNewMenuItem_16.addActionListener(new ActionListener() {
 
@@ -1753,7 +1751,7 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu_3.add(mntmNewMenuItem_16);
-	
+
 	JMenuItem mntmNewMenuItem_17 = new JMenuItem("Consultar");
 	mntmNewMenuItem_17.addActionListener(new ActionListener() {
 
@@ -1763,7 +1761,7 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu_3.add(mntmNewMenuItem_17);
-	
+
 	JMenuItem mntmNewMenuItem_18 = new JMenuItem("Crear");
 	mntmNewMenuItem_18.addActionListener(new ActionListener() {
 
@@ -1776,7 +1774,7 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu_3.add(mntmNewMenuItem_18);
-	
+
 	JMenuItem mntmNewMenuItem_19 = new JMenuItem("Editar");
 	mntmNewMenuItem_19.addActionListener(new ActionListener() {
 
@@ -1789,7 +1787,7 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu_3.add(mntmNewMenuItem_19);
-	
+
 	JMenuItem mntmNewMenuItem_20 = new JMenuItem("Eliminar");
 	mntmNewMenuItem_20.addActionListener(new ActionListener() {
 
@@ -1802,8 +1800,10 @@ public void metodoMenu(JPanel panel) {
 		}
 	});
 	mnNewMenu_3.add(mntmNewMenuItem_20);
-	
+
 }
 
+	
+	
 
 }
