@@ -270,7 +270,6 @@ public class AuthView {
 					textField.setText("");
 					textField2.setText("");
 					textField3.setText("");
-					//JOptionPane.showMessageDialog(null, "Usuario creado");
 					frame.remove(panelRegistro);
 					seleccionAvatar();
 				}			
