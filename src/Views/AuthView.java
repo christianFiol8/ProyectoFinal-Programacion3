@@ -98,7 +98,7 @@ public class AuthView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-
+				
 				if (textField.getText().equals("") || textField2.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Ingrese los datos faltantes");
 				} else {

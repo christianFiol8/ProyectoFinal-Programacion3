@@ -76,38 +76,41 @@ public class TeacherView {
 		
 		
 		table.setDefaultRenderer(Object.class, new RenderTabla());
+		
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-                {null, createButtonPanel("Ver detalles", panel)},
-			},
-			new String[] {
-				"Nombre", "Detalles"
-			}
-		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(410);
-		table.getColumnModel().getColumn(1).setPreferredWidth(130);
+				new Object[][] {
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+				},
+				new String[] {
+					"Apellido Paterno", "Apellido Materno", "Nombre(s)", "Grupo", "Telefono", "Detalles"
+				}
+			));
+		table.getColumnModel().getColumn(0).setPreferredWidth(90);
+		table.getColumnModel().getColumn(1).setPreferredWidth(90);
+		table.getColumnModel().getColumn(2).setPreferredWidth(110);
+		table.getColumnModel().getColumn(5).setPreferredWidth(175);
 		table.setBounds(59, 128, 652, 243);
-		table.getColumnModel().getColumn(1).setCellRenderer(new RenderTabla());
-	    table.getColumnModel().getColumn(1).setCellEditor(new ButtonEditor());
+		table.getColumnModel().getColumn(5).setCellRenderer(new RenderTabla());
+	    table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor());
 	    table.setRowHeight(50);
 
 	    scrollPane.setViewportView(table);

@@ -19,9 +19,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import Controllers.AuthController;
 import Controllers.GroupController;
@@ -39,6 +41,7 @@ public class StudentView {
 	public StudentController student;
 	public SubjectController subject;
 	public AuthController view;
+	public JTable table;
 
 	public StudentView() {
 		// TODO Auto-generated constructor stub
@@ -51,80 +54,57 @@ public class StudentView {
 	}
 	
 	public void alumnosRegistradosPanel() {
+		table = new JTable();
+		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(59, 128, 652, 243);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(59, 128, 652, 243);
+		panel.add(scrollPane);		
+		frame.getContentPane().add(panel);
 		
-		JButton btnNewButton_16 = new JButton("Ver detalles");
-		btnNewButton_16.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_16.setBounds(532, 20, 110, 21);
-		btnNewButton_16.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_16.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				buscarIDPanel2();
-			}
-		});
-		panel_1.add(btnNewButton_16);
 		
-		JButton btnNewButton_17 = new JButton("Ver detalles");
-		btnNewButton_17.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_17.setBounds(532, 77, 110, 21);
-		btnNewButton_17.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_17.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				buscarIDPanel2();
-			}
-		});
-		panel_1.add(btnNewButton_17);
+		table.setDefaultRenderer(Object.class, new RenderTabla());
 		
-		JButton btnNewButton_18 = new JButton("Ver detalles");
-		btnNewButton_18.setBounds(532, 140, 110, 21);
-		btnNewButton_18.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_18.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_18.addActionListener(new ActionListener() {
+		table.setModel(new DefaultTableModel(
+				new Object[][] {
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
+				},
+				new String[] {
+					"Apellido Paterno", "Apellido Materno", "Nombre(s)", "Grupo", "Telefono", "Detalles"
+				}
+			));
+		table.getColumnModel().getColumn(0).setPreferredWidth(90);
+		table.getColumnModel().getColumn(1).setPreferredWidth(90);
+		table.getColumnModel().getColumn(2).setPreferredWidth(110);
+		table.getColumnModel().getColumn(5).setPreferredWidth(175);
+		table.setBounds(59, 128, 652, 243);
+		table.getColumnModel().getColumn(5).setCellRenderer(new RenderTabla());
+	    table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor());
+	    table.setRowHeight(50);
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();;
-				buscarIDPanel2();
-			}
-		});
-		panel_1.add(btnNewButton_18);
-		
-		JButton btnNewButton_19 = new JButton("Ver detalles");
-		btnNewButton_19.setBounds(532, 193, 110, 21);
-		btnNewButton_19.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_19.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_19.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				buscarIDPanel2();
-			}
-		});
-		panel_1.add(btnNewButton_19);
+	    scrollPane.setViewportView(table);
 		
 		JLabel lblNewLabel_15 = new JLabel("Alumnos registrados");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
@@ -148,6 +128,12 @@ public class StudentView {
 			}
 		});
 		panel.add(btnNewButton_15);
+		
+		
+		
+		
+		
+		
 	
 		 
 		
@@ -159,28 +145,55 @@ public class StudentView {
 		frame.repaint();
 		frame.revalidate();
 	}
+	
+	private JPanel createButtonPanel(String text, JPanel panel) {
+	    JButton button = new JButton(text);
+	    button.setFont(new Font("Inter", Font.BOLD, 12));
+	    button.setBounds(24,10,130,30);
+	    button.setBackground(Color.decode("#D9D9D9"));
+	    button.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	        	frame.remove(panel);
+				frame.dispose();
+				buscarIDPanel2();
+	        }
+	    });
+	    JPanel panel3 = new JPanel();
+	    panel3.setLayout(null);
+	    panel3.setBackground(Color.white);
+	    panel3.add(button);
+	    return panel3;
+	}
 
 	public void buscarIDPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
 		
-		JLabel lblNewLabel_15 = new JLabel("No.Control");
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(170, 97, 450, 295);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_15 = new JLabel("No. Control");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_15.setBounds(310, 130, 139, 30);
-		panel.add(lblNewLabel_15);
+		lblNewLabel_15.setBounds(157, 63, 139, 30);
+		panel_1.add(lblNewLabel_15);
 		
 		JTextField textField_2 = new JTextField();
-		textField_2.setBounds(229, 194, 300, 30);
+		textField_2.setBounds(80, 113, 300, 30);
 		textField_2.setBackground(Color.decode("#D9D9D9"));
-		panel.add(textField_2);
+		panel_1.add(textField_2);
 		textField_2.setColumns(10);
 		
 		JButton btnNewButton_14 = new JButton("Buscar alumno");
 		btnNewButton_14.setForeground(new Color(255, 255, 255));
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_14.setBounds(229, 274, 300, 30);
+		btnNewButton_14.setBounds(80, 178, 300, 30);
 		btnNewButton_14.addActionListener(new ActionListener() {
 
 			@Override
@@ -191,12 +204,12 @@ public class StudentView {
 				descargarInformacionAlumno();
 			}
 		});
-		panel.add(btnNewButton_14);
+		panel_1.add(btnNewButton_14);
 		
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(71, 79, 110, 30);
+		btnNewButton_15.setBounds(59, 50, 110, 25);
 		btnNewButton_15.addActionListener(new ActionListener() {
 
 			@Override
@@ -210,8 +223,6 @@ public class StudentView {
 			}
 		});
 		panel.add(btnNewButton_15);
-	
-		 
 		
 		
 		metodoMenu(panel);
@@ -227,22 +238,29 @@ public class StudentView {
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
 		
-		JLabel lblNewLabel_15 = new JLabel("No.Control");
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(170, 97, 450, 295);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_15 = new JLabel("No. Control");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_15.setBounds(310, 130, 139, 30);
-		panel.add(lblNewLabel_15);
+		lblNewLabel_15.setBounds(157, 63, 139, 30);
+		panel_1.add(lblNewLabel_15);
 		
 		JTextField textField_2 = new JTextField();
-		textField_2.setBounds(229, 194, 300, 30);
+		textField_2.setBounds(80, 113, 300, 30);
 		textField_2.setBackground(Color.decode("#D9D9D9"));
-		panel.add(textField_2);
+		panel_1.add(textField_2);
 		textField_2.setColumns(10);
 		
 		JButton btnNewButton_14 = new JButton("Buscar alumno");
 		btnNewButton_14.setForeground(new Color(255, 255, 255));
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_14.setBounds(229, 274, 300, 30);
+		btnNewButton_14.setBounds(80, 178, 300, 30);
 		btnNewButton_14.addActionListener(new ActionListener() {
 
 			@Override
@@ -250,16 +268,15 @@ public class StudentView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-
 				descargarInformacionAlumno2();
 			}
 		});
-		panel.add(btnNewButton_14);
+		panel_1.add(btnNewButton_14);
 		
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(71, 79, 110, 30);
+		btnNewButton_15.setBounds(59, 50, 110, 25);
 		btnNewButton_15.addActionListener(new ActionListener() {
 
 			@Override
@@ -294,6 +311,7 @@ public class StudentView {
 		panel_1.setBounds(59, 128, 652, 243);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
+		
 		
 		JLabel lblNewLabel_15 = new JLabel("Descargar Información");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
@@ -330,6 +348,121 @@ public class StudentView {
 		});
 		panel.add(btnNewButton_14);
 	
+		JLabel lblNewLabel_25 = new JLabel("Numero de Control");
+		lblNewLabel_25.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25.setBounds(22, 9, 132, 13);
+		panel_1.add(lblNewLabel_25);
+		
+		JLabel lblNewLabel_25_1 = new JLabel("Apellido Paterno");
+		lblNewLabel_25_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_1.setBounds(38, 40, 144, 13);
+		panel_1.add(lblNewLabel_25_1);
+		
+		JLabel lblNewLabel_25_2 = new JLabel("Apellido Materno");
+		lblNewLabel_25_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_2.setBounds(36, 70, 144, 13);
+		panel_1.add(lblNewLabel_25_2);
+		
+		JLabel lblNewLabel_25_3 = new JLabel("Nombre(s)");
+		lblNewLabel_25_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3.setBounds(79, 100, 144, 13);
+		panel_1.add(lblNewLabel_25_3);
+		
+		JLabel lblNewLabel_25_3_1 = new JLabel("Fecha de Nacimiento");
+		lblNewLabel_25_3_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_1.setBounds(11, 130, 144, 13);
+		panel_1.add(lblNewLabel_25_3_1);
+		
+		JLabel lblNewLabel_25_3_2 = new JLabel("Correo Electrónico");
+		lblNewLabel_25_3_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_2.setBounds(24, 160, 144, 13);
+		panel_1.add(lblNewLabel_25_3_2);
+		
+		JLabel lblNewLabel_25_3_3 = new JLabel("Grado del Alumno");
+		lblNewLabel_25_3_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_3.setBounds(31, 190, 144, 13);
+		panel_1.add(lblNewLabel_25_3_3);
+		
+		JLabel lblNewLabel_25_3_4 = new JLabel("Teléfono");
+		lblNewLabel_25_3_4.setBounds(89, 220, 144, 13);
+		panel_1.add(lblNewLabel_25_3_4);
+		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.BOLD, 13));
+		
+		JTextField textField_3 = new JTextField();
+		textField_3.setBounds(153, 7, 290, 19);
+		textField_3.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JTextField textField_4 = new JTextField();
+		textField_4.setBounds(153, 37, 290, 19);
+		textField_4.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_4);
+		textField_4.setColumns(10);
+		
+		JTextField textField_5 = new JTextField();
+		textField_5.setBounds(153, 67, 290, 19);
+		textField_5.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_5);
+		textField_5.setColumns(10);
+		
+		JTextField textField_6 = new JTextField();
+		textField_6.setBounds(153, 97, 290, 19);
+		textField_6.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_6);
+		textField_6.setColumns(10);
+		
+		JTextField textField_7 = new JTextField();
+		textField_7.setBounds(153, 127, 290, 19);
+		textField_7.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_7);
+		textField_7.setColumns(10);
+		
+		JTextField textField_8 = new JTextField();
+		textField_8.setBounds(153, 157, 290, 19);
+		textField_8.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_8);
+		textField_8.setColumns(10);
+		
+		JTextField textField_9 = new JTextField();
+		textField_9.setColumns(10);
+		textField_9.setBounds(153, 187, 290, 19);
+		textField_9.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_9);
+		
+		JTextField textField_10 = new JTextField();
+		textField_10.setColumns(10);
+		textField_10.setBounds(153, 217, 290, 19);
+		textField_10.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_10);
+		
+		JLabel lblNewLabel_26 = new JLabel("Avatar de alumno");
+		lblNewLabel_26.setFont(new Font("Inter", Font.BOLD, 11));
+		lblNewLabel_26.setBounds(502, 16, 111, 13);
+		panel_1.add(lblNewLabel_26);
+		
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
+		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
+		etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
+		etiquetaAvatar.setBounds(486, 39, 131, 123);
+		etiquetaAvatar.setOpaque(true);
+		etiquetaAvatar.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(etiquetaAvatar);
+		
+		JButton btnNewButton_20 = new JButton("Generar Credencial");
+		btnNewButton_20.setBounds(477, 185, 151, 25);
+		btnNewButton_20.setOpaque(true);
+		btnNewButton_20.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_20.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		panel_1.add(btnNewButton_20);
+	
 		 
 		
 		
@@ -343,6 +476,173 @@ public class StudentView {
 	
 	public void descargarInformacionAlumno2() {
 		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(59, 128, 652, 243);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		
+		JLabel lblNewLabel_15 = new JLabel("Descargar Información");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_15.setBounds(59, 92, 186, 30);		
+		panel.add(lblNewLabel_15);
+		
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(59, 50, 110, 25);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				buscarIDPanel2();
+			}
+		});
+		panel.add(btnNewButton_15);
+		
+		JButton btnNewButton_14 = new JButton("Descargar Información");
+		btnNewButton_14.setForeground(new Color(255, 255, 255));
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(229, 384, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		panel.add(btnNewButton_14);
+	
+		JLabel lblNewLabel_25 = new JLabel("Numero de Control");
+		lblNewLabel_25.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25.setBounds(22, 9, 132, 13);
+		panel_1.add(lblNewLabel_25);
+		
+		JLabel lblNewLabel_25_1 = new JLabel("Apellido Paterno");
+		lblNewLabel_25_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_1.setBounds(38, 40, 144, 13);
+		panel_1.add(lblNewLabel_25_1);
+		
+		JLabel lblNewLabel_25_2 = new JLabel("Apellido Materno");
+		lblNewLabel_25_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_2.setBounds(36, 70, 144, 13);
+		panel_1.add(lblNewLabel_25_2);
+		
+		JLabel lblNewLabel_25_3 = new JLabel("Nombre(s)");
+		lblNewLabel_25_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3.setBounds(79, 100, 144, 13);
+		panel_1.add(lblNewLabel_25_3);
+		
+		JLabel lblNewLabel_25_3_1 = new JLabel("Fecha de Nacimiento");
+		lblNewLabel_25_3_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_1.setBounds(11, 130, 144, 13);
+		panel_1.add(lblNewLabel_25_3_1);
+		
+		JLabel lblNewLabel_25_3_2 = new JLabel("Correo Electrónico");
+		lblNewLabel_25_3_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_2.setBounds(24, 160, 144, 13);
+		panel_1.add(lblNewLabel_25_3_2);
+		
+		JLabel lblNewLabel_25_3_3 = new JLabel("Grado del Alumno");
+		lblNewLabel_25_3_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_3.setBounds(31, 190, 144, 13);
+		panel_1.add(lblNewLabel_25_3_3);
+		
+		JLabel lblNewLabel_25_3_4 = new JLabel("Teléfono");
+		lblNewLabel_25_3_4.setBounds(89, 220, 144, 13);
+		panel_1.add(lblNewLabel_25_3_4);
+		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.BOLD, 13));
+		
+		JTextField textField_3 = new JTextField();
+		textField_3.setBounds(153, 7, 290, 19);
+		textField_3.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JTextField textField_4 = new JTextField();
+		textField_4.setBounds(153, 37, 290, 19);
+		textField_4.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_4);
+		textField_4.setColumns(10);
+		
+		JTextField textField_5 = new JTextField();
+		textField_5.setBounds(153, 67, 290, 19);
+		textField_5.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_5);
+		textField_5.setColumns(10);
+		
+		JTextField textField_6 = new JTextField();
+		textField_6.setBounds(153, 97, 290, 19);
+		textField_6.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_6);
+		textField_6.setColumns(10);
+		
+		JTextField textField_7 = new JTextField();
+		textField_7.setBounds(153, 127, 290, 19);
+		textField_7.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_7);
+		textField_7.setColumns(10);
+		
+		JTextField textField_8 = new JTextField();
+		textField_8.setBounds(153, 157, 290, 19);
+		textField_8.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_8);
+		textField_8.setColumns(10);
+		
+		JTextField textField_9 = new JTextField();
+		textField_9.setColumns(10);
+		textField_9.setBounds(153, 187, 290, 19);
+		textField_9.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_9);
+		
+		JTextField textField_10 = new JTextField();
+		textField_10.setColumns(10);
+		textField_10.setBounds(153, 217, 290, 19);
+		textField_10.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_10);
+		
+		JLabel lblNewLabel_26 = new JLabel("Avatar de alumno");
+		lblNewLabel_26.setFont(new Font("Inter", Font.BOLD, 11));
+		lblNewLabel_26.setBounds(502, 16, 111, 13);
+		panel_1.add(lblNewLabel_26);
+		
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
+		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
+		etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
+		etiquetaAvatar.setBounds(486, 39, 131, 123);
+		etiquetaAvatar.setOpaque(true);
+		etiquetaAvatar.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(etiquetaAvatar);
+		
+		JButton btnNewButton_20 = new JButton("Generar Credencial");
+		btnNewButton_20.setBounds(477, 185, 151, 25);
+		btnNewButton_20.setOpaque(true);
+		btnNewButton_20.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_20.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		panel_1.add(btnNewButton_20);
+		
+		
+		
+		
+		
+		
+		/*JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
 		
@@ -387,7 +687,7 @@ public class StudentView {
 				// TODO Auto-generated method stub
 			}
 		});
-		panel.add(btnNewButton_14);
+		panel.add(btnNewButton_14);*/
 	
 		 
 		
@@ -414,6 +714,182 @@ public class StudentView {
 	
 	public void crearAlumnoPanel() {
 		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(59, 128, 652, 243);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
+		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
+		etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
+		etiquetaAvatar.setBounds(486, 39, 131, 123);
+		etiquetaAvatar.setOpaque(true);
+		etiquetaAvatar.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(etiquetaAvatar);
+		
+		JLabel lblNewLabel_25 = new JLabel("Numero de Control");
+		lblNewLabel_25.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25.setBounds(22, 9, 132, 13);
+		panel_1.add(lblNewLabel_25);
+		
+		JLabel lblNewLabel_25_1 = new JLabel("Apellido Paterno");
+		lblNewLabel_25_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_1.setBounds(38, 40, 144, 13);
+		panel_1.add(lblNewLabel_25_1);
+		
+		JLabel lblNewLabel_25_2 = new JLabel("Apellido Materno");
+		lblNewLabel_25_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_2.setBounds(36, 70, 144, 13);
+		panel_1.add(lblNewLabel_25_2);
+		
+		JLabel lblNewLabel_25_3 = new JLabel("Nombre(s)");
+		lblNewLabel_25_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3.setBounds(79, 100, 144, 13);
+		panel_1.add(lblNewLabel_25_3);
+		
+		JLabel lblNewLabel_25_3_1 = new JLabel("Fecha de Nacimiento");
+		lblNewLabel_25_3_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_1.setBounds(11, 130, 144, 13);
+		panel_1.add(lblNewLabel_25_3_1);
+		
+		JLabel lblNewLabel_25_3_2 = new JLabel("Correo Electrónico");
+		lblNewLabel_25_3_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_2.setBounds(24, 160, 144, 13);
+		panel_1.add(lblNewLabel_25_3_2);
+		
+		JLabel lblNewLabel_25_3_3 = new JLabel("Grado del Alumno");
+		lblNewLabel_25_3_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_3.setBounds(31, 190, 144, 13);
+		panel_1.add(lblNewLabel_25_3_3);
+		
+		JLabel lblNewLabel_25_3_4 = new JLabel("Teléfono");
+		lblNewLabel_25_3_4.setBounds(89, 220, 144, 13);
+		panel_1.add(lblNewLabel_25_3_4);
+		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.BOLD, 13));
+		
+		JTextField textField_3 = new JTextField();
+		textField_3.setBounds(153, 7, 290, 19);
+		textField_3.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JTextField textField_4 = new JTextField();
+		textField_4.setBounds(153, 37, 290, 19);
+		textField_4.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_4);
+		textField_4.setColumns(10);
+		
+		JTextField textField_5 = new JTextField();
+		textField_5.setBounds(153, 67, 290, 19);
+		textField_5.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_5);
+		textField_5.setColumns(10);
+		
+		JTextField textField_6 = new JTextField();
+		textField_6.setBounds(153, 97, 290, 19);
+		textField_6.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_6);
+		textField_6.setColumns(10);
+		
+		JTextField textField_7 = new JTextField();
+		textField_7.setBounds(153, 127, 290, 19);
+		textField_7.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_7);
+		textField_7.setColumns(10);
+		
+		JTextField textField_8 = new JTextField();
+		textField_8.setBounds(153, 157, 290, 19);
+		textField_8.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_8);
+		textField_8.setColumns(10);
+		
+		JTextField textField_9 = new JTextField();
+		textField_9.setColumns(10);
+		textField_9.setBounds(153, 187, 290, 19);
+		textField_9.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_9);
+		
+		JTextField textField_10 = new JTextField();
+		textField_10.setColumns(10);
+		textField_10.setBounds(153, 217, 290, 19);
+		textField_10.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_10);
+		
+		JButton btnNewButton_20 = new JButton("Elegir avatar");
+		btnNewButton_20.setBounds(486, 185, 131, 25);
+		btnNewButton_20.setOpaque(true);
+		btnNewButton_20.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_20.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+				seleccionAvatar();
+			}
+		});
+		panel_1.add(btnNewButton_20);
+		
+		JLabel lblNewLabel_26 = new JLabel("Avatar de alumno");
+		lblNewLabel_26.setFont(new Font("Inter", Font.BOLD, 11));
+		lblNewLabel_26.setBounds(502, 16, 111, 13);
+		panel_1.add(lblNewLabel_26);
+		
+		JLabel lblNewLabel_15 = new JLabel("Crear Alumno");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_15.setBounds(59, 92, 118, 30);
+		panel.add(lblNewLabel_15);
+		
+		JButton btnNewButton_14 = new JButton("Crear Alumno");
+		btnNewButton_14.setForeground(new Color(255, 255, 255));
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(236, 384, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+				confirmarCrearPanel();
+			}
+		});
+		panel.add(btnNewButton_14);
+		
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(59, 50, 110, 25);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+
+				frame.dispose();
+				home = new HomeController();
+				home.alumnoPanel();
+			}
+		});
+		panel.add(btnNewButton_15);
+		
+		
+		
+		
+		
+		
+		
+		/*JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
 		
@@ -487,7 +963,7 @@ public class StudentView {
 				home.alumnoPanel();
 			}
 		});
-		panel.add(btnNewButton_15);
+		panel.add(btnNewButton_15);*/
 	
 		 
 		
@@ -566,7 +1042,7 @@ public class StudentView {
 					frame.remove(panelseleccionAvatar);
 
 					frame.dispose();
-					crearAlumnoAvatarPanel();
+					crearAlumnoPanel();
 				}
 			});
 			panelseleccionAvatar.add(btnNewButton_14);
@@ -578,7 +1054,7 @@ public class StudentView {
 		frame.revalidate();
 	}
 
-	public void crearAlumnoAvatarPanel() {
+	/*public void crearAlumnoAvatarPanel() {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -665,10 +1141,9 @@ public class StudentView {
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
-	}	
+	}	*/
 
 	public void confirmarCrearPanel() {
-		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -685,11 +1160,16 @@ public class StudentView {
 		lblNewLabel_12.setBounds(128, 126, 209, 21);
 		panel_1.add(lblNewLabel_12);
 		
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Advertencia.png"));
+		JLabel lblNewLabel_27 = new JLabel(iconoDescargar);
+		lblNewLabel_27.setBounds(189, 40, 70, 70);
+		panel_1.add(lblNewLabel_27);
+		
 		JButton btnNewButton_7 = new JButton("No,volver");
 		btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
 		btnNewButton_7.setForeground(new Color(255, 255, 255));
 		btnNewButton_7.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_7.setBounds(34, 181, 167, 25);
+		btnNewButton_7.setBounds(38, 200, 167, 25);
 		btnNewButton_7.addActionListener(new ActionListener() {
 
 			@Override
@@ -698,20 +1178,21 @@ public class StudentView {
 				frame.remove(panel);
 
 				frame.dispose();
-				crearAlumnoAvatarPanel();
+				crearAlumnoPanel();
 			}
 		});
 		panel_1.add(btnNewButton_7);
 		
 		JLabel lblNewLabel_24 = new JLabel("¿Esta seguro de que quiere crear a este alumno?");
 		lblNewLabel_24.setFont(new Font("Inter", Font.BOLD, 11));
-		lblNewLabel_24.setBounds(86, 157, 277, 13);
+		lblNewLabel_24.setBounds(88, 157, 277, 13);
 		panel_1.add(lblNewLabel_24);
 		
 		JButton btnNewButton_21 = new JButton("Si,estoy seguro");
 		btnNewButton_21.setBackground(new Color(255, 255, 255));
 		btnNewButton_21.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_21.setBounds(239, 183, 167, 25);
+		btnNewButton_21.setBorder(BorderFactory.createLineBorder(Color.decode("#4A85A4") , 2));
+		btnNewButton_21.setBounds(242, 200, 167, 25);
 		btnNewButton_21.addActionListener(new ActionListener() {
 
 			@Override
@@ -724,6 +1205,7 @@ public class StudentView {
 			}
 		});
 		panel_1.add(btnNewButton_21);
+		
 		
 		frame.add(panel);
 		frame.setVisible(true);
@@ -752,7 +1234,7 @@ public class StudentView {
 		
 		JLabel lblNewLabel_12 = new JLabel("Alumno creado con éxito");
 		lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
-		lblNewLabel_12.setBounds(100, 130, 258, 21);
+		lblNewLabel_12.setBounds(96, 130, 258, 21);
 		panel_1.add(lblNewLabel_12);
 		
 		JButton btnNewButton_7 = new JButton("Volver a inicio");
@@ -796,22 +1278,29 @@ public class StudentView {
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
 		
-		JLabel lblNewLabel_15 = new JLabel("No.Control");
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(170, 97, 450, 295);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_15 = new JLabel("No. Control");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_15.setBounds(310, 130, 139, 30);
-		panel.add(lblNewLabel_15);
+		lblNewLabel_15.setBounds(157, 63, 139, 30);
+		panel_1.add(lblNewLabel_15);
 		
 		JTextField textField_2 = new JTextField();
-		textField_2.setBounds(229, 194, 300, 30);
+		textField_2.setBounds(80, 113, 300, 30);
 		textField_2.setBackground(Color.decode("#D9D9D9"));
-		panel.add(textField_2);
+		panel_1.add(textField_2);
 		textField_2.setColumns(10);
 		
 		JButton btnNewButton_14 = new JButton("Buscar alumno");
 		btnNewButton_14.setForeground(new Color(255, 255, 255));
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_14.setBounds(229, 274, 300, 30);
+		btnNewButton_14.setBounds(80, 178, 300, 30);
 		btnNewButton_14.addActionListener(new ActionListener() {
 
 			@Override
@@ -819,16 +1308,15 @@ public class StudentView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-
 				editarInformacionAlumno();
 			}
 		});
-		panel.add(btnNewButton_14);
+		panel_1.add(btnNewButton_14);
 		
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(71, 79, 110, 30);
+		btnNewButton_15.setBounds(59, 50, 110, 25);
 		btnNewButton_15.addActionListener(new ActionListener() {
 
 			@Override
@@ -905,6 +1393,108 @@ public class StudentView {
 			}
 		});
 		panel.add(btnNewButton_14);
+		
+		JLabel lblNewLabel_25 = new JLabel("Numero de Control");
+		lblNewLabel_25.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25.setBounds(22, 9, 132, 13);
+		panel_1.add(lblNewLabel_25);
+		
+		JLabel lblNewLabel_25_1 = new JLabel("Apellido Paterno");
+		lblNewLabel_25_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_1.setBounds(38, 40, 144, 13);
+		panel_1.add(lblNewLabel_25_1);
+		
+		JLabel lblNewLabel_25_2 = new JLabel("Apellido Materno");
+		lblNewLabel_25_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_2.setBounds(36, 70, 144, 13);
+		panel_1.add(lblNewLabel_25_2);
+		
+		JLabel lblNewLabel_25_3 = new JLabel("Nombre(s)");
+		lblNewLabel_25_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3.setBounds(79, 100, 144, 13);
+		panel_1.add(lblNewLabel_25_3);
+		
+		JLabel lblNewLabel_25_3_1 = new JLabel("Fecha de Nacimiento");
+		lblNewLabel_25_3_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_1.setBounds(11, 130, 144, 13);
+		panel_1.add(lblNewLabel_25_3_1);
+		
+		JLabel lblNewLabel_25_3_2 = new JLabel("Correo Electrónico");
+		lblNewLabel_25_3_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_2.setBounds(24, 160, 144, 13);
+		panel_1.add(lblNewLabel_25_3_2);
+		
+		JLabel lblNewLabel_25_3_3 = new JLabel("Grado del Alumno");
+		lblNewLabel_25_3_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_3.setBounds(31, 190, 144, 13);
+		panel_1.add(lblNewLabel_25_3_3);
+		
+		JLabel lblNewLabel_25_3_4 = new JLabel("Teléfono");
+		lblNewLabel_25_3_4.setBounds(89, 220, 144, 13);
+		panel_1.add(lblNewLabel_25_3_4);
+		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.BOLD, 13));
+		
+		JTextField textField_3 = new JTextField();
+		textField_3.setBounds(153, 7, 290, 19);
+		textField_3.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JTextField textField_4 = new JTextField();
+		textField_4.setBounds(153, 37, 290, 19);
+		textField_4.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_4);
+		textField_4.setColumns(10);
+		
+		JTextField textField_5 = new JTextField();
+		textField_5.setBounds(153, 67, 290, 19);
+		textField_5.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_5);
+		textField_5.setColumns(10);
+		
+		JTextField textField_6 = new JTextField();
+		textField_6.setBounds(153, 97, 290, 19);
+		textField_6.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_6);
+		textField_6.setColumns(10);
+		
+		JTextField textField_7 = new JTextField();
+		textField_7.setBounds(153, 127, 290, 19);
+		textField_7.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_7);
+		textField_7.setColumns(10);
+		
+		JTextField textField_8 = new JTextField();
+		textField_8.setBounds(153, 157, 290, 19);
+		textField_8.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_8);
+		textField_8.setColumns(10);
+		
+		JTextField textField_9 = new JTextField();
+		textField_9.setColumns(10);
+		textField_9.setBounds(153, 187, 290, 19);
+		textField_9.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_9);
+		
+		JTextField textField_10 = new JTextField();
+		textField_10.setColumns(10);
+		textField_10.setBounds(153, 217, 290, 19);
+		textField_10.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_10);
+		
+		
+		JLabel lblNewLabel_26 = new JLabel("Avatar de alumno");
+		lblNewLabel_26.setFont(new Font("Inter", Font.BOLD, 11));
+		lblNewLabel_26.setBounds(502, 16, 111, 13);
+		panel_1.add(lblNewLabel_26);
+		
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
+		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
+		etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
+		etiquetaAvatar.setBounds(486, 39, 131, 123);
+		etiquetaAvatar.setOpaque(true);
+		etiquetaAvatar.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(etiquetaAvatar);
 	
 		 
 		
@@ -980,10 +1570,112 @@ public class StudentView {
 				frame.remove(panel);
 				frame.dispose();
 
-				crearAlumnoAvatarPanel2();
+				confirmacionEditarPanel();
 			}
 		});
 		panel.add(btnNewButton_14);
+		
+		JLabel lblNewLabel_25 = new JLabel("Numero de Control");
+		lblNewLabel_25.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25.setBounds(22, 9, 132, 13);
+		panel_1.add(lblNewLabel_25);
+		
+		JLabel lblNewLabel_25_1 = new JLabel("Apellido Paterno");
+		lblNewLabel_25_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_1.setBounds(38, 40, 144, 13);
+		panel_1.add(lblNewLabel_25_1);
+		
+		JLabel lblNewLabel_25_2 = new JLabel("Apellido Materno");
+		lblNewLabel_25_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_2.setBounds(36, 70, 144, 13);
+		panel_1.add(lblNewLabel_25_2);
+		
+		JLabel lblNewLabel_25_3 = new JLabel("Nombre(s)");
+		lblNewLabel_25_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3.setBounds(79, 100, 144, 13);
+		panel_1.add(lblNewLabel_25_3);
+		
+		JLabel lblNewLabel_25_3_1 = new JLabel("Fecha de Nacimiento");
+		lblNewLabel_25_3_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_1.setBounds(11, 130, 144, 13);
+		panel_1.add(lblNewLabel_25_3_1);
+		
+		JLabel lblNewLabel_25_3_2 = new JLabel("Correo Electrónico");
+		lblNewLabel_25_3_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_2.setBounds(24, 160, 144, 13);
+		panel_1.add(lblNewLabel_25_3_2);
+		
+		JLabel lblNewLabel_25_3_3 = new JLabel("Grado del Alumno");
+		lblNewLabel_25_3_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_3.setBounds(31, 190, 144, 13);
+		panel_1.add(lblNewLabel_25_3_3);
+		
+		JLabel lblNewLabel_25_3_4 = new JLabel("Teléfono");
+		lblNewLabel_25_3_4.setBounds(89, 220, 144, 13);
+		panel_1.add(lblNewLabel_25_3_4);
+		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.BOLD, 13));
+		
+		JTextField textField_3 = new JTextField();
+		textField_3.setBounds(153, 7, 290, 19);
+		textField_3.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_3);
+		textField_3.setColumns(10);
+		
+		JTextField textField_4 = new JTextField();
+		textField_4.setBounds(153, 37, 290, 19);
+		textField_4.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_4);
+		textField_4.setColumns(10);
+		
+		JTextField textField_5 = new JTextField();
+		textField_5.setBounds(153, 67, 290, 19);
+		textField_5.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_5);
+		textField_5.setColumns(10);
+		
+		JTextField textField_6 = new JTextField();
+		textField_6.setBounds(153, 97, 290, 19);
+		textField_6.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_6);
+		textField_6.setColumns(10);
+		
+		JTextField textField_7 = new JTextField();
+		textField_7.setBounds(153, 127, 290, 19);
+		textField_7.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_7);
+		textField_7.setColumns(10);
+		
+		JTextField textField_8 = new JTextField();
+		textField_8.setBounds(153, 157, 290, 19);
+		textField_8.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_8);
+		textField_8.setColumns(10);
+		
+		JTextField textField_9 = new JTextField();
+		textField_9.setColumns(10);
+		textField_9.setBounds(153, 187, 290, 19);
+		textField_9.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_9);
+		
+		JTextField textField_10 = new JTextField();
+		textField_10.setColumns(10);
+		textField_10.setBounds(153, 217, 290, 19);
+		textField_10.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_10);
+		
+		
+		JLabel lblNewLabel_26 = new JLabel("Avatar de alumno");
+		lblNewLabel_26.setFont(new Font("Inter", Font.BOLD, 11));
+		lblNewLabel_26.setBounds(502, 16, 111, 13);
+		panel_1.add(lblNewLabel_26);
+		
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
+		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
+		etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
+		etiquetaAvatar.setBounds(486, 39, 131, 123);
+		etiquetaAvatar.setOpaque(true);
+		etiquetaAvatar.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(etiquetaAvatar);
 	
 		 
 		
@@ -1060,9 +1752,9 @@ public class StudentView {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					frame.remove(panelseleccionAvatar);
-
 					frame.dispose();
-					crearAlumnoAvatarPanel();
+					
+					confirmarEditarAlumno();
 				}
 			});
 			panelseleccionAvatar.add(btnNewButton_14);
@@ -1074,7 +1766,7 @@ public class StudentView {
 		frame.revalidate();
 	}
 
-	public void crearAlumnoAvatarPanel2() {
+	/*public void crearAlumnoAvatarPanel2() {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -1161,7 +1853,7 @@ public class StudentView {
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
-	}	
+	}	*/
 
 	
 public void confirmacionEditarPanel() {
@@ -1195,7 +1887,7 @@ public void confirmacionEditarPanel() {
 			frame.remove(panel);
 
 			frame.dispose();
-			crearAlumnoAvatarPanel2();
+			confirmarEditarAlumno();
 		}
 	});
 	panel_1.add(btnNewButton_7);
@@ -1303,22 +1995,29 @@ public void buscarIDPanel4() {
 	panel.setLayout(null);
 	panel.setBackground(Color.decode("#C3E1F1"));
 	
-	JLabel lblNewLabel_15 = new JLabel("No.Control");
+	JPanel panel_1 = new JPanel();
+	panel_1.setBackground(new Color(255, 255, 255));
+	panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+	panel_1.setBounds(170, 97, 450, 295);
+	panel.add(panel_1);
+	panel_1.setLayout(null);
+	
+	JLabel lblNewLabel_15 = new JLabel("No. Control");
 	lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
-	lblNewLabel_15.setBounds(310, 130, 139, 30);
-	panel.add(lblNewLabel_15);
+	lblNewLabel_15.setBounds(157, 63, 139, 30);
+	panel_1.add(lblNewLabel_15);
 	
 	JTextField textField_2 = new JTextField();
-	textField_2.setBounds(229, 194, 300, 30);
+	textField_2.setBounds(80, 113, 300, 30);
 	textField_2.setBackground(Color.decode("#D9D9D9"));
-	panel.add(textField_2);
+	panel_1.add(textField_2);
 	textField_2.setColumns(10);
 	
 	JButton btnNewButton_14 = new JButton("Buscar alumno");
 	btnNewButton_14.setForeground(new Color(255, 255, 255));
 	btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
 	btnNewButton_14.setBackground(Color.decode("#4A85A4"));
-	btnNewButton_14.setBounds(229, 274, 300, 30);
+	btnNewButton_14.setBounds(80, 178, 300, 30);
 	btnNewButton_14.addActionListener(new ActionListener() {
 
 		@Override
@@ -1326,16 +2025,15 @@ public void buscarIDPanel4() {
 			// TODO Auto-generated method stub
 			frame.remove(panel);
 			frame.dispose();
-
 			eliminarAlumnoPanel();
 		}
 	});
-	panel.add(btnNewButton_14);
+	panel_1.add(btnNewButton_14);
 	
 	JButton btnNewButton_15 = new JButton("Volver");
 	btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
 	btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-	btnNewButton_15.setBounds(71, 79, 110, 30);
+	btnNewButton_15.setBounds(59, 50, 110, 25);
 	btnNewButton_15.addActionListener(new ActionListener() {
 
 		@Override
@@ -1362,7 +2060,6 @@ public void buscarIDPanel4() {
 }
 
 
-
 public void eliminarAlumnoPanel() {
 	JPanel panel = new JPanel();
 	panel.setLayout(null);
@@ -1375,17 +2072,10 @@ public void eliminarAlumnoPanel() {
 	panel.add(panel_1);
 	panel_1.setLayout(null);
 	
-	JLabel lblNewLabel_23 = new JLabel("Avatar");
-	lblNewLabel_23.setHorizontalAlignment(SwingConstants.CENTER);
-	lblNewLabel_23.setBounds(486, 39, 131, 123);
-	lblNewLabel_23.setOpaque(true);
-	lblNewLabel_23.setBackground(Color.decode("#D9D9D9"));
-	panel_1.add(lblNewLabel_23);
-	
 	
 	JLabel lblNewLabel_15 = new JLabel("Eliminar Alumno");
 	lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
-	lblNewLabel_15.setBounds(59, 92, 118, 30);
+	lblNewLabel_15.setBounds(59, 92, 178, 30);
 	panel.add(lblNewLabel_15);
 	
 	JButton btnNewButton_14 = new JButton("Eliminar Alumno");
@@ -1421,6 +2111,108 @@ public void eliminarAlumnoPanel() {
 		}
 	});
 	panel.add(btnNewButton_15);
+	
+	JLabel lblNewLabel_25 = new JLabel("Numero de Control");
+	lblNewLabel_25.setFont(new Font("Inter", Font.BOLD, 13));
+	lblNewLabel_25.setBounds(22, 9, 132, 13);
+	panel_1.add(lblNewLabel_25);
+	
+	JLabel lblNewLabel_25_1 = new JLabel("Apellido Paterno");
+	lblNewLabel_25_1.setFont(new Font("Inter", Font.BOLD, 13));
+	lblNewLabel_25_1.setBounds(38, 40, 144, 13);
+	panel_1.add(lblNewLabel_25_1);
+	
+	JLabel lblNewLabel_25_2 = new JLabel("Apellido Materno");
+	lblNewLabel_25_2.setFont(new Font("Inter", Font.BOLD, 13));
+	lblNewLabel_25_2.setBounds(36, 70, 144, 13);
+	panel_1.add(lblNewLabel_25_2);
+	
+	JLabel lblNewLabel_25_3 = new JLabel("Nombre(s)");
+	lblNewLabel_25_3.setFont(new Font("Inter", Font.BOLD, 13));
+	lblNewLabel_25_3.setBounds(79, 100, 144, 13);
+	panel_1.add(lblNewLabel_25_3);
+	
+	JLabel lblNewLabel_25_3_1 = new JLabel("Fecha de Nacimiento");
+	lblNewLabel_25_3_1.setFont(new Font("Inter", Font.BOLD, 13));
+	lblNewLabel_25_3_1.setBounds(11, 130, 144, 13);
+	panel_1.add(lblNewLabel_25_3_1);
+	
+	JLabel lblNewLabel_25_3_2 = new JLabel("Correo Electrónico");
+	lblNewLabel_25_3_2.setFont(new Font("Inter", Font.BOLD, 13));
+	lblNewLabel_25_3_2.setBounds(24, 160, 144, 13);
+	panel_1.add(lblNewLabel_25_3_2);
+	
+	JLabel lblNewLabel_25_3_3 = new JLabel("Grado del Alumno");
+	lblNewLabel_25_3_3.setFont(new Font("Inter", Font.BOLD, 13));
+	lblNewLabel_25_3_3.setBounds(31, 190, 144, 13);
+	panel_1.add(lblNewLabel_25_3_3);
+	
+	JLabel lblNewLabel_25_3_4 = new JLabel("Teléfono");
+	lblNewLabel_25_3_4.setBounds(89, 220, 144, 13);
+	panel_1.add(lblNewLabel_25_3_4);
+	lblNewLabel_25_3_4.setFont(new Font("Inter", Font.BOLD, 13));
+	
+	JTextField textField_3 = new JTextField();
+	textField_3.setBounds(153, 7, 290, 19);
+	textField_3.setBackground(Color.decode("#D9D9D9"));
+	panel_1.add(textField_3);
+	textField_3.setColumns(10);
+	
+	JTextField textField_4 = new JTextField();
+	textField_4.setBounds(153, 37, 290, 19);
+	textField_4.setBackground(Color.decode("#D9D9D9"));
+	panel_1.add(textField_4);
+	textField_4.setColumns(10);
+	
+	JTextField textField_5 = new JTextField();
+	textField_5.setBounds(153, 67, 290, 19);
+	textField_5.setBackground(Color.decode("#D9D9D9"));
+	panel_1.add(textField_5);
+	textField_5.setColumns(10);
+	
+	JTextField textField_6 = new JTextField();
+	textField_6.setBounds(153, 97, 290, 19);
+	textField_6.setBackground(Color.decode("#D9D9D9"));
+	panel_1.add(textField_6);
+	textField_6.setColumns(10);
+	
+	JTextField textField_7 = new JTextField();
+	textField_7.setBounds(153, 127, 290, 19);
+	textField_7.setBackground(Color.decode("#D9D9D9"));
+	panel_1.add(textField_7);
+	textField_7.setColumns(10);
+	
+	JTextField textField_8 = new JTextField();
+	textField_8.setBounds(153, 157, 290, 19);
+	textField_8.setBackground(Color.decode("#D9D9D9"));
+	panel_1.add(textField_8);
+	textField_8.setColumns(10);
+	
+	JTextField textField_9 = new JTextField();
+	textField_9.setColumns(10);
+	textField_9.setBounds(153, 187, 290, 19);
+	textField_9.setBackground(Color.decode("#D9D9D9"));
+	panel_1.add(textField_9);
+	
+	JTextField textField_10 = new JTextField();
+	textField_10.setColumns(10);
+	textField_10.setBounds(153, 217, 290, 19);
+	textField_10.setBackground(Color.decode("#D9D9D9"));
+	panel_1.add(textField_10);
+	
+	
+	JLabel lblNewLabel_26 = new JLabel("Avatar de alumno");
+	lblNewLabel_26.setFont(new Font("Inter", Font.BOLD, 11));
+	lblNewLabel_26.setBounds(502, 16, 111, 13);
+	panel_1.add(lblNewLabel_26);
+	
+	ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
+	JLabel etiquetaAvatar = new JLabel(iconoDescargar);
+	etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
+	etiquetaAvatar.setBounds(486, 39, 131, 123);
+	etiquetaAvatar.setOpaque(true);
+	etiquetaAvatar.setBackground(Color.decode("#D9D9D9"));
+	panel_1.add(etiquetaAvatar);
 
 	 
 	
@@ -1445,6 +2237,11 @@ public void confirmarEliminarPanel() {
 	panel.add(panel_1);
 	panel_1.setLayout(null);
 	
+	ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Advertencia.png"));
+	JLabel lblNewLabel_27 = new JLabel(iconoDescargar);
+	lblNewLabel_27.setBounds(189, 40, 70, 70);
+	panel_1.add(lblNewLabel_27);
+	
 	JLabel lblNewLabel_12 = new JLabel("Por favor, confirme");
 	lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
 	lblNewLabel_12.setBounds(128, 126, 209, 21);
@@ -1454,7 +2251,7 @@ public void confirmarEliminarPanel() {
 	btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
 	btnNewButton_7.setForeground(new Color(255, 255, 255));
 	btnNewButton_7.setBackground(Color.decode("#4A85A4"));
-	btnNewButton_7.setBounds(34, 181, 167, 25);
+	btnNewButton_7.setBounds(34, 200, 167, 25);
 	btnNewButton_7.addActionListener(new ActionListener() {
 
 		@Override
@@ -1470,21 +2267,22 @@ public void confirmarEliminarPanel() {
 	
 	JLabel lblNewLabel_24 = new JLabel("¿Esta seguro de que quiere eliminar a este alumno?");
 	lblNewLabel_24.setFont(new Font("Inter", Font.BOLD, 11));
-	lblNewLabel_24.setBounds(86, 157, 277, 13);
+	lblNewLabel_24.setBounds(88, 157, 307, 13);
 	panel_1.add(lblNewLabel_24);
 	
 	JButton btnNewButton_21 = new JButton("Si,estoy seguro");
 	btnNewButton_21.setBackground(new Color(255, 255, 255));
 	btnNewButton_21.setFont(new Font("Inter", Font.BOLD, 11));
-	btnNewButton_21.setBounds(239, 183, 167, 25);
+	btnNewButton_21.setBounds(239, 200, 167, 25);
+	btnNewButton_21.setBorder(BorderFactory.createLineBorder(Color.decode("#4A85A4") , 2));
 	btnNewButton_21.addActionListener(new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			frame.remove(panel);
-			frame.dispose();
 
+			frame.dispose();
 			alumnoEliminadoPanel();
 		}
 	});
@@ -1517,7 +2315,7 @@ public void alumnoEliminadoPanel() {
 	
 	JLabel lblNewLabel_12 = new JLabel("Alumno eliminado con éxito");
 	lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
-	lblNewLabel_12.setBounds(80, 130, 350, 21);
+	lblNewLabel_12.setBounds(85, 130, 350, 21);
 	panel_1.add(lblNewLabel_12);
 	
 	JButton btnNewButton_7 = new JButton("Volver a inicio");
