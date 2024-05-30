@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.atributosTeacher;
 import Views.StudentView;
 import Views.TeacherView;
 
@@ -38,11 +39,11 @@ public class TeacherController {
 	}
 
 	public void crearDocentePanel() {
-		vista.crearDocentePanel();
+		vista.crearDocentePanel(new atributosTeacher(null, null, null, null, null, null, null, null));
 	}
 
 	public void seleccionAvatar() {
-		vista.seleccionAvatar();
+		vista.seleccionAvatar(null);
 	}
 
 	/*public void crearDocenteAvatarPanel() {

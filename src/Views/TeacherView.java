@@ -742,7 +742,7 @@ public class TeacherView {
 		frame.revalidate();
 	}
 
-	public void crearDocentePanel() {
+	public void crearDocentePanel(atributosTeacher atributos) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -859,10 +859,19 @@ public class TeacherView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				atributos.setDocentesId(textField_3.getText());
+				atributos.setApellidoPaterno(textField_4.getText());
+				atributos.setApellidoMaterno(textField_5.getText());
+				atributos.setNombre(textField_6.getText()); 
+				atributos.setNacimiento(textField_7.getText()); 
+				atributos.setEmail(textField_8.getText()); 
+				atributos.setEstudios(textField_9.getText()); 
+				atributos.setTelefono(textField_10.getText());
 				frame.remove(panel);
 
 				frame.dispose();
-				seleccionAvatar();
+				seleccionAvatar(atributos);
 			}
 		});
 		panel_1.add(btnNewButton_20);
@@ -931,8 +940,19 @@ public class TeacherView {
 		});
 		panel.add(btnNewButton_15);
 
-
-
+		if (atributos!=null)
+		{
+			textField_3.setText(atributos.getDocentesId());
+			textField_4.setText(atributos.getApellidoPaterno());
+			textField_5.setText(atributos.getApellidoMaterno());
+			textField_6.setText(atributos.getNombre());
+			textField_7.setText(atributos.getNacimiento());
+			textField_8.setText(atributos.getEmail());
+			textField_9.setText(atributos.getEstudios());
+			textField_10.setText(atributos.getTelefono());
+		
+		}
+		
 
 		metodoMenu(panel);
 
@@ -942,8 +962,9 @@ public class TeacherView {
 		frame.revalidate();
 	}
 
-	public void seleccionAvatar() {
+	public void seleccionAvatar(atributosTeacher atributos) {
 
+		
 		JPanel panelseleccionAvatar = new JPanel();
 		panelseleccionAvatar.setLayout(null);
 		panelseleccionAvatar.setBackground(Color.decode("#C3E1F1"));
@@ -1007,7 +1028,7 @@ public class TeacherView {
 					frame.remove(panelseleccionAvatar);
 
 					frame.dispose();
-					crearDocentePanel();
+					crearDocentePanel(atributos);
 				}
 			});
 			panelseleccionAvatar.add(btnNewButton_14);
@@ -1144,7 +1165,7 @@ public class TeacherView {
 				frame.remove(panel);
 
 				frame.dispose();
-				crearDocentePanel();
+				crearDocentePanel(null);
 			}
 		});
 		panel_1.add(btnNewButton_7);
@@ -2339,12 +2360,12 @@ public class TeacherView {
 				// TODO Auto-generated method stub
 
 
-				docenteEliminadoPanel();
+			
 
 				model.eliminarDocente(idtexto);
 				frame.remove(panel);
 				frame.dispose();
-
+				docenteEliminadoPanel();
 
 
 			}
@@ -2358,29 +2379,29 @@ public class TeacherView {
 	}
 
 	public void docenteEliminadoPanel() {
-
+		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
-
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
 		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
 		panel_1.setBounds(170, 67, 450, 295);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
-
+		
 		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/like.png"));
 		JLabel lblNewLabel_14 = new JLabel();
 		lblNewLabel_14.setIcon(iconoPregunta);
 		lblNewLabel_14.setBounds(190, 34, 70, 70);
 		panel_1.add(lblNewLabel_14);
-
+		
 		JLabel lblNewLabel_12 = new JLabel("Docente eliminado con éxito");
 		lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
 		lblNewLabel_12.setBounds(82, 130, 300, 21);
 		panel_1.add(lblNewLabel_12);
-
+		
 		JButton btnNewButton_7 = new JButton("Volver a inicio");
 		btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
 		btnNewButton_7.setForeground(new Color(255, 255, 255));
@@ -2398,13 +2419,12 @@ public class TeacherView {
 			}
 		});
 		panel_1.add(btnNewButton_7);
-
+		
 		frame.add(panel);
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
 	}
-
 
 	public void ConfirmarCerrarSesionPanel(JPanel panelCopia) {
 
