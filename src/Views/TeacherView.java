@@ -401,7 +401,7 @@ public class TeacherView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				pdfBusqueda.generarPDF(idtexto);
+				model.generarPDFDatos(idtexto);
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -525,7 +525,7 @@ public class TeacherView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				pdfBusqueda.generarPDF(idtexto);
+				model.generarPDFDatos(idtexto);
 
 			}
 		});
@@ -604,7 +604,7 @@ public class TeacherView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				pdfBusqueda.generarPDF(idtexto);
+				model.generarPDFDatos(idtexto);
 				
 			}
 		});
@@ -716,7 +716,7 @@ public class TeacherView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				pdfBusqueda.generarPDF(idtexto);
+				model.generarPDFDatos(idtexto);
 			}
 		});
 		panel_1.add(btnNewButton_20);
