@@ -57,7 +57,6 @@ public class TeacherView {
 	public GroupController group;
 	public SubjectController subject;
 	public AuthController view;
-	private JTable table;
 	SavePDF pdfBusqueda = new SavePDF();
 	teacherModel model = new teacherModel();
 	atributosTeacher texto = new atributosTeacher(null, null, null, null, null, null, null, null);
@@ -73,8 +72,6 @@ public class TeacherView {
 
 	public void docentesRegistradosPanel() {
 
-		table = new JTable();
-
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -85,54 +82,32 @@ public class TeacherView {
 		frame.getContentPane().add(panel);
 		
 
-		
-		table.setDefaultRenderer(Object.class, new RenderTabla());
-		table.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-					{null, null, null, null, null, createButtonPanel("Ver detalles", panel)},
-				},
-				new String[] {
-					"Apellido Paterno", "Apellido Materno", "Nombre(s)", "Grupo", "Telefono", "Detalles"
-				}
-			));
-		table.getColumnModel().getColumn(0).setPreferredWidth(90);
-		table.getColumnModel().getColumn(1).setPreferredWidth(90);
-		table.getColumnModel().getColumn(2).setPreferredWidth(110);
-		table.getColumnModel().getColumn(5).setPreferredWidth(175);
-		table.setBounds(59, 128, 652, 243);
-		table.getColumnModel().getColumn(5).setCellRenderer(new RenderTabla());
-	    table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor());
-	    table.setRowHeight(50);
+		JButton btnNewButton_14 = new JButton("Ver detalles");
+		btnNewButton_14.setForeground(Color.white);
+		btnNewButton_14.setOpaque(true);
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(236, 384, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.remove(panel);
+				frame.dispose();
+				buscarIDPanel();
+			}
+		});
+		panel.add(btnNewButton_14);
 
         List<List> datos = model.get();
 
         // Columnas de la tabla
-        String[] columnNames = {"ID DEL DOCENTE", "Detalles"};
+        String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre(s)", "ID"};
 
         // Datos de la tabla
-        Object[][] informacion = new Object[datos.size()][2];
+        Object[][] informacion = new Object[datos.size()][4];
         for (int i = 0; i < datos.size(); i++) {
-            informacion[i][0] = datos.get(i).get(0);
-            informacion[i][1] = createButtonPanel("Ver detalles", panel);
+            informacion[i][3] = datos.get(i).get(0);
+            
         }
 
         // Crear el modelo de tabla con los datos obtenidos
@@ -143,8 +118,9 @@ public class TeacherView {
 
         // Configuración de la tabla
         table.setDefaultRenderer(Object.class, new RenderTabla());
-        table.getColumnModel().getColumn(0).setPreferredWidth(410);
-        table.getColumnModel().getColumn(1).setPreferredWidth(130);
+        table.getColumnModel().getColumn(0).setPreferredWidth(90);
+        table.getColumnModel().getColumn(1).setPreferredWidth(90);
+        table.getColumnModel().getColumn(2).setPreferredWidth(90);
         table.setBounds(59, 128, 652, 243);
         table.getColumnModel().getColumn(1).setCellRenderer(new RenderTabla());
         table.getColumnModel().getColumn(1).setCellEditor(new ButtonEditor());
@@ -186,26 +162,6 @@ public class TeacherView {
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
-	}
-
-	private JPanel createButtonPanel(String text, JPanel panel) {
-		JButton button = new JButton(text);
-		button.setFont(new Font("Inter", Font.BOLD, 12));
-		button.setBounds(24,10,130,30);
-		button.setBackground(Color.decode("#D9D9D9"));
-		button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.remove(panel);
-				frame.dispose();
-				buscarIDPanel();
-			}
-		});
-		JPanel panel3 = new JPanel();
-		panel3.setLayout(null);
-		panel3.setBackground(Color.white);
-		panel3.add(button);
-		return panel3;
 	}
 
 	//Con este lo busca de la tabla
@@ -1024,10 +980,11 @@ public class TeacherView {
 					String correoElectronico = textField_8.getText();
 					String grado = textField_9.getText();
 					String Telefono = textField_10.getText();
+					model.añadirDocentes(idDocente,apellidoPaterno,apellidoMaterno,nombre,fechaDeNacimiento,correoElectronico,grado,Telefono);
 					// Proceder con la edición si todos los campos están llenos
 					frame.remove(panel);
 					frame.dispose();
-					confirmarCrearPanel(idDocente,apellidoPaterno,apellidoMaterno,nombre,fechaDeNacimiento,correoElectronico,grado,Telefono);
+					docenteCreadoPanel();
 				}
 
 			}
@@ -1165,169 +1122,7 @@ public class TeacherView {
 		frame.revalidate();
 	}
 
-	/*public void crearDocenteAvatarPanel() {
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(59, 128, 652, 243);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-
-		ImageIcon iconoAvatar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Avatar_Chico.png"));
-		JLabel lblNewLabel_23 = new JLabel(iconoAvatar);
-		lblNewLabel_23.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_23.setBounds(486, 39, 131, 123);
-		lblNewLabel_23.setOpaque(true);
-		lblNewLabel_23.setBackground(Color.decode("#D9D9D9"));
-		panel_1.add(lblNewLabel_23);
-
-		JButton btnNewButton_20 = new JButton("Cambiar avatar");
-		btnNewButton_20.setBounds(486, 185, 131, 25);
-		btnNewButton_20.setOpaque(true);
-		btnNewButton_20.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_20.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-
-				frame.dispose();
-				seleccionAvatar();
-			}
-		});
-		panel_1.add(btnNewButton_20);
-
-		JLabel lblNewLabel_15 = new JLabel("Crear Docente");
-		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_15.setBounds(59, 92, 118, 30);
-		panel.add(lblNewLabel_15);
-
-		JButton btnNewButton_14 = new JButton("Crear Docente");
-		btnNewButton_14.setForeground(new Color(255, 255, 255));
-		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_14.setBounds(229, 384, 300, 30);
-		btnNewButton_14.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-
-				frame.dispose();
-
-				confirmarCrearPanel();
-			}
-		});
-		panel.add(btnNewButton_14);
-
-		JButton btnNewButton_15 = new JButton("Volver");
-		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(59, 50, 110, 25);
-		btnNewButton_15.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-
-				frame.dispose();
-				crearDocentePanel();
-			}
-		});
-		panel.add(btnNewButton_15);
-
-
-
-
-		metodoMenu(panel);
-
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-	}	*/
-
-	public void confirmarCrearPanel(String idDocente, String apellidoPaterno, String apellidoMaterno, String nombre, String fechaDeNacimiento, String correoElectronico,String Grado, String telefono) {
-
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(170, 67, 450, 295);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-
-		JLabel lblNewLabel_12 = new JLabel("Por favor, confirme");
-		lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
-		lblNewLabel_12.setBounds(128, 126, 209, 21);
-		panel_1.add(lblNewLabel_12);
-
-		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Advertencia.png"));
-		JLabel lblNewLabel_27 = new JLabel(iconoDescargar);
-		lblNewLabel_27.setBounds(189, 40, 70, 70);
-		panel_1.add(lblNewLabel_27);
-
-		JButton btnNewButton_7 = new JButton("No,volver");
-		btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_7.setForeground(Color.white);
-		btnNewButton_7.setOpaque(true);
-		btnNewButton_7.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_7.setBounds(38, 200, 167, 25);
-		btnNewButton_7.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-
-				frame.dispose();
-				crearDocentePanel(null);
-			}
-		});
-		panel_1.add(btnNewButton_7);
-
-		JLabel lblNewLabel_24 = new JLabel("¿Esta seguro de que quiere crear a este docente?");
-		lblNewLabel_24.setFont(new Font("Inter", Font.BOLD, 11));
-		lblNewLabel_24.setBounds(86, 157, 277, 13);
-		panel_1.add(lblNewLabel_24);
-
-		JButton btnNewButton_21 = new JButton("Si,estoy seguro");
-		btnNewButton_21.setOpaque(true);
-		btnNewButton_21.setBackground(Color.white);
-		btnNewButton_21.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_21.setBorder(BorderFactory.createLineBorder(Color.decode("#4A85A4") , 2));
-		btnNewButton_21.setBounds(242, 200, 167, 25);
-		btnNewButton_21.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
-
-				model.añadirDocentes(idDocente, apellidoPaterno, apellidoMaterno, nombre, fechaDeNacimiento, correoElectronico, Grado, telefono);
-				frame.remove(panel);
-
-				frame.dispose();
-				docenteCreadoPanel();
-			}
-		});
-		panel_1.add(btnNewButton_21);
-
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-	}
+	
 
 	public void docenteCreadoPanel() {
 
@@ -1426,7 +1221,7 @@ public class TeacherView {
 					if (idTexto != null) {
 						frame.remove(panel);
 						frame.dispose();
-						editarInformacionDocente(idTexto.getDocentesId(), idTexto);
+						confirmarEditarDocente(idTexto.getDocentesId(), idTexto);
 					} else {
 						JOptionPane.showMessageDialog(null, "No encontrado");
 					}
@@ -1465,235 +1260,6 @@ public class TeacherView {
 		frame.revalidate();
 	}
 
-	//Aqui se ve la informacion antes de actualizar
-	
-	public void editarInformacionDocente(String idtexto, atributosTeacher atributos) {
-
-
-		String idDocente = "";
-		String apellidoPaterno = "";
-		String apellidoMaterno = "";
-		String nombre = "";
-		String fechaDeNacimiento = "";
-		String correoElectronico = "";
-		String gradoDeEstudio = "";
-		String telefono = "";
-
-		// Obtener los datos del objeto atributosTeacher si no es nulo
-		if (atributos != null) {
-			idDocente = atributos.getDocentesId();
-			apellidoPaterno = atributos.getApellidoPaterno();
-			apellidoMaterno = atributos.getApellidoMaterno();
-			nombre = atributos.getNombre();
-			fechaDeNacimiento = atributos.getNacimiento();
-			correoElectronico = atributos.getEmail();
-			gradoDeEstudio = atributos.getEstudios();
-			telefono = atributos.getTelefono();
-		}
-
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(59, 128, 652, 243);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-
-		JLabel lblNewLabel_15 = new JLabel("Editar información");
-		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_15.setBounds(59, 92, 186, 30);		
-		panel.add(lblNewLabel_15);
-
-		JButton btnNewButton_15 = new JButton("Volver");
-		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(59, 50, 110, 25);
-		btnNewButton_15.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-
-				buscarIDPanel3();
-			}
-		});
-		panel.add(btnNewButton_15);
-
-
-		JLabel lblNewLabel_25 = new JLabel("ID_docente");
-		lblNewLabel_25.setFont(new Font("Inter", Font.PLAIN, 13));
-		lblNewLabel_25.setBounds(71, 10, 90, 13);
-		panel_1.add(lblNewLabel_25);
-
-		JLabel lblNewLabel_25_1 = new JLabel("Apellido Paterno");
-		lblNewLabel_25_1.setFont(new Font("Inter", Font.PLAIN, 13));
-		lblNewLabel_25_1.setBounds(38, 40, 144, 13);
-		panel_1.add(lblNewLabel_25_1);
-
-		JLabel lblNewLabel_25_2 = new JLabel("Apellido Materno");
-		lblNewLabel_25_2.setFont(new Font("Inter", Font.PLAIN, 13));
-		lblNewLabel_25_2.setBounds(36, 70, 144, 13);
-		panel_1.add(lblNewLabel_25_2);
-
-		JLabel lblNewLabel_25_3 = new JLabel("Nombre(s)");
-		lblNewLabel_25_3.setFont(new Font("Inter", Font.PLAIN, 13));
-		lblNewLabel_25_3.setBounds(76, 100, 144, 13);
-		panel_1.add(lblNewLabel_25_3);
-
-		JLabel lblNewLabel_25_3_1 = new JLabel("Fecha de Nacimiento");
-		lblNewLabel_25_3_1.setFont(new Font("Inter", Font.PLAIN, 13));
-		lblNewLabel_25_3_1.setBounds(10, 130, 144, 13);
-		panel_1.add(lblNewLabel_25_3_1);
-
-		JLabel lblNewLabel_25_3_2 = new JLabel("Correo Electrónico");
-		lblNewLabel_25_3_2.setFont(new Font("Inter", Font.PLAIN, 13));
-		lblNewLabel_25_3_2.setBounds(24, 160, 144, 13);
-		panel_1.add(lblNewLabel_25_3_2);
-
-		JLabel lblNewLabel_25_3_3 = new JLabel("Grado de estudios");
-		lblNewLabel_25_3_3.setFont(new Font("Inter", Font.PLAIN, 13));
-		lblNewLabel_25_3_3.setBounds(25, 190, 144, 13);
-		panel_1.add(lblNewLabel_25_3_3);
-
-		JLabel lblNewLabel_25_3_4 = new JLabel("Teléfono");
-		lblNewLabel_25_3_4.setBounds(87, 220, 144, 13);
-		panel_1.add(lblNewLabel_25_3_4);
-		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.PLAIN, 13));
-
-		JTextField textField_3 = new JTextField(idDocente);
-		textField_3.setBounds(153, 7, 290, 19);
-		textField_3.setBackground(Color.decode("#D9D9D9"));
-		textField_3.setFont(new Font("Inter", Font.BOLD, 13));
-		textField_3.setBorder(null);
-		textField_3.setOpaque(false);
-		textField_3.setEditable(false); // No editable
-		panel_1.add(textField_3);
-		textField_3.setColumns(10);
-
-		JTextField textField_4 = new JTextField(apellidoPaterno);
-		textField_4.setBounds(153, 37, 290, 19);
-		textField_4.setBackground(Color.decode("#D9D9D9"));
-		textField_4.setFont(new Font("Inter", Font.BOLD, 13));
-		textField_4.setBorder(null);
-		textField_4.setOpaque(false);
-		textField_4.setEditable(false); // No editable
-		panel_1.add(textField_4);
-		textField_4.setColumns(10);
-
-		JTextField textField_5 = new JTextField(apellidoMaterno);
-		textField_5.setBounds(153, 67, 290, 19);
-		textField_5.setBackground(Color.decode("#D9D9D9"));
-		textField_5.setFont(new Font("Inter", Font.BOLD, 13));
-		textField_5.setBorder(null);
-		textField_5.setOpaque(false);
-		textField_5.setEditable(false); // No editable
-		panel_1.add(textField_5);
-		textField_5.setColumns(10);
-
-		JTextField textField_6 = new JTextField(nombre);
-		textField_6.setBounds(153, 97, 290, 19);
-		textField_6.setBackground(Color.decode("#D9D9D9"));
-		textField_6.setFont(new Font("Inter", Font.BOLD, 13));
-		textField_6.setBorder(null);
-		textField_6.setOpaque(false);
-		textField_6.setEditable(false); // No editable
-		panel_1.add(textField_6);
-		textField_6.setColumns(10);
-
-		JTextField textField_7 = new JTextField(fechaDeNacimiento);
-		textField_7.setBounds(153, 127, 290, 19);
-		textField_7.setBackground(Color.decode("#D9D9D9"));
-		textField_7.setFont(new Font("Inter", Font.BOLD, 13));
-		textField_7.setBorder(null);
-		textField_7.setOpaque(false);
-		textField_7.setEditable(false); // No editable
-		panel_1.add(textField_7);
-		textField_7.setColumns(10);
-
-		JTextField textField_8 = new JTextField(correoElectronico);
-		textField_8.setBounds(153, 157, 290, 19);
-		textField_8.setBackground(Color.decode("#D9D9D9"));
-		textField_8.setFont(new Font("Inter", Font.BOLD, 13));
-		textField_8.setBorder(null);
-		textField_8.setOpaque(false);
-		textField_8.setEditable(false); // No editable
-		panel_1.add(textField_8);
-		textField_8.setColumns(10);
-
-		JTextField textField_9 = new JTextField(gradoDeEstudio);
-		textField_9.setColumns(10);
-		textField_9.setBounds(153, 187, 290, 19);
-		textField_9.setBackground(Color.decode("#D9D9D9"));
-		textField_9.setFont(new Font("Inter", Font.BOLD, 13));
-		textField_9.setBorder(null);
-		textField_9.setOpaque(false);
-		textField_9.setEditable(false); // No editable
-		panel_1.add(textField_9);
-
-		JTextField textField_10 = new JTextField(telefono);
-		textField_10.setColumns(10);
-		textField_10.setBounds(153, 217, 290, 19);
-		textField_10.setBackground(Color.decode("#D9D9D9"));
-		textField_10.setFont(new Font("Inter", Font.BOLD, 13));
-		textField_10.setBorder(null);
-		textField_10.setOpaque(false);
-		textField_10.setEditable(false); // No editable
-		panel_1.add(textField_10);
-
-		JLabel lblNewLabel_26 = new JLabel("Avatar de docente");
-		lblNewLabel_26.setFont(new Font("Inter", Font.BOLD, 11));
-		lblNewLabel_26.setBounds(502, 16, 111, 13);
-		panel_1.add(lblNewLabel_26);
-
-		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
-		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
-		etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
-		etiquetaAvatar.setBounds(486, 39, 131, 123);
-		etiquetaAvatar.setOpaque(true);
-		etiquetaAvatar.setBackground(Color.decode("#D9D9D9"));
-		panel_1.add(etiquetaAvatar);
-		
-		JButton btnNewButton_14 = new JButton("Editar información");
-		btnNewButton_14.setForeground(Color.white);
-		btnNewButton_14.setOpaque(true);
-		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_14.setBounds(229, 384, 300, 30);
-		btnNewButton_14.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			    if (textField_3.getText().isEmpty() || textField_4.getText().isEmpty() || 
-		                textField_5.getText().isEmpty() || textField_6.getText().isEmpty() || 
-		                textField_7.getText().isEmpty() || textField_8.getText().isEmpty() || 
-		                textField_9.getText().isEmpty() || textField_10.getText().isEmpty()) {
-		                JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
-		            } else {
-		                // Proceder con la edición si todos los campos están llenos
-		                frame.remove(panel);
-		                frame.dispose();
-		                confirmarEditarDocente(idtexto,atributos);
-		            }
-
-				
-			}
-		});
-		panel.add(btnNewButton_14);
-
-		metodoMenu(panel);
-
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-	}
 	//Con este confirma los cambios del usuario a editar
 	
 	public void confirmarEditarDocente(String idtexto, atributosTeacher atributos) {
@@ -1764,7 +1330,7 @@ public class TeacherView {
 				frame.remove(panel);
 				frame.dispose();
 
-				editarInformacionDocente(idtexto,atributos);
+				buscarIDPanel3();
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -1819,35 +1385,30 @@ public class TeacherView {
 		JTextField textField_4 = new JTextField(apellidoPaterno);
 		textField_4.setBounds(153, 37, 290, 19);
 		textField_4.setBackground(Color.decode("#D9D9D9"));
-		textField_4.setEditable(false); // No editable
 		panel_1.add(textField_4);
 		textField_4.setColumns(10);
 
 		JTextField textField_5 = new JTextField(apellidoMaterno);
 		textField_5.setBounds(153, 67, 290, 19);
 		textField_5.setBackground(Color.decode("#D9D9D9"));
-		textField_5.setEditable(false); // No editable
 		panel_1.add(textField_5);
 		textField_5.setColumns(10);
 
 		JTextField textField_6 = new JTextField(nombre);
 		textField_6.setBounds(153, 97, 290, 19);
 		textField_6.setBackground(Color.decode("#D9D9D9"));
-		textField_6.setEditable(false); // No editable
 		panel_1.add(textField_6);
 		textField_6.setColumns(10);
 
 		JTextField textField_7 = new JTextField(fechaDeNacimiento);
 		textField_7.setBounds(153, 127, 290, 19);
 		textField_7.setBackground(Color.decode("#D9D9D9"));
-		textField_7.setEditable(false); // No editable
 		panel_1.add(textField_7);
 		textField_7.setColumns(10);
 
 		JTextField textField_8 = new JTextField(correoElectronico);
 		textField_8.setBounds(153, 157, 290, 19);
 		textField_8.setBackground(Color.decode("#D9D9D9"));
-		textField_8.setEditable(false); // No editable
 		panel_1.add(textField_8);
 		textField_8.setColumns(10);
 
@@ -1855,58 +1416,18 @@ public class TeacherView {
 		textField_9.setColumns(10);
 		textField_9.setBounds(153, 187, 290, 19);
 		textField_9.setBackground(Color.decode("#D9D9D9"));
-		textField_9.setEditable(false); // No editable
 		panel_1.add(textField_9);
 
 		JTextField textField_10 = new JTextField(telefono);
 		textField_10.setColumns(10);
 		textField_10.setBounds(153, 217, 290, 19);
 		textField_10.setBackground(Color.decode("#D9D9D9"));
-		textField_10.setEditable(false); // No editable
 		panel_1.add(textField_10);
+		
 		JLabel lblNewLabel_26 = new JLabel("Avatar de docente");
 		lblNewLabel_26.setFont(new Font("Inter", Font.BOLD, 11));
 		lblNewLabel_26.setBounds(502, 16, 111, 13);
 		panel_1.add(lblNewLabel_26);
-		
-		JTextField[] textFields = {textField_4, textField_5, textField_6, textField_7, textField_8, textField_9, textField_10};
-		JButton[] botones = new JButton[8];
-
-		int posicionY = 37; 
-		
-
-		for (int i = 0; i < botones.length; i++) {
-			final int index = i;
-		    ImageIcon iconoxd1 = new ImageIcon(getClass().getResource("/Imagenes/IconoEditarTexto.png"));
-		    botones[i] = new JButton(iconoxd1);
-		    botones[i].setBounds(446, posicionY, 19, 19);
-		    panel_1.add(botones[i]);
-		    botones[i].setOpaque(true);
-		    botones[i].setBackground(Color.decode("#D9D9D9"));
-		    botones[i].addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					JTextField textField = textFields[index];
-		            boolean isEditable = textField.isEditable();
-		            textField.setEditable(!isEditable);
-
-		            // Opcional: Cambiar el fondo dependiendo de si es editable o no
-		            if (textField.isEditable()) {
-		            	textFields[index].setBorder(BorderFactory.createLineBorder(Color.black , 2));
-		            } else {
-		            	textFields[index].setBorder(null);
-		            }
-					
-					
-				}
-			});
-		    
-		    posicionY += 30;
-		    panel_1.add(botones[i]);
-		}
-		
 
 		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
 		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
@@ -1947,18 +1468,19 @@ public class TeacherView {
 			    	
 		                JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
 		            } else {
-		            	
+		            	String idTexto = textField_3.getText();
 						String apellidoPaterno = textField_4.getText();
 						String apellidoMaterno = textField_5.getText();
 						String nombre = textField_6.getText();
 						String fechaDeNacimiento = textField_7.getText();
 						String correoElectronico = textField_8.getText();
 						String grado = textField_9.getText();
-						String Telefono = textField_10.getText();
+						String telefono = textField_10.getText();
 		                // Proceder con la edición si todos los campos están llenos
 		                frame.remove(panel);
 		                frame.dispose();
-		                confirmacionEditarPanel(idtexto,atributos, apellidoPaterno,apellidoMaterno,nombre,fechaDeNacimiento,correoElectronico,grado,Telefono);
+						model.editarDocentes(idTexto, apellidoPaterno, apellidoMaterno, nombre, fechaDeNacimiento, correoElectronico, grado, telefono);
+						cambiosGuardadosPanel();
 		            }
 
 				
@@ -2064,94 +1586,7 @@ public class TeacherView {
 		frame.revalidate();
 	}
 
-	/*public void editarDocenteAvatarPanel2() {
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(59, 128, 652, 243);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-
-		ImageIcon iconoAvatar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Avatar_Chico.png"));
-		JLabel lblNewLabel_23 = new JLabel(iconoAvatar);
-		lblNewLabel_23.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_23.setBounds(486, 39, 131, 123);
-		lblNewLabel_23.setOpaque(true);
-		lblNewLabel_23.setBackground(Color.decode("#D9D9D9"));
-		panel_1.add(lblNewLabel_23);
-
-		JButton btnNewButton_20 = new JButton("Cambiar avatar");
-		btnNewButton_20.setBounds(486, 185, 131, 25);
-		btnNewButton_20.setOpaque(true);
-		btnNewButton_20.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_20.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-
-				frame.dispose();
-				seleccionAvatar2();
-			}
-		});
-		panel_1.add(btnNewButton_20);
-
-		JLabel lblNewLabel_15 = new JLabel("Editar Docente");
-		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_15.setBounds(59, 92, 168, 30);
-		panel.add(lblNewLabel_15);
-
-		JButton btnNewButton_14 = new JButton("Confirmar cambios");
-		btnNewButton_14.setForeground(new Color(255, 255, 255));
-		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_14.setBounds(229, 384, 300, 30);
-		btnNewButton_14.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-
-				frame.dispose();
-
-				confirmacionEditarPanel();
-			}
-		});
-		panel.add(btnNewButton_14);
-
-		JButton btnNewButton_15 = new JButton("Volver");
-		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(59, 50, 110, 25);
-		btnNewButton_15.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-
-				frame.dispose();
-				confirmarEditarDocente();
-			}
-		});
-		panel.add(btnNewButton_15);
-
-
-
-
-		metodoMenu(panel);
-
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-	}	*/
+	
 
 	//Aqui se tiene que guardar los datos para editar 
 	
