@@ -85,7 +85,7 @@ public class GroupView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				buscarGrupo();
+				buscarGrupo2();
 			}
 		});
 		panel_1.add(btnNewButton_17);

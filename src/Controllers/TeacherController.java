@@ -46,24 +46,14 @@ public class TeacherController {
 		vista.seleccionAvatar(null);
 	}
 
-	/*public void crearDocenteAvatarPanel() {
-
-		vista.crearDocenteAvatarPanel();
-	}*/
-
-	public void confirmarCrearPanel() {
-
-		vista.confirmarCrearPanel(null, null, null, null, null, null, null, null);
-	}
-
 	public void docenteCreadoPanel() {
 		vista.docenteCreadoPanel();
 	}
 
-	public void editarInformacionDocente() {
+	/*public void editarInformacionDocente() {
 
 		vista.editarInformacionDocente(null,null);
-	}
+	}*/
 
 	public void confirmarEditarDocente() {
 

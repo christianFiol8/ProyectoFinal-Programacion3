@@ -44,16 +44,6 @@ public void buscarIDPanel4() {
 	public void seleccionAvatar() {
 		vista.seleccionAvatar();
 	}
-	
-	/*public void crearAlumnoAvatarPanel() {
-		
-		vista.crearAlumnoAvatarPanel();
-	}*/
-	
-	public void confirmarCrearPanel() {
-		
-		vista.confirmarCrearPanel();
-	}
 		
 	public void alumnoCreadoPanel() {
 		vista.alumnoCreadoPanel();
@@ -62,16 +52,6 @@ public void buscarIDPanel4() {
 	public void editarInformacionAlumno() {
 		
 		vista.editarInformacionAlumno();
-	}
-	
-	public void confirmarEditarAlumno() {
-		
-		vista.confirmarEditarAlumno();
-	}
-	
-	public void confirmacionEditarPanel() {
-		
-		vista.confirmacionEditarPanel();
 	}
 	
 	public void cambiosGuardadosPanel() {
