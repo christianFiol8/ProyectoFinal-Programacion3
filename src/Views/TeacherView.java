@@ -127,8 +127,6 @@ public class TeacherView {
         table.getColumnModel().getColumn(1).setPreferredWidth(90);
         table.getColumnModel().getColumn(2).setPreferredWidth(90);
         table.setBounds(59, 128, 652, 243);
-        table.getColumnModel().getColumn(1).setCellRenderer(new RenderTabla());
-        table.getColumnModel().getColumn(1).setCellEditor(new ButtonEditor());
         table.setRowHeight(50);
 
         scrollPane.setViewportView(table);
@@ -2709,9 +2707,8 @@ class RenderTabla extends DefaultTableCellRenderer{
 
 
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-		if(value instanceof JPanel) {
-			JPanel panel =(JPanel)value;
-			return panel;
+		if(value instanceof JButton) {
+			return (JButton) value;
 		}
 		return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 	}
@@ -2720,23 +2717,27 @@ class RenderTabla extends DefaultTableCellRenderer{
 
 
 class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
-	private JPanel panel;
+	private JButton button;
+    private String text;
+	
+    public ButtonEditor() {
+        button = new JButton();
+    }
 
-	public ButtonEditor() {
-		panel = new JPanel((LayoutManager) new FlowLayout(FlowLayout.CENTER));
-	}
+    @Override
+    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+    	if (value instanceof JButton) {
+            button = (JButton) value;
+            text = button.getText();
+        } else {
+            button.setText(value.toString());
+            text = value.toString();
+        }
+        return button;
+    }
 
-	@Override
-	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-		if (value instanceof JPanel) {
-			panel = (JPanel) value;
-			return panel;
-		}
-		return null;
-	}
-
-	@Override
-	public Object getCellEditorValue() {
-		return panel;
-	}
+    @Override
+    public Object getCellEditorValue() {
+    	return button;
+    }
 }

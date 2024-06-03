@@ -115,8 +115,6 @@ public class StudentView {
         table.getColumnModel().getColumn(1).setPreferredWidth(90);
         table.getColumnModel().getColumn(2).setPreferredWidth(90);
         table.setBounds(59, 128, 652, 243);
-        table.getColumnModel().getColumn(1).setCellRenderer(new RenderTabla());
-        table.getColumnModel().getColumn(1).setCellEditor(new ButtonEditor());
         table.setRowHeight(50);
 
         scrollPane.setViewportView(table);
@@ -1284,6 +1282,19 @@ public class StudentView {
 		});
 		panel.add(btnNewButton_15);
 
+		JButton btnNewButton_20 = new JButton("Cambiar avatar");
+		btnNewButton_20.setBounds(486, 185, 131, 25);
+		btnNewButton_20.setOpaque(true);
+		btnNewButton_20.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_20.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		panel_1.add(btnNewButton_20);
 		
 		JLabel lblNewLabel_25 = new JLabel("Numero de Control");
 		lblNewLabel_25.setFont(new Font("Inter", Font.BOLD, 13));
