@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.atributosStudent;
 import Views.HomeView;
 import Views.StudentView;
 
@@ -34,15 +35,15 @@ public void buscarIDPanel4() {
 	}
 	
 	public void descargarInformacionAlumno() {
-		vista.descargarInformacionAlumno();
+		vista.descargarInformacionAlumno(null, null);
 	}
 	
 	public void crearAlumnoPanel() {
-		vista.crearAlumnoPanel();
+		vista.crearAlumnoPanel(new atributosStudent(null, null, null, null, null, null, null, null, null));
 	}
 	
 	public void seleccionAvatar() {
-		vista.seleccionAvatar();
+		vista.seleccionAvatar(null);
 	}
 		
 	public void alumnoCreadoPanel() {
@@ -51,7 +52,7 @@ public void buscarIDPanel4() {
 	
 	public void editarInformacionAlumno() {
 		
-		vista.editarInformacionAlumno();
+		vista.editarInformacionAlumno(null, null);
 	}
 	
 	public void cambiosGuardadosPanel() {
@@ -60,11 +61,11 @@ public void buscarIDPanel4() {
 	}
 	
 	public void eliminarAlumnoPanel() {
-		vista.eliminarAlumnoPanel();
+		vista.eliminarAlumnoPanel(null, null);
 	}
 	
 	public void confirmarEliminarPanel() {
-		vista.confirmarEliminarPanel();
+		vista.confirmarEliminarPanel(null, null);
 	}
 	
 	public void alumnoEliminadoPanel() {

@@ -1,13 +1,13 @@
 package Models;
 
-public class atributosTeacher {
+public class atributosStudent {
 	
-	private String docentesId, apellidoPaterno,  apellidoMaterno,  nombre,  nacimiento,  email,  estudios,  telefono, avatar;
-
-	public atributosTeacher(String docentesId, String apellidoPaterno, String apellidoMaterno, String nombre, String nacimiento, String email, String estudios, String telefono, String avatar) {
+	private String alumnoId, apellidoPaterno,  apellidoMaterno,  nombre,  nacimiento,  email,  estudios,  telefono, avatar;
+	
+	public atributosStudent(String alumnoId, String apellidoPaterno, String apellidoMaterno, String nombre, String nacimiento, String email, String estudios, String telefono, String avatar) {
 		// TODO Auto-generated constructor stub
 		
-		this.docentesId=docentesId;
+		this.alumnoId=alumnoId;
 		this.apellidoPaterno=apellidoPaterno;
 		this.apellidoMaterno=apellidoMaterno;
 		this.nombre=nombre;
@@ -18,14 +18,12 @@ public class atributosTeacher {
 		this.avatar=avatar;
 	}
 
-
-
-	public String getDocentesId() {
-		return docentesId;
+	public String getAlumnoId() {
+		return alumnoId;
 	}
 
-	public void setDocentesId(String docentesId) {
-		this.docentesId = docentesId;
+	public void setAlumnoId(String alumnoId) {
+		this.alumnoId = alumnoId;
 	}
 
 	public String getApellidoPaterno() {
@@ -83,7 +81,7 @@ public class atributosTeacher {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	
+
 	public String getAvatar() {
 		return avatar;
 	}

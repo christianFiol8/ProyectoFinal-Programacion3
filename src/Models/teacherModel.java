@@ -70,7 +70,7 @@ public class teacherModel {
 				String telefono = rs.getString("telefono");
 
 				//Crea un objeto en el cual va a guardar los datos
-				atributosTeacher informacion = new atributosTeacher(idDocente, apellidoPaterno, apellidoMaterno, nombre, fechaDeNaciminto, correoElectronico, gradoDeEstudio, telefono);
+				atributosTeacher informacion = new atributosTeacher(idDocente, apellidoPaterno, apellidoMaterno, nombre, fechaDeNaciminto, correoElectronico, gradoDeEstudio, telefono,null);
 
 
 				return informacion;
@@ -97,8 +97,10 @@ public class teacherModel {
 				// Obtén los datos de la fila actual
 				String id = rs.getString(1);
 				String nombre = rs.getString(2);
+				String apellidoPaterno = rs.getString(3);
+				String apellidoMaterno = rs.getString(4);
 
-				String [] docentes = {id,nombre};
+				String [] docentes = {id,nombre,apellidoPaterno,apellidoMaterno};
 				List<String> info = Arrays.asList(docentes);	
 				datos.add(info);
 			}

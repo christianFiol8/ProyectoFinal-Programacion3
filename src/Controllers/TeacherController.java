@@ -39,7 +39,7 @@ public class TeacherController {
 	}
 
 	public void crearDocentePanel() {
-		vista.crearDocentePanel(new atributosTeacher(null, null, null, null, null, null, null, null));
+		vista.crearDocentePanel(new atributosTeacher(null, null, null, null, null, null, null, null,null));
 	}
 
 	public void seleccionAvatar() {
