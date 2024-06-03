@@ -40,7 +40,7 @@ import java.util.Arrays;
 import Controllers.AuthController;
 import Controllers.GroupController;
 import Controllers.HomeController;
-import Controllers.SavePDF;
+
 import Controllers.StudentController;
 import Controllers.SubjectController;
 import Controllers.TeacherController;
@@ -57,9 +57,10 @@ public class TeacherView {
 	public GroupController group;
 	public SubjectController subject;
 	public AuthController view;
-	SavePDF pdfBusqueda = new SavePDF();
+    private String selectedImagePath;
+	
 	teacherModel model = new teacherModel();
-	atributosTeacher texto = new atributosTeacher(null, null, null, null, null, null, null, null);
+	atributosTeacher texto = new atributosTeacher(null, null, null, null, null, null, null, null,null);
 	public TeacherView() {
 		// TODO Auto-generated constructor stub
 
@@ -106,6 +107,9 @@ public class TeacherView {
         // Datos de la tabla
         Object[][] informacion = new Object[datos.size()][4];
         for (int i = 0; i < datos.size(); i++) {
+            informacion[i][0] = datos.get(i).get(1);
+            informacion[i][1] = datos.get(i).get(2);
+            informacion[i][2] = datos.get(i).get(3);
             informacion[i][3] = datos.get(i).get(0);
             
         }
@@ -117,6 +121,7 @@ public class TeacherView {
         JTable table = new JTable(tableModel);
 
         // Configuración de la tabla
+        
         table.setDefaultRenderer(Object.class, new RenderTabla());
         table.getColumnModel().getColumn(0).setPreferredWidth(90);
         table.getColumnModel().getColumn(1).setPreferredWidth(90);
@@ -292,8 +297,6 @@ public class TeacherView {
 				} else {
 					
 					atributosTeacher idTexto = model.buscarDocentes(textField_2.getText());
-					
-					
 					
 					if (idTexto != null) {
 						String buscar = textField_2.getText();
@@ -809,8 +812,9 @@ public class TeacherView {
 		panel_1.setBounds(59, 128, 652, 243);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
+		
 
-		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource(atributos.getAvatar()));
 		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
 		etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
 		etiquetaAvatar.setBounds(486, 39, 131, 123);
@@ -1086,12 +1090,17 @@ public class TeacherView {
 		for (int i = 0; i <= 14; i++) {
 			ImageIcon iconoAvatar = new ImageIcon(getClass().getResource(imagePaths[i]));
 			RoundedButton button = new RoundedButton(iconoAvatar, Color.decode("#D9D9D9"));
+			final String imagePath = imagePaths[i];
 			button.setPreferredSize(new Dimension(94, 94));
 			button.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					
+				System.out.println(imagePath);
+				
 					// TODO Auto-generated method stub
+				selectedImagePath = imagePath;
 				}
 			});
 			panel_1.add(button);
@@ -1107,8 +1116,18 @@ public class TeacherView {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
+					
+					
+					 if (selectedImagePath != null) {
+		                    // Actualiza el avatar del objeto atributosTeacher
+		                    atributos.setAvatar(selectedImagePath);
+		                    System.out.println("Avatar guardado: " + atributos.getAvatar());
+		                } else {
+		                    System.out.println("No se ha seleccionado ningún avatar.");
+		                }
+					
 					frame.remove(panelseleccionAvatar);
-
+					atributos.setAvatar(imagePath);
 					frame.dispose();
 					crearDocentePanel(atributos);
 				}
@@ -1121,9 +1140,8 @@ public class TeacherView {
 		frame.repaint();
 		frame.revalidate();
 	}
-
 	
-
+	
 	public void docenteCreadoPanel() {
 
 		JPanel panel = new JPanel();
@@ -2606,10 +2624,6 @@ public class TeacherView {
 
 	}
 
-
-	
-	
-	
 	private void limitarEntradaANumeros(KeyEvent evt, JTextField textField, int longitud) {
 		// TODO Auto-generated method stub
 		char key = evt.getKeyChar();

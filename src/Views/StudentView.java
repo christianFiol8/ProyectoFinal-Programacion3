@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -32,6 +33,9 @@ import Controllers.HomeController;
 import Controllers.StudentController;
 import Controllers.SubjectController;
 import Controllers.TeacherController;
+import Models.StudentModel;
+import Models.atributosStudent;
+import Models.atributosTeacher;
 import Models.teacherModel;
 
 public class StudentView {
@@ -42,7 +46,7 @@ public class StudentView {
 	public TeacherController teacher;
 	public StudentController student;
 	public SubjectController subject;
-	teacherModel model = new teacherModel();
+	StudentModel model = new StudentModel();
 	public AuthController view;
 	public JTable table;
 
@@ -92,6 +96,9 @@ public class StudentView {
         // Datos de la tabla
         Object[][] informacion = new Object[datos.size()][4];
         for (int i = 0; i < datos.size(); i++) {
+            informacion[i][0] = datos.get(i).get(1);
+            informacion[i][1] = datos.get(i).get(2);
+            informacion[i][2] = datos.get(i).get(3);
             informacion[i][3] = datos.get(i).get(0);
             
         }
@@ -182,9 +189,23 @@ public class StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				descargarInformacionAlumno();
+				
+				
+				
+				if (textField_2.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Ingrese los datos");
+				} else {
+					atributosStudent idTexto = model.buscarAlumno(textField_2.getText());
+
+					if (idTexto != null) {
+						frame.remove(panel);
+						frame.dispose();
+						descargarInformacionAlumno(idTexto.getAlumnoId(), idTexto);
+					} else {
+						JOptionPane.showMessageDialog(null, "No encontrado");
+					}
+				}
+			
 			}
 		});
 		panel_1.add(btnNewButton_14);
@@ -215,6 +236,8 @@ public class StudentView {
 		frame.repaint();
 		frame.revalidate();
 	}
+	
+	
 	
 	public void buscarIDPanel2() {
 		JPanel panel = new JPanel();
@@ -249,9 +272,22 @@ public class StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				descargarInformacionAlumno2();
+				
+				
+				if (textField_2.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Ingrese los datos");
+				} else {
+					atributosStudent idTexto = model.buscarAlumno(textField_2.getText());
+
+					if (idTexto != null) {
+						frame.remove(panel);
+						frame.dispose();
+						descargarInformacionAlumno2(idTexto.getAlumnoId(), idTexto);
+					} else {
+						JOptionPane.showMessageDialog(null, "No encontrado");
+					}
+				}
+
 			}
 		});
 		panel_1.add(btnNewButton_14);
@@ -283,7 +319,28 @@ public class StudentView {
 		frame.revalidate();
 	}
 
-	public void descargarInformacionAlumno() {
+	public void descargarInformacionAlumno(String idtexto, atributosStudent atributos) {
+		
+		String idAlumno = "";
+		String apellidoPaterno = "";
+		String apellidoMaterno = "";
+		String nombre = "";
+		String fechaDeNacimiento = "";
+		String correoElectronico = "";
+		String gradoDeEstudio = "";
+		String telefono = "";
+
+		// Obtener los datos del objeto atributosTeacher si no es nulo
+		if (atributos != null) {
+			idAlumno = atributos.getAlumnoId();
+			apellidoPaterno = atributos.getApellidoPaterno();
+			apellidoMaterno = atributos.getApellidoMaterno();
+			nombre = atributos.getNombre();
+			fechaDeNacimiento = atributos.getNacimiento();
+			correoElectronico = atributos.getEmail();
+			gradoDeEstudio = atributos.getEstudios();
+			telefono = atributos.getTelefono();
+		}
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -326,6 +383,8 @@ public class StudentView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				model.generarPDFDatos(idtexto);
 				// TODO Auto-generated method stub
 			}
 		});
@@ -371,52 +430,84 @@ public class StudentView {
 		panel_1.add(lblNewLabel_25_3_4);
 		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.BOLD, 13));
 		
-		JTextField textField_3 = new JTextField();
+		JTextField textField_3 = new JTextField(idAlumno);
 		textField_3.setBounds(153, 7, 290, 19);
 		textField_3.setBackground(Color.decode("#D9D9D9"));
+		textField_3.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_3.setBorder(null);
+		textField_3.setOpaque(false);
+		textField_3.setEditable(false); // No editable
 		panel_1.add(textField_3);
 		textField_3.setColumns(10);
 		
-		JTextField textField_4 = new JTextField();
+		JTextField textField_4 = new JTextField(apellidoPaterno);
 		textField_4.setBounds(153, 37, 290, 19);
 		textField_4.setBackground(Color.decode("#D9D9D9"));
+		textField_4.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_4.setBorder(null);
+		textField_4.setOpaque(false);
+		textField_4.setEditable(false); // No editable
 		panel_1.add(textField_4);
 		textField_4.setColumns(10);
-		
-		JTextField textField_5 = new JTextField();
+
+		JTextField textField_5 = new JTextField(apellidoMaterno);
 		textField_5.setBounds(153, 67, 290, 19);
 		textField_5.setBackground(Color.decode("#D9D9D9"));
+		textField_5.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_5.setBorder(null);
+		textField_5.setOpaque(false);
+		textField_5.setEditable(false); // No editable
 		panel_1.add(textField_5);
 		textField_5.setColumns(10);
-		
-		JTextField textField_6 = new JTextField();
+
+		JTextField textField_6 = new JTextField(nombre);
 		textField_6.setBounds(153, 97, 290, 19);
 		textField_6.setBackground(Color.decode("#D9D9D9"));
+		textField_6.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_6.setBorder(null);
+		textField_6.setOpaque(false);
+		textField_6.setEditable(false); // No editable
 		panel_1.add(textField_6);
 		textField_6.setColumns(10);
-		
-		JTextField textField_7 = new JTextField();
+
+		JTextField textField_7 = new JTextField(fechaDeNacimiento);
 		textField_7.setBounds(153, 127, 290, 19);
 		textField_7.setBackground(Color.decode("#D9D9D9"));
+		textField_7.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_7.setBorder(null);
+		textField_7.setOpaque(false);
+		textField_7.setEditable(false); // No editable
 		panel_1.add(textField_7);
 		textField_7.setColumns(10);
-		
-		JTextField textField_8 = new JTextField();
+
+		JTextField textField_8 = new JTextField(correoElectronico);
 		textField_8.setBounds(153, 157, 290, 19);
 		textField_8.setBackground(Color.decode("#D9D9D9"));
+		textField_8.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_8.setBorder(null);
+		textField_8.setOpaque(false);
+		textField_8.setEditable(false); // No editable
 		panel_1.add(textField_8);
 		textField_8.setColumns(10);
-		
-		JTextField textField_9 = new JTextField();
+
+		JTextField textField_9 = new JTextField(gradoDeEstudio);
 		textField_9.setColumns(10);
 		textField_9.setBounds(153, 187, 290, 19);
 		textField_9.setBackground(Color.decode("#D9D9D9"));
+		textField_9.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_9.setBorder(null);
+		textField_9.setOpaque(false);
+		textField_9.setEditable(false); // No editable
 		panel_1.add(textField_9);
-		
-		JTextField textField_10 = new JTextField();
+
+		JTextField textField_10 = new JTextField(telefono);
 		textField_10.setColumns(10);
 		textField_10.setBounds(153, 217, 290, 19);
 		textField_10.setBackground(Color.decode("#D9D9D9"));
+		textField_10.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_10.setBorder(null);
+		textField_10.setOpaque(false);
+		textField_10.setEditable(false); // No editable
 		panel_1.add(textField_10);
 		
 		JLabel lblNewLabel_26 = new JLabel("Avatar de alumno");
@@ -457,7 +548,28 @@ public class StudentView {
 		frame.revalidate();
 	}
 	
-	public void descargarInformacionAlumno2() {
+	public void descargarInformacionAlumno2(String idtexto, atributosStudent atributos) {
+		
+		String idAlumno = "";
+		String apellidoPaterno = "";
+		String apellidoMaterno = "";
+		String nombre = "";
+		String fechaDeNacimiento = "";
+		String correoElectronico = "";
+		String gradoDeEstudio = "";
+		String telefono = "";
+
+		// Obtener los datos del objeto atributosTeacher si no es nulo
+		if (atributos != null) {
+			idAlumno = atributos.getAlumnoId();
+			apellidoPaterno = atributos.getApellidoPaterno();
+			apellidoMaterno = atributos.getApellidoMaterno();
+			nombre = atributos.getNombre();
+			fechaDeNacimiento = atributos.getNacimiento();
+			correoElectronico = atributos.getEmail();
+			gradoDeEstudio = atributos.getEstudios();
+			telefono = atributos.getTelefono();
+		}
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -501,6 +613,7 @@ public class StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				model.generarPDFDatos(idtexto);
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -545,52 +658,84 @@ public class StudentView {
 		panel_1.add(lblNewLabel_25_3_4);
 		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.BOLD, 13));
 		
-		JTextField textField_3 = new JTextField();
+		JTextField textField_3 = new JTextField(idAlumno);
 		textField_3.setBounds(153, 7, 290, 19);
 		textField_3.setBackground(Color.decode("#D9D9D9"));
+		textField_3.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_3.setBorder(null);
+		textField_3.setOpaque(false);
+		textField_3.setEditable(false); // No editable
 		panel_1.add(textField_3);
 		textField_3.setColumns(10);
 		
-		JTextField textField_4 = new JTextField();
+		JTextField textField_4 = new JTextField(apellidoPaterno);
 		textField_4.setBounds(153, 37, 290, 19);
 		textField_4.setBackground(Color.decode("#D9D9D9"));
+		textField_4.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_4.setBorder(null);
+		textField_4.setOpaque(false);
+		textField_4.setEditable(false); // No editable
 		panel_1.add(textField_4);
 		textField_4.setColumns(10);
-		
-		JTextField textField_5 = new JTextField();
+
+		JTextField textField_5 = new JTextField(apellidoMaterno);
 		textField_5.setBounds(153, 67, 290, 19);
 		textField_5.setBackground(Color.decode("#D9D9D9"));
+		textField_5.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_5.setBorder(null);
+		textField_5.setOpaque(false);
+		textField_5.setEditable(false); // No editable
 		panel_1.add(textField_5);
 		textField_5.setColumns(10);
-		
-		JTextField textField_6 = new JTextField();
+
+		JTextField textField_6 = new JTextField(nombre);
 		textField_6.setBounds(153, 97, 290, 19);
 		textField_6.setBackground(Color.decode("#D9D9D9"));
+		textField_6.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_6.setBorder(null);
+		textField_6.setOpaque(false);
+		textField_6.setEditable(false); // No editable
 		panel_1.add(textField_6);
 		textField_6.setColumns(10);
-		
-		JTextField textField_7 = new JTextField();
+
+		JTextField textField_7 = new JTextField(fechaDeNacimiento);
 		textField_7.setBounds(153, 127, 290, 19);
 		textField_7.setBackground(Color.decode("#D9D9D9"));
+		textField_7.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_7.setBorder(null);
+		textField_7.setOpaque(false);
+		textField_7.setEditable(false); // No editable
 		panel_1.add(textField_7);
 		textField_7.setColumns(10);
-		
-		JTextField textField_8 = new JTextField();
+
+		JTextField textField_8 = new JTextField(correoElectronico);
 		textField_8.setBounds(153, 157, 290, 19);
 		textField_8.setBackground(Color.decode("#D9D9D9"));
+		textField_8.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_8.setBorder(null);
+		textField_8.setOpaque(false);
+		textField_8.setEditable(false); // No editable
 		panel_1.add(textField_8);
 		textField_8.setColumns(10);
-		
-		JTextField textField_9 = new JTextField();
+
+		JTextField textField_9 = new JTextField(gradoDeEstudio);
 		textField_9.setColumns(10);
 		textField_9.setBounds(153, 187, 290, 19);
 		textField_9.setBackground(Color.decode("#D9D9D9"));
+		textField_9.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_9.setBorder(null);
+		textField_9.setOpaque(false);
+		textField_9.setEditable(false); // No editable
 		panel_1.add(textField_9);
-		
-		JTextField textField_10 = new JTextField();
+
+		JTextField textField_10 = new JTextField(telefono);
 		textField_10.setColumns(10);
 		textField_10.setBounds(153, 217, 290, 19);
 		textField_10.setBackground(Color.decode("#D9D9D9"));
+		textField_10.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_10.setBorder(null);
+		textField_10.setOpaque(false);
+		textField_10.setEditable(false); // No editable
 		panel_1.add(textField_10);
 		
 		JLabel lblNewLabel_26 = new JLabel("Avatar de alumno");
@@ -620,61 +765,6 @@ public class StudentView {
 		});
 		panel_1.add(btnNewButton_20);
 		
-		
-		
-		
-		
-		
-		/*JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(59, 128, 652, 243);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JLabel lblNewLabel_15 = new JLabel("Descargar Información");
-		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_15.setBounds(59, 92, 186, 30);		
-		panel.add(lblNewLabel_15);
-		
-		JButton btnNewButton_15 = new JButton("Volver");
-		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(59, 50, 110, 25);
-		btnNewButton_15.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-
-				frame.dispose();
-				buscarIDPanel2();
-			}
-		});
-		panel.add(btnNewButton_15);
-		
-		JButton btnNewButton_14 = new JButton("Descargar Información");
-		btnNewButton_14.setForeground(new Color(255, 255, 255));
-		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_14.setBounds(229, 384, 300, 30);
-		btnNewButton_14.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-			}
-		});
-		panel.add(btnNewButton_14);*/
-	
-		 
-		
-		
 		metodoMenu(panel);
 		
 		frame.add(panel);
@@ -687,11 +777,7 @@ public class StudentView {
 	
 	
 	
-	
-	
-
-	
-	public void crearAlumnoPanel() {
+	public void crearAlumnoPanel(atributosStudent atributos) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -808,10 +894,20 @@ public class StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				
+				atributos.setAlumnoId(textField_3.getText());
+				atributos.setApellidoPaterno(textField_4.getText());
+				atributos.setApellidoMaterno(textField_5.getText());
+				atributos.setNombre(textField_6.getText()); 
+				atributos.setNacimiento(textField_7.getText()); 
+				atributos.setEmail(textField_8.getText()); 
+				atributos.setEstudios(textField_9.getText()); 
+				atributos.setTelefono(textField_10.getText());
 				frame.remove(panel);
 
 				frame.dispose();
-				seleccionAvatar();
+				seleccionAvatar(atributos);
 			}
 		});
 		panel_1.add(btnNewButton_20);
@@ -836,10 +932,42 @@ public class StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				frame.remove(panel);
 
-				frame.dispose();
-				alumnoCreadoPanel();
+				JTextField[] textFields = {textField_3, textField_4, textField_5, textField_6, textField_7, textField_8, textField_9, textField_10};
+
+				for (JTextField textField : textFields) {
+				    if (textField.getText().isEmpty()) {
+				        textField.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+				        
+				    } else {
+				        textField.setBorder(BorderFactory.createLineBorder(Color.green, 2));
+				    }
+				}
+
+				if (textField_3.getText().isEmpty() || textField_4.getText().isEmpty() || 
+						textField_5.getText().isEmpty() || textField_6.getText().isEmpty() || 
+						textField_7.getText().isEmpty() || textField_8.getText().isEmpty() || 
+						textField_9.getText().isEmpty() || textField_10.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
+
+				} else{
+					String idAlumno = textField_3.getText();
+					String apellidoPaterno = textField_4.getText();
+					String apellidoMaterno = textField_5.getText();
+					String nombre = textField_6.getText();
+					String fechaDeNacimiento = textField_7.getText();
+					String correoElectronico = textField_8.getText();
+					String grado = textField_9.getText();
+					String Telefono = textField_10.getText();
+					model.añadirAlumno(idAlumno, apellidoPaterno, apellidoMaterno, nombre, fechaDeNacimiento, correoElectronico, grado, Telefono);
+					// Proceder con la edición si todos los campos están llenos
+					frame.remove(panel);
+					frame.dispose();
+					alumnoCreadoPanel();
+				}
+
+			
+				
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -865,84 +993,18 @@ public class StudentView {
 		
 		
 		
+		if (atributos!=null)
+		{
+			textField_3.setText(atributos.getAlumnoId());
+			textField_4.setText(atributos.getApellidoPaterno());
+			textField_5.setText(atributos.getApellidoMaterno());
+			textField_6.setText(atributos.getNombre());
+			textField_7.setText(atributos.getNacimiento());
+			textField_8.setText(atributos.getEmail());
+			textField_9.setText(atributos.getEstudios());
+			textField_10.setText(atributos.getTelefono());
 		
-		
-		
-		/*JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(59, 128, 652, 243);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JLabel lblNewLabel_23 = new JLabel("Avatar");
-		lblNewLabel_23.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_23.setBounds(486, 39, 131, 123);
-		lblNewLabel_23.setOpaque(true);
-		lblNewLabel_23.setBackground(Color.decode("#D9D9D9"));
-		panel_1.add(lblNewLabel_23);
-		
-		JButton btnNewButton_20 = new JButton("Elegir avatar");
-		btnNewButton_20.setBounds(486, 185, 131, 25);
-		btnNewButton_20.setOpaque(true);
-		btnNewButton_20.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_20.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-
-				frame.dispose();
-				seleccionAvatar();
-			}
-		});
-		panel_1.add(btnNewButton_20);
-		
-		JLabel lblNewLabel_15 = new JLabel("Crear Alumno");
-		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_15.setBounds(59, 92, 118, 30);
-		panel.add(lblNewLabel_15);
-		
-		JButton btnNewButton_14 = new JButton("Crear Alumno");
-		btnNewButton_14.setForeground(new Color(255, 255, 255));
-		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_14.setBounds(229, 384, 300, 30);
-		btnNewButton_14.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-
-				frame.dispose();
-				crearAlumnoAvatarPanel();
-			}
-		});
-		panel.add(btnNewButton_14);
-		
-		JButton btnNewButton_15 = new JButton("Volver");
-		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(59, 50, 110, 25);
-		btnNewButton_15.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-
-				frame.dispose();
-				home = new HomeController();
-				home.alumnoPanel();
-			}
-		});
-		panel.add(btnNewButton_15);*/
+		}
 	
 		 
 		
@@ -955,7 +1017,7 @@ public class StudentView {
 		frame.revalidate();
 	}
 
-	public void seleccionAvatar() {
+	public void seleccionAvatar(atributosStudent atributos) {
 		
 		JPanel panelseleccionAvatar = new JPanel();
 		panelseleccionAvatar.setLayout(null);
@@ -1021,7 +1083,7 @@ public class StudentView {
 					frame.remove(panelseleccionAvatar);
 
 					frame.dispose();
-					crearAlumnoPanel();
+					crearAlumnoPanel(atributos);
 				}
 			});
 			panelseleccionAvatar.add(btnNewButton_14);
@@ -1120,9 +1182,20 @@ public class StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				editarInformacionAlumno();
+				
+				if (textField_2.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Ingrese los datos");
+				} else {
+					atributosStudent idTexto = model.buscarAlumno(textField_2.getText());
+
+					if (idTexto != null) {
+						frame.remove(panel);
+						frame.dispose();
+						editarInformacionAlumno(idTexto.getAlumnoId(), idTexto);
+					} else {
+						JOptionPane.showMessageDialog(null, "No encontrado");
+					}
+				}
 			}
 		});
 		panel_1.add(btnNewButton_14);
@@ -1155,7 +1228,29 @@ public class StudentView {
 		frame.revalidate();
 	}
 
-	public void editarInformacionAlumno() {
+	public void editarInformacionAlumno(String idtexto, atributosStudent atributos) {
+		
+		String idAlumno = "";
+		String apellidoPaterno = "";
+		String apellidoMaterno = "";
+		String nombre = "";
+		String fechaDeNacimiento = "";
+		String correoElectronico = "";
+		String gradoDeEstudio = "";
+		String telefono = "";
+
+		// Obtener los datos del objeto atributosTeacher si no es nulo
+		if (atributos != null) {
+			idAlumno = atributos.getAlumnoId();
+			apellidoPaterno = atributos.getApellidoPaterno();
+			apellidoMaterno = atributos.getApellidoMaterno();
+			nombre = atributos.getNombre();
+			fechaDeNacimiento = atributos.getNacimiento();
+			correoElectronico = atributos.getEmail();
+			gradoDeEstudio = atributos.getEstudios();
+			telefono = atributos.getTelefono();
+		}
+		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -1188,24 +1283,7 @@ public class StudentView {
 			}
 		});
 		panel.add(btnNewButton_15);
-		
-		JButton btnNewButton_14 = new JButton("Confirmar cambios");
-		btnNewButton_14.setForeground(new Color(255, 255, 255));
-		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_14.setBounds(229, 384, 300, 30);
-		btnNewButton_14.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-
-				cambiosGuardadosPanel();
-			}
-		});
-		panel.add(btnNewButton_14);
 		
 		JLabel lblNewLabel_25 = new JLabel("Numero de Control");
 		lblNewLabel_25.setFont(new Font("Inter", Font.BOLD, 13));
@@ -1247,49 +1325,53 @@ public class StudentView {
 		panel_1.add(lblNewLabel_25_3_4);
 		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.BOLD, 13));
 		
-		JTextField textField_3 = new JTextField();
+		JTextField textField_3 = new JTextField(idAlumno);
 		textField_3.setBounds(153, 7, 290, 19);
 		textField_3.setBackground(Color.decode("#D9D9D9"));
+		textField_3.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_3.setBorder(null);
+		textField_3.setOpaque(false);
+		textField_3.setEditable(false); // No editable
 		panel_1.add(textField_3);
 		textField_3.setColumns(10);
 		
-		JTextField textField_4 = new JTextField();
+		JTextField textField_4 = new JTextField(apellidoPaterno);
 		textField_4.setBounds(153, 37, 290, 19);
 		textField_4.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_4);
 		textField_4.setColumns(10);
 		
-		JTextField textField_5 = new JTextField();
+		JTextField textField_5 = new JTextField(apellidoMaterno);
 		textField_5.setBounds(153, 67, 290, 19);
 		textField_5.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_5);
 		textField_5.setColumns(10);
 		
-		JTextField textField_6 = new JTextField();
+		JTextField textField_6 = new JTextField(nombre);
 		textField_6.setBounds(153, 97, 290, 19);
 		textField_6.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_6);
 		textField_6.setColumns(10);
 		
-		JTextField textField_7 = new JTextField();
+		JTextField textField_7 = new JTextField(fechaDeNacimiento);
 		textField_7.setBounds(153, 127, 290, 19);
 		textField_7.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_7);
 		textField_7.setColumns(10);
 		
-		JTextField textField_8 = new JTextField();
+		JTextField textField_8 = new JTextField(correoElectronico);
 		textField_8.setBounds(153, 157, 290, 19);
 		textField_8.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_8);
 		textField_8.setColumns(10);
 		
-		JTextField textField_9 = new JTextField();
+		JTextField textField_9 = new JTextField(gradoDeEstudio);
 		textField_9.setColumns(10);
 		textField_9.setBounds(153, 187, 290, 19);
 		textField_9.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_9);
 		
-		JTextField textField_10 = new JTextField();
+		JTextField textField_10 = new JTextField(telefono);
 		textField_10.setColumns(10);
 		textField_10.setBounds(153, 217, 290, 19);
 		textField_10.setBackground(Color.decode("#D9D9D9"));
@@ -1308,6 +1390,55 @@ public class StudentView {
 		etiquetaAvatar.setOpaque(true);
 		etiquetaAvatar.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(etiquetaAvatar);
+		
+		JButton btnNewButton_14 = new JButton("Confirmar cambios");
+		btnNewButton_14.setForeground(new Color(255, 255, 255));
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(229, 384, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				JTextField[] textFields = {textField_4, textField_5, textField_6, textField_7, textField_8, textField_9, textField_10};
+
+				for (JTextField textField : textFields) {
+				    if (textField.getText().isEmpty()) {
+				        textField.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+				        
+				    } else {
+				        textField.setBorder(BorderFactory.createLineBorder(Color.green, 2));
+				    }
+				}
+				
+			    if (textField_3.getText().isEmpty() || textField_4.getText().isEmpty() || 
+		                textField_5.getText().isEmpty() || textField_6.getText().isEmpty() || 
+		                textField_7.getText().isEmpty() || textField_8.getText().isEmpty() || 
+		                textField_9.getText().isEmpty() || textField_10.getText().isEmpty()) {
+			    	
+			    	
+		                JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
+		            } else {
+		            	String idTexto = textField_3.getText();
+						String apellidoPaterno = textField_4.getText();
+						String apellidoMaterno = textField_5.getText();
+						String nombre = textField_6.getText();
+						String fechaDeNacimiento = textField_7.getText();
+						String correoElectronico = textField_8.getText();
+						String grado = textField_9.getText();
+						String telefono = textField_10.getText();
+		                // Proceder con la edición si todos los campos están llenos
+		                frame.remove(panel);
+		                frame.dispose();
+						model.editarAlumno(idTexto, apellidoPaterno, apellidoMaterno, nombre, fechaDeNacimiento, correoElectronico, grado, telefono);
+						cambiosGuardadosPanel();
+		            }
+
+			}
+		});
+		panel.add(btnNewButton_14);
 	
 		 
 		
@@ -1319,7 +1450,7 @@ public class StudentView {
 		frame.revalidate();
 	}
 	
-	public void seleccionAvatar2() {
+	public void seleccionAvatar2(String idtexto, atributosStudent atributos) {
 		
 		JPanel panelseleccionAvatar = new JPanel();
 		panelseleccionAvatar.setLayout(null);
@@ -1385,7 +1516,7 @@ public class StudentView {
 					frame.remove(panelseleccionAvatar);
 					frame.dispose();
 					
-					editarInformacionAlumno();
+					editarInformacionAlumno(idtexto,atributos);
 				}
 			});
 			panelseleccionAvatar.add(btnNewButton_14);
@@ -1486,9 +1617,23 @@ public class StudentView {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			frame.remove(panel);
-			frame.dispose();
-			eliminarAlumnoPanel();
+			
+			
+			if (textField_2.getText().equals("")) {
+				JOptionPane.showMessageDialog(null, "Ingrese los datos");
+			} else {
+				atributosStudent idTexto = model.buscarAlumno(textField_2.getText());
+
+				if (idTexto != null) {
+					frame.remove(panel);
+					frame.dispose();
+					eliminarAlumnoPanel(idTexto.getAlumnoId(), idTexto);
+				} else {
+					JOptionPane.showMessageDialog(null, "No encontrado");
+				}
+			}
+
+
 		}
 	});
 	panel_1.add(btnNewButton_14);
@@ -1522,7 +1667,29 @@ public class StudentView {
 	frame.revalidate();
 }
 
-	public void eliminarAlumnoPanel() {
+	public void eliminarAlumnoPanel(String idtexto, atributosStudent atributos) {
+		
+		
+		String idAlumno = "";
+		String apellidoPaterno = "";
+		String apellidoMaterno = "";
+		String nombre = "";
+		String fechaDeNacimiento = "";
+		String correoElectronico = "";
+		String gradoDeEstudio = "";
+		String telefono = "";
+
+		// Obtener los datos del objeto atributosTeacher si no es nulo
+		if (atributos != null) {
+			idAlumno = atributos.getAlumnoId();
+			apellidoPaterno = atributos.getApellidoPaterno();
+			apellidoMaterno = atributos.getApellidoMaterno();
+			nombre = atributos.getNombre();
+			fechaDeNacimiento = atributos.getNacimiento();
+			correoElectronico = atributos.getEmail();
+			gradoDeEstudio = atributos.getEstudios();
+			telefono = atributos.getTelefono();
+		}
 	JPanel panel = new JPanel();
 	panel.setLayout(null);
 	panel.setBackground(Color.decode("#C3E1F1"));
@@ -1552,7 +1719,7 @@ public class StudentView {
 			// TODO Auto-generated method stub
 			frame.remove(panel);
 			frame.dispose();
-			confirmarEliminarPanel();
+			confirmarEliminarPanel(idtexto,  atributos);
 		}
 	});
 	panel.add(btnNewButton_14);
@@ -1614,55 +1781,86 @@ public class StudentView {
 	panel_1.add(lblNewLabel_25_3_4);
 	lblNewLabel_25_3_4.setFont(new Font("Inter", Font.BOLD, 13));
 	
-	JTextField textField_3 = new JTextField();
+	JTextField textField_3 = new JTextField(idAlumno);
 	textField_3.setBounds(153, 7, 290, 19);
 	textField_3.setBackground(Color.decode("#D9D9D9"));
+	textField_3.setFont(new Font("Inter", Font.BOLD, 13));
+	textField_3.setBorder(null);
+	textField_3.setOpaque(false);
+	textField_3.setEditable(false); // No editable
 	panel_1.add(textField_3);
 	textField_3.setColumns(10);
 	
-	JTextField textField_4 = new JTextField();
+	JTextField textField_4 = new JTextField(apellidoPaterno);
 	textField_4.setBounds(153, 37, 290, 19);
 	textField_4.setBackground(Color.decode("#D9D9D9"));
+	textField_4.setFont(new Font("Inter", Font.BOLD, 13));
+	textField_4.setBorder(null);
+	textField_4.setOpaque(false);
+	textField_4.setEditable(false); // No editable
 	panel_1.add(textField_4);
 	textField_4.setColumns(10);
-	
-	JTextField textField_5 = new JTextField();
+
+	JTextField textField_5 = new JTextField(apellidoMaterno);
 	textField_5.setBounds(153, 67, 290, 19);
 	textField_5.setBackground(Color.decode("#D9D9D9"));
+	textField_5.setFont(new Font("Inter", Font.BOLD, 13));
+	textField_5.setBorder(null);
+	textField_5.setOpaque(false);
+	textField_5.setEditable(false); // No editable
 	panel_1.add(textField_5);
 	textField_5.setColumns(10);
-	
-	JTextField textField_6 = new JTextField();
+
+	JTextField textField_6 = new JTextField(nombre);
 	textField_6.setBounds(153, 97, 290, 19);
 	textField_6.setBackground(Color.decode("#D9D9D9"));
+	textField_6.setFont(new Font("Inter", Font.BOLD, 13));
+	textField_6.setBorder(null);
+	textField_6.setOpaque(false);
+	textField_6.setEditable(false); // No editable
 	panel_1.add(textField_6);
 	textField_6.setColumns(10);
-	
-	JTextField textField_7 = new JTextField();
+
+	JTextField textField_7 = new JTextField(fechaDeNacimiento);
 	textField_7.setBounds(153, 127, 290, 19);
 	textField_7.setBackground(Color.decode("#D9D9D9"));
+	textField_7.setFont(new Font("Inter", Font.BOLD, 13));
+	textField_7.setBorder(null);
+	textField_7.setOpaque(false);
+	textField_7.setEditable(false); // No editable
 	panel_1.add(textField_7);
 	textField_7.setColumns(10);
-	
-	JTextField textField_8 = new JTextField();
+
+	JTextField textField_8 = new JTextField(correoElectronico);
 	textField_8.setBounds(153, 157, 290, 19);
 	textField_8.setBackground(Color.decode("#D9D9D9"));
+	textField_8.setFont(new Font("Inter", Font.BOLD, 13));
+	textField_8.setBorder(null);
+	textField_8.setOpaque(false);
+	textField_8.setEditable(false); // No editable
 	panel_1.add(textField_8);
 	textField_8.setColumns(10);
-	
-	JTextField textField_9 = new JTextField();
+
+	JTextField textField_9 = new JTextField(gradoDeEstudio);
 	textField_9.setColumns(10);
 	textField_9.setBounds(153, 187, 290, 19);
 	textField_9.setBackground(Color.decode("#D9D9D9"));
+	textField_9.setFont(new Font("Inter", Font.BOLD, 13));
+	textField_9.setBorder(null);
+	textField_9.setOpaque(false);
+	textField_9.setEditable(false); // No editable
 	panel_1.add(textField_9);
-	
-	JTextField textField_10 = new JTextField();
+
+	JTextField textField_10 = new JTextField(telefono);
 	textField_10.setColumns(10);
 	textField_10.setBounds(153, 217, 290, 19);
 	textField_10.setBackground(Color.decode("#D9D9D9"));
+	textField_10.setFont(new Font("Inter", Font.BOLD, 13));
+	textField_10.setBorder(null);
+	textField_10.setOpaque(false);
+	textField_10.setEditable(false); // No editable
 	panel_1.add(textField_10);
-	
-	
+		
 	JLabel lblNewLabel_26 = new JLabel("Avatar de alumno");
 	lblNewLabel_26.setFont(new Font("Inter", Font.BOLD, 11));
 	lblNewLabel_26.setBounds(502, 16, 111, 13);
@@ -1686,7 +1884,7 @@ public class StudentView {
 	frame.revalidate();
 }
 
-	public void confirmarEliminarPanel() {
+	public void confirmarEliminarPanel(String idtexto, atributosStudent atributos) {
 	
 	JPanel panel = new JPanel();
 	panel.setLayout(null);
@@ -1722,7 +1920,7 @@ public class StudentView {
 			frame.remove(panel);
 			frame.dispose();
 
-			eliminarAlumnoPanel();
+			eliminarAlumnoPanel( idtexto, atributos);
 		}
 	});
 	panel_1.add(btnNewButton_7);
@@ -1743,7 +1941,7 @@ public class StudentView {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			frame.remove(panel);
-
+			model.eliminarAlumno(idtexto);
 			frame.dispose();
 			alumnoEliminadoPanel();
 		}
