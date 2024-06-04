@@ -99,11 +99,11 @@ public class AuthView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+
 				if (textField.getText().equals("") || textField2.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Ingrese los datos faltantes");
-	            	textField.setBorder(BorderFactory.createLineBorder(Color.red , 2));
-	            	textField2.setBorder(BorderFactory.createLineBorder(Color.red , 2));
+					textField.setBorder(BorderFactory.createLineBorder(Color.red , 2));
+					textField2.setBorder(BorderFactory.createLineBorder(Color.red , 2));
 				} else {
 					if (model.iniciarSesion(textField.getText(), textField2.getText())) {
 						frame.remove(loginPanel);
@@ -111,7 +111,7 @@ public class AuthView {
 					} else {
 						JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
 						textField.setBorder(BorderFactory.createLineBorder(Color.red , 2));
-		            	textField2.setBorder(BorderFactory.createLineBorder(Color.red , 2));
+						textField2.setBorder(BorderFactory.createLineBorder(Color.red , 2));
 					}
 				}
 			}
@@ -328,39 +328,39 @@ public class AuthView {
 	}
 
 	public void recuperarContraseñaPanel() {
-		
+
 		JPanel panelRecuperarContraseña = new JPanel();
 		panelRecuperarContraseña.setLayout(null);
 		panelRecuperarContraseña.setBackground(Color.decode("#C3E1F1"));
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
 		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
 		panel_1.setBounds(170, 67, 450, 295);
 		panelRecuperarContraseña.add(panel_1);
 		panel_1.setLayout(null);
-		
+
 		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/Icono_Pregunta.png"));
 		JLabel lblNewLabel_14 = new JLabel();
 		lblNewLabel_14.setIcon(iconoPregunta);
 		lblNewLabel_14.setBounds(190, 15, 70, 70);
 		panel_1.add(lblNewLabel_14);
-		
+
 		JLabel lblNewLabel_8 = new JLabel("No te preocupes, es posible recuperarla");
 		lblNewLabel_8.setFont(new Font("Inter", Font.BOLD, 12));
 		lblNewLabel_8.setBounds(111, 119, 246, 13);
 		panel_1.add(lblNewLabel_8);
-		
+
 		JLabel lblNewLabel_7 = new JLabel("¿Olvidaste tu contraseña?");
 		lblNewLabel_7.setFont(new Font("Inter", Font.BOLD, 12));
 		lblNewLabel_7.setBounds(145, 97, 162, 13);
 		panel_1.add(lblNewLabel_7);
-		
+
 		JLabel lblNewLabel_9 = new JLabel("Email");
 		lblNewLabel_9.setFont(new Font("Inter", Font.BOLD, 12));
 		lblNewLabel_9.setBounds(53, 156, 60, 13);
 		panel_1.add(lblNewLabel_9);
-		
+
 		JButton btnNewButton_3 = new JButton("RECUPERAR CONTRASEÑA");
 		btnNewButton_3.setForeground(new Color(255, 255, 255));
 		btnNewButton_3.setFont(new Font("Inter", Font.BOLD, 12));
@@ -375,7 +375,7 @@ public class AuthView {
 		});
 
 		panel_1.add(btnNewButton_3);
-		
+
 		JButton btnNewButton_4 = new JButton("Olvídalo,la he recordado");
 		btnNewButton_4.setFont(new Font("Inter", Font.BOLD, 10));
 		btnNewButton_4.setBounds(142, 254, 181, 21);
@@ -392,62 +392,64 @@ public class AuthView {
 
 			}});
 		panel_1.add(btnNewButton_4);
-		
+
 		JTextField textField_1 = new JTextField();
 		textField_1.setBounds(53, 176, 345, 23);
 		textField_1.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_1);
 		textField_1.setColumns(10);
-		
+
 		frame.add(panelRecuperarContraseña);
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
 	}
-	
+
 	public void seleccionAvatar() {
-		
+
 		JPanel panelseleccionAvatar = new JPanel();
 		panelseleccionAvatar.setLayout(null);
 		panelseleccionAvatar.setBackground(Color.decode("#C3E1F1"));
-		
+
 		JLabel lblNewLabel_13 = new JLabel("Selecciona tu avatar");
 		lblNewLabel_13.setFont(new Font("Inter", Font.BOLD, 24));
 		lblNewLabel_13.setBounds(259, 32, 256, 30);
 		panelseleccionAvatar.add(lblNewLabel_13);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(120, 70, 536, 304);
 		panelseleccionAvatar.add(scrollPane);		
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.decode("#4A85A4"));
 		panel_1.setLayout(new GridLayout(5, 3, 50, 40));
 		panel_1.setBorder(new EmptyBorder(40, 60, 40, 60));
 		scrollPane.setViewportView(panel_1);
-		
+
 		String[] imagePaths = {
 				"/Imagenes/Icono_Avatar_Hacker.png",
-	            "/Imagenes/Icono_Avatar_Panda.png",
-	            "/Imagenes/Icono_Avatar_Gallina.png",
-	            "/Imagenes/Icono_Avatar_Chico.png",
-	            "/Imagenes/Icono_Avatar_Chico_2.png",
-	            "/Imagenes/Icono_Avatar_Dinosaurio.png",
-	            "/Imagenes/Icono_Avatar_Hombre.png",
-	            "/Imagenes/Icono_Avatar_Mujer.png",
-	            "/Imagenes/Icono_Avatar_Oso.png",
-	            "/Imagenes/Icono_Avatar_Astronauta.png",
-	            "/Imagenes/Icono_Avatar_Lobo_Marino.png",
-	            "/Imagenes/Icono_Avatar_Robot.png",
-	            "/Imagenes/Icono_Avatar_Zorro.png",
-	            "/Imagenes/Icono_Avatar_Bot.png",
-	            "/Imagenes/Icono_Avatar_Gato.png"
-	        };
-		
+				"/Imagenes/Icono_Avatar_Panda.png",
+				"/Imagenes/Icono_Avatar_Gallina.png",
+				"/Imagenes/Icono_Avatar_Chico.png",
+				"/Imagenes/Icono_Avatar_Chico_2.png",
+				"/Imagenes/Icono_Avatar_Dinosaurio.png",
+				"/Imagenes/Icono_Avatar_Hombre.png",
+				"/Imagenes/Icono_Avatar_Mujer.png",
+				"/Imagenes/Icono_Avatar_Oso.png",
+				"/Imagenes/Icono_Avatar_Astronauta.png",
+				"/Imagenes/Icono_Avatar_Lobo_Marino.png",
+				"/Imagenes/Icono_Avatar_Robot.png",
+				"/Imagenes/Icono_Avatar_Zorro.png",
+				"/Imagenes/Icono_Avatar_Bot.png",
+				"/Imagenes/Icono_Avatar_Gato.png"
+		};
+
 		for (int i = 0; i <= 14; i++) {
 			ImageIcon iconoAvatar = new ImageIcon(getClass().getResource(imagePaths[i]));
-			RoundedButton button = new RoundedButton(iconoAvatar, Color.decode("#D9D9D9"));
+			JButton button = new JButton(iconoAvatar); // Cambiado a JButton
+
 			button.setPreferredSize(new Dimension(94, 94));
+			button.setBackground(Color.decode("#D9D9D9"));
 			button.addActionListener(new ActionListener() {
 
 				@Override
@@ -459,14 +461,14 @@ public class AuthView {
 			});
 			panel_1.add(button);
 		}	
-		
+
 		frame.add(panelseleccionAvatar);
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
 	}
-	
-	
+
+
 }
 
 
@@ -482,7 +484,7 @@ class RoundedButton extends JButton {
         setContentAreaFilled(false);
         setBorderPainted(false);
     }
-    
+
     public RoundedButton(String text, Color backgroundColor) {
         super(text);
         this.backgroundColor = backgroundColor;
@@ -490,14 +492,14 @@ class RoundedButton extends JButton {
         setContentAreaFilled(false);
         setBorderPainted(false);
     }
-    
+
     public RoundedButton(String text) {
         super(text);
         setOpaque(false);
         setContentAreaFilled(false);
         setBorderPainted(false);
     }
-    
+
     public RoundedButton(ImageIcon icon, Color backgroundColor) {
         setIcon(icon);
         this.backgroundColor = backgroundColor;
@@ -505,14 +507,14 @@ class RoundedButton extends JButton {
         setContentAreaFilled(false);
         setBorderPainted(false);
     }
-    
+
     public RoundedButton(ImageIcon icon) {
         setIcon(icon);
         setOpaque(false);
         setContentAreaFilled(false);
         setBorderPainted(false);
     }
-    
+
     public RoundedButton(Color backgroundColor) {
         this.backgroundColor = backgroundColor;
         setOpaque(false);

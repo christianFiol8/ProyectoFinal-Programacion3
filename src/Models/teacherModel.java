@@ -68,9 +68,10 @@ public class teacherModel {
 				String correoElectronico = rs.getString("correoElectronico");
 				String gradoDeEstudio = rs.getString("gradoDeEstudios");
 				String telefono = rs.getString("telefono");
+				String avatar = rs.getString("Avatar");
 
 				//Crea un objeto en el cual va a guardar los datos
-				atributosTeacher informacion = new atributosTeacher(idDocente, apellidoPaterno, apellidoMaterno, nombre, fechaDeNaciminto, correoElectronico, gradoDeEstudio, telefono,null);
+				atributosTeacher informacion = new atributosTeacher(idDocente, apellidoPaterno, apellidoMaterno, nombre, fechaDeNaciminto, correoElectronico, gradoDeEstudio, telefono,avatar);
 
 
 				return informacion;
@@ -203,14 +204,14 @@ public class teacherModel {
 
 	public void añadirDocentes(String idDocentes,String apellidoPaterno,String apellidoMaterno, String nombres, 
 
-			String fechaDeNacimineto, String correoElectronico,String gradoDeEstudios, String telefono ) {
+			String fechaDeNacimineto, String correoElectronico,String gradoDeEstudios, String telefono,String avatar ) {
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			//Aqui se añade al docente
 			Connection con = DriverManager.getConnection(URL,USER,CLAVE);
-			ps =con.prepareStatement("INSERT INTO `docentes` Values(?,?,?,?,?,?,?,?)");
+			ps =con.prepareStatement("INSERT INTO `docentes` Values(?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, idDocentes);
 			ps.setString(2, apellidoPaterno);
 			ps.setString(3, apellidoMaterno);
@@ -219,6 +220,7 @@ public class teacherModel {
 			ps.setString(6, correoElectronico);
 			ps.setString(7, gradoDeEstudios);
 			ps.setString(8, telefono);
+			ps.setString(9, avatar);
 
 			ps.executeUpdate();
 
@@ -229,10 +231,10 @@ public class teacherModel {
 
 	}
 
-	public void editarDocentes (String idDocente,String apellidoPaterno,String apellidoMaterno, String nombres,	String fechaDeNacimiento, String correoElectronico,String gradoDeEstudios, String telefono ) {
+	public void editarDocentes (String idDocente,String apellidoPaterno,String apellidoMaterno, String nombres,	String fechaDeNacimiento, String correoElectronico,String gradoDeEstudios, String telefono,String avatar ) {
 
 		//Con este se busca al docente ya creado para editarlo
-		String consulta = "UPDATE docentes SET apellidoPaterno = ?, apellidoMaterno = ?, nombres = ?,fechaDeNacimiento = ?, correoElectronico = ?, gradoDeEstudios = ?, telefono = ? WHERE idDocente = ?";
+		String consulta = "UPDATE docentes SET apellidoPaterno = ?, apellidoMaterno = ?, nombres = ?,fechaDeNacimiento = ?, correoElectronico = ?, gradoDeEstudios = ?, telefono = ?, Avatar =? WHERE idDocente = ?";
 
 		try (Connection conexion = DriverManager.getConnection(URL, USER, CLAVE);
 				PreparedStatement st = conexion.prepareStatement(consulta)) {
@@ -244,7 +246,9 @@ public class teacherModel {
 			st.setString(5, correoElectronico);
 			st.setString(6, gradoDeEstudios);
 			st.setString(7, telefono);
-			st.setString(8, idDocente);
+			st.setString(8, avatar);
+			st.setString(9, idDocente);
+
 
 
 			int filasAfectadas = st.executeUpdate();

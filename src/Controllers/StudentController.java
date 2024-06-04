@@ -39,7 +39,7 @@ public void buscarIDPanel4() {
 	}
 	
 	public void crearAlumnoPanel() {
-		vista.crearAlumnoPanel(new atributosStudent(null, null, null, null, null, null, null, null, null));
+		vista.crearAlumnoPanel(new atributosStudent("", "", "", "", "","", "", "",""));
 	}
 	
 	public void seleccionAvatar() {

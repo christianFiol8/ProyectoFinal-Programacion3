@@ -40,14 +40,14 @@ public class StudentModel {
 
 	public void añadirAlumno (String idAlumno,String apellidoPaterno,String apellidoMaterno, String nombres, 
 
-			String fechaDeNacimineto, String correoElectronico,String gradoDelAlumno, String telefono )
+			String fechaDeNacimineto, String correoElectronico,String gradoDelAlumno, String telefono, String avatar )
 	{
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			//Aqui se añade al docente
 			Connection con = DriverManager.getConnection(URL,USER,CLAVE);
-			ps =con.prepareStatement("INSERT INTO `alumnos` Values(?,?,?,?,?,?,?,?)");
+			ps =con.prepareStatement("INSERT INTO `alumnos` Values(?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, idAlumno);
 			ps.setString(2, apellidoPaterno);
 			ps.setString(3, apellidoMaterno);
@@ -56,6 +56,7 @@ public class StudentModel {
 			ps.setString(6, correoElectronico);
 			ps.setString(7, gradoDelAlumno);
 			ps.setString(8, telefono);
+			ps.setString(9, avatar);
 
 			ps.executeUpdate();
 
@@ -113,9 +114,10 @@ public class StudentModel {
 				String correoElectronico = rs.getString("correoElectronico");
 				String gradoDeEstudio = rs.getString("gradoDelAlumno");
 				String telefono = rs.getString("telefono");
+				String avatar = rs.getString("Avatar");
 
 				//Crea un objeto en el cual va a guardar los datos
-				atributosStudent informacion = new atributosStudent(idAlumno, apellidoPaterno, apellidoMaterno, nombre, fechaDeNaciminto, correoElectronico, gradoDeEstudio, telefono,null);
+				atributosStudent informacion = new atributosStudent(idAlumno, apellidoPaterno, apellidoMaterno, nombre, fechaDeNaciminto, correoElectronico, gradoDeEstudio, telefono,avatar);
 
 
 				return informacion;
@@ -131,10 +133,10 @@ public class StudentModel {
 	}
 
 
-	public void editarAlumno (String id,String apellidoPaterno,String apellidoMaterno, String nombres,String fechaDeNacimiento, String correoElectronico,String gradoDeEstudios, String telefono ) {
+	public void editarAlumno (String id,String apellidoPaterno,String apellidoMaterno, String nombres,String fechaDeNacimiento, String correoElectronico,String gradoDeEstudios, String telefono,String avatar ) {
 
 		//Con este se busca al docente ya creado para editarlo
-		String consulta = "UPDATE alumnos SET apellidoPaterno = ?, apellidoMaterno = ?, nombres = ?,fechaDeNacimiento = ?, correoElectronico = ?, gradoDelAlumno = ?, telefono = ? WHERE id = ?";
+		String consulta = "UPDATE alumnos SET apellidoPaterno = ?, apellidoMaterno = ?, nombres = ?,fechaDeNacimiento = ?, correoElectronico = ?, gradoDelAlumno = ?, telefono = ?, Avatar = ? WHERE id = ?";
 
 		try (Connection conexion = DriverManager.getConnection(URL, USER, CLAVE);
 				PreparedStatement st = conexion.prepareStatement(consulta)) {
@@ -146,7 +148,8 @@ public class StudentModel {
 			st.setString(5, correoElectronico);
 			st.setString(6, gradoDeEstudios);
 			st.setString(7, telefono);
-			st.setString(8, id);
+			st.setString(8, avatar);
+			st.setString(9, id);
 
 
 			int filasAfectadas = st.executeUpdate();
