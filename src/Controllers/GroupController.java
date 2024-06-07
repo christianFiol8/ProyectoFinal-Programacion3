@@ -1,5 +1,8 @@
 package Controllers;
 
+import com.itextpdf.text.xml.simpleparser.NewLineHandler;
+
+import Models.AtributosGroup;
 import Views.GroupView;
 import Views.HomeView;
 
@@ -14,7 +17,7 @@ public class GroupController {
 	}
 	
 	public void agregarAlumno() {
-		vista.agregarAlumno();
+		vista.agregarAlumno(null);
 	}
 	
 	public void gruposRegistradosPanel() {
@@ -32,7 +35,7 @@ public class GroupController {
 	}
 	
 	public void seleccionarLetras() {
-		vista.seleccionarLetras();
+		vista.seleccionarLetras(null);
 
 	}
 	
@@ -48,11 +51,11 @@ public class GroupController {
 		vista.buscarGrupo3();
 	}
 	public void editarGrupo() {
-	vista.editarGrupo();
+	vista.editarGrupo(null);
 	}
 
 	public void crearGrupo() {
-		vista.crearGrupo();
+		vista.crearGrupo(new AtributosGroup("","","",""));
 	}
 	public void buscarGrupo4() {
 		vista.buscarGrupo4();

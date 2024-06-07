@@ -559,7 +559,7 @@ public class TeacherView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 
-				model.generarPDFDatos(idtexto);
+				model.generarCredencial(idtexto);
 
 			}
 		});
@@ -777,7 +777,7 @@ public class TeacherView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 
-				model.generarPDFDatos(idtexto);
+				model.generarCredencial(idtexto);
 			}
 		});
 		panel_1.add(btnNewButton_20);
@@ -1324,22 +1324,6 @@ public class TeacherView {
 		lblNewLabel_15.setBounds(59, 92, 186, 30);		
 		panel.add(lblNewLabel_15);
 
-		JButton btnNewButton_20 = new JButton("Cambiar avatar");
-		btnNewButton_20.setBounds(486, 185, 131, 25);
-		btnNewButton_20.setOpaque(true);
-		btnNewButton_20.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_20.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-
-				seleccionAvatar2(idtexto,atributos);
-			}
-		});
-		panel_1.add(btnNewButton_20);
 
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
@@ -1447,6 +1431,32 @@ public class TeacherView {
 		textField_10.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_10);
 
+		JButton btnNewButton_20 = new JButton("Cambiar avatar");
+		btnNewButton_20.setBounds(486, 185, 131, 25);
+		btnNewButton_20.setOpaque(true);
+		btnNewButton_20.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_20.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				atributos.setDocentesId(textField_3.getText());
+				atributos.setApellidoPaterno(textField_4.getText());
+				atributos.setApellidoMaterno(textField_5.getText());
+				atributos.setNombre(textField_6.getText()); 
+				atributos.setNacimiento(textField_7.getText()); 
+				atributos.setEmail(textField_8.getText()); 
+				atributos.setEstudios(textField_9.getText()); 
+				atributos.setTelefono(textField_10.getText());
+				frame.remove(panel);
+				frame.dispose();
+				
+
+				seleccionAvatar2(idtexto,atributos);
+			}
+		});
+		panel_1.add(btnNewButton_20);
+		
 		JLabel lblNewLabel_26 = new JLabel("Avatar de docente");
 		lblNewLabel_26.setFont(new Font("Inter", Font.BOLD, 11));
 		lblNewLabel_26.setBounds(502, 16, 111, 13);

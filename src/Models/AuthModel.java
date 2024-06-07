@@ -44,6 +44,7 @@ public class AuthModel {
 
 				home = new HomeController();
 
+				System.out.println("Hola");
 				home.administrarPanel();
 				return true;
 			}
@@ -51,7 +52,7 @@ public class AuthModel {
 
 		catch (Exception e) {
 			// TODO: handle exception
-
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Conxeion fallida");
 		}
 		return false;

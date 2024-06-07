@@ -533,6 +533,7 @@ public class StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				model.generarCredencial(idtexto);
 
 			}
 		});
@@ -763,6 +764,9 @@ public class StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				model.generarCredencial(idtexto);
+
 
 			}
 		});
@@ -1300,21 +1304,6 @@ public class StudentView {
 		});
 		panel.add(btnNewButton_15);
 
-		JButton btnNewButton_20 = new JButton("Cambiar avatar");
-		btnNewButton_20.setBounds(486, 185, 131, 25);
-		btnNewButton_20.setOpaque(true);
-		btnNewButton_20.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_20.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				seleccionAvatar2(idtexto,atributos);
-			}
-		});
-		panel_1.add(btnNewButton_20);
 
 		JLabel lblNewLabel_25 = new JLabel("Numero de Control");
 		lblNewLabel_25.setFont(new Font("Inter", Font.BOLD, 13));
@@ -1407,6 +1396,32 @@ public class StudentView {
 		textField_10.setBounds(153, 217, 290, 19);
 		textField_10.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_10);
+		
+		JButton btnNewButton_20 = new JButton("Cambiar avatar");
+		btnNewButton_20.setBounds(486, 185, 131, 25);
+		btnNewButton_20.setOpaque(true);
+		btnNewButton_20.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_20.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				
+				atributos.setAlumnoId(textField_3.getText());
+				atributos.setApellidoPaterno(textField_4.getText());
+				atributos.setApellidoMaterno(textField_5.getText());
+				atributos.setNombre(textField_6.getText()); 
+				atributos.setNacimiento(textField_7.getText()); 
+				atributos.setEmail(textField_8.getText()); 
+				atributos.setEstudios(textField_9.getText()); 
+				atributos.setTelefono(textField_10.getText());
+				
+				seleccionAvatar2(idtexto,atributos);
+			}
+		});
+		panel_1.add(btnNewButton_20);
 
 
 		JLabel lblNewLabel_26 = new JLabel("Avatar de alumno");

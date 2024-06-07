@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -32,6 +33,9 @@ import Controllers.HomeController;
 import Controllers.StudentController;
 import Controllers.SubjectController;
 import Controllers.TeacherController;
+import Models.AtributosGroup;
+import Models.GroupModel;
+import Models.StudentModel;
 import Models.teacherModel;
 
 public class GroupView {
@@ -42,9 +46,10 @@ public class GroupView {
 	public StudentController student;
 	public SubjectController subject;
 	public AuthController view;
-	teacherModel model = new teacherModel();
+	StudentModel model = new StudentModel();
+	GroupModel control = new GroupModel();
 	private JFrame frame;
-
+	AtributosGroup grupo = new AtributosGroup("", "", "","");
 	public GroupView() {
 		// TODO Auto-generated constructor stub
 
@@ -82,7 +87,7 @@ public class GroupView {
 		});
 		panel.add(btnNewButton_14);
 
-		List<List> datos = model.get();
+		List<List> datos = control.get();
 
 		// Columnas de la tabla
 		String[] columnNames = {"Nombre"};
@@ -155,7 +160,7 @@ public class GroupView {
 		panel.add(scrollPane);		
 		frame.getContentPane().add(panel);
 
-		List<List> datos = model.get();
+		List<List> datos = control.get();
 
 		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
@@ -163,13 +168,16 @@ public class GroupView {
 		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
-			JButton button = new JButton(datos.get(i).get(0).toString());
+			String id = datos.get(i).get(0).toString();
+			JButton button = new JButton(id);
 			button.setBackground(Color.white);
 			button.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
+					String selectedId = id;
+					System.out.println("ID seleccionado: " + selectedId);
 					frame.remove(panel);
 					frame.dispose();
 					listaAlumnosPanel();
@@ -242,7 +250,7 @@ public class GroupView {
 		panel.add(scrollPane);		
 		frame.getContentPane().add(panel);
 
-		List<List> datos = model.get();
+		List<List> datos = control.get();
 
 		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
@@ -250,13 +258,17 @@ public class GroupView {
 		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
-			JButton button = new JButton(datos.get(i).get(0).toString());
+			String id = datos.get(i).get(0).toString();
+			JButton button = new JButton(id);
 			button.setBackground(Color.white);
 			button.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
+					
+					String selectedId = id;
+					System.out.println("ID seleccionado: " + selectedId);
 					frame.remove(panel);
 					frame.dispose();
 					listaAlumnosPanel2();
@@ -493,7 +505,7 @@ public class GroupView {
 
 
 
-	public void crearGrupo() {
+	public void crearGrupo(AtributosGroup atributos) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -504,6 +516,18 @@ public class GroupView {
 		panel_1.setBounds(59, 128, 652, 243);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
+		
+		JTextField textField_11 = new JTextField();
+		textField_11.setBounds(31, 40, 412, 19);
+		textField_11.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_11);
+		textField_11.setColumns(10);
+
+		JTextField textField_12 = new JTextField();
+		textField_12.setColumns(10);
+		textField_12.setBounds(31, 100, 412, 20);
+		textField_12.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_12);
 
 		JButton btnNewButton_25 = new JButton("Elegir letra del grupo");
 		btnNewButton_25.setFont(new Font("Inter", Font.BOLD, 11));
@@ -514,9 +538,12 @@ public class GroupView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				atributos.setNombre(textField_11.getText());
+				atributos.setDocente(textField_12.getText());
 				frame.remove(panel);
 				frame.dispose();
-				seleccionarLetras();
+				seleccionarLetras(atributos);
 			}
 		});
 		panel_1.add(btnNewButton_25);
@@ -532,7 +559,9 @@ public class GroupView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				agregarAlumno();
+				atributos.setNombre(textField_11.getText());
+				atributos.setDocente(textField_12.getText());
+				agregarAlumno(atributos);
 			}
 		});
 		panel_1.add(btnNewButton_26);
@@ -552,18 +581,6 @@ public class GroupView {
 		lblNewLabel_28_1_1.setBounds(31, 130, 155, 25);
 		panel_1.add(lblNewLabel_28_1_1);
 
-		JTextField textField_11 = new JTextField();
-		textField_11.setBounds(31, 40, 412, 19);
-		textField_11.setBackground(Color.decode("#D9D9D9"));
-		panel_1.add(textField_11);
-		textField_11.setColumns(10);
-
-		JTextField textField_12 = new JTextField();
-		textField_12.setColumns(10);
-		textField_12.setBounds(31, 100, 412, 20);
-		textField_12.setBackground(Color.decode("#D9D9D9"));
-		panel_1.add(textField_12);
-
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(31, 160, 412, 70);
 		panel_1.add(scrollPane);		
@@ -577,8 +594,10 @@ public class GroupView {
 		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][3];
 		for (int i = 0; i < datos.size(); i++) {
-			informacion[i][0] = datos.get(i).get(0);
-
+			informacion[i][0] = datos.get(i).get(1);
+			informacion[i][1] = datos.get(i).get(2);
+			informacion[i][2] = datos.get(i).get(3);
+			
 		}
 
 		// Crear el modelo de tabla con los datos obtenidos
@@ -603,7 +622,7 @@ public class GroupView {
 
 
 
-		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Letra_A.png"));
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource(atributos.getLetraDeGrupo()));
 		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
 		etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
 		etiquetaAvatar.setBounds(467, 17, 154, 77);
@@ -642,13 +661,36 @@ public class GroupView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				if (textField_11.getText().isEmpty() || textField_12.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
+
+				} else{
+					frame.remove(panel);
+					frame.dispose();
+					grupoCreadoPanel();
+					
+					String nombre = textField_11.getText();
+					String docente = textField_12.getText();
+					String avatar = atributos.getLetraDeGrupo();
+					String alumno = "hola";
+					control.crearGrupo(nombre,docente,avatar,alumno);
+	
+				}
+
 				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				grupoCreadoPanel();
+	
+				
 			}
 		});
 		panel.add(btnNewButton_14);
+		
+
+		if (atributos!=null)
+		{
+			textField_11.setText(atributos.getNombre());
+			textField_12.setText(atributos.getDocente());
+		}
 
 
 		metodoMenu(panel);
@@ -709,7 +751,7 @@ public class GroupView {
 		frame.revalidate();
 	}
 
-	public void seleccionarLetras() {
+	public void seleccionarLetras(AtributosGroup atributos) {
 		JPanel panelseleccionAvatar = new JPanel();
 		panelseleccionAvatar.setLayout(null);
 		panelseleccionAvatar.setBackground(Color.decode("#C3E1F1"));
@@ -733,7 +775,6 @@ public class GroupView {
 				"/Imagenes/Icono_Letra_A.png",
 				"/Imagenes/Icono_Letra_B.png",
 				"/Imagenes/Icono_Letra_C.png",
-				"/Imagenes/Icono_Letra_C.png",
 				"/Imagenes/Icono_Letra_D.png",
 				"/Imagenes/Icono_Letra_E.png",
 				"/Imagenes/Icono_Letra_F.png",
@@ -743,10 +784,10 @@ public class GroupView {
 				"/Imagenes/Icono_Letra_K.png",
 				"/Imagenes/Icono_Letra_L.png",
 		};
-
-		for (int i = 0; i <= 11; i++) {
+		final String[] selectedImagePath = new String[1];
+		for (int i = 0; i <= 10; i++) {
 			ImageIcon iconoAvatar = new ImageIcon(getClass().getResource(imagePaths[i]));
-			JButton button = new JButton(iconoAvatar); // Cambiado a JButton
+			RoundedButton button = new RoundedButton(iconoAvatar, Color.decode("#D9D9D9"));
 			final String imagePath = imagePaths[i];
 			button.setPreferredSize(new Dimension(94, 94));
 			button.setBackground(Color.decode("#D9D9D9"));
@@ -756,6 +797,7 @@ public class GroupView {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 
+					selectedImagePath[0] = imagePath;
 				}
 			});
 			panel_1.add(button);
@@ -770,10 +812,17 @@ public class GroupView {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					frame.remove(panelseleccionAvatar);
-					frame.dispose();
+					
+					if (selectedImagePath[0] != null) {
+		                atributos.setLetraDeGrupo(selectedImagePath[0]);
+		                frame.remove(panelseleccionAvatar);
+		                crearGrupo(atributos);
+		                
+		            } else {
+		                JOptionPane.showMessageDialog(frame, "Por favor, seleccione un avatar.", "Error", JOptionPane.ERROR_MESSAGE);
+		            }
 
-					crearGrupo();
+					
 				}
 			});
 			panelseleccionAvatar.add(btnNewButton_14);
@@ -786,7 +835,7 @@ public class GroupView {
 
 	}
 
-	public void agregarAlumno() {
+	public void agregarAlumno(AtributosGroup atributos) {
 		JPanel panel = new JPanel();
 		panel.setForeground(new Color(0, 0, 0));
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -836,9 +885,11 @@ public class GroupView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				
 				frame.remove(panel);
 				frame.dispose();
-				crearGrupo();
+				crearGrupo(atributos);
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -854,7 +905,7 @@ public class GroupView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				crearGrupo();
+				crearGrupo(atributos);
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -882,7 +933,7 @@ public class GroupView {
 		panel.add(scrollPane);		
 		frame.getContentPane().add(panel);
 
-		List<List> datos = model.get();
+		List<List> datos = control.get();
 
 		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
@@ -890,16 +941,25 @@ public class GroupView {
 		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
-			JButton button = new JButton(datos.get(i).get(0).toString());
+			String id = datos.get(i).get(0).toString();
+			JButton button = new JButton(id);
 			button.setBackground(Color.white);
 			button.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					frame.remove(panel);
-					frame.dispose();
-					editarGrupo();
+					
+					String selectedId = id;
+					System.out.println("ID seleccionado: " + selectedId);
+					
+					AtributosGroup detalles = control.datosDelGrupo(selectedId);
+						frame.remove(panel);						
+						frame.dispose();
+						editarGrupo(detalles);
+					
+
+				
 				}
 			});
 			informacion[i][0] = button;
@@ -959,10 +1019,22 @@ public class GroupView {
 		frame.revalidate();
 	}
 
-	public void editarGrupo() {
+	public void editarGrupo(AtributosGroup atributos) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		String nombre = "";
+		String docente = "";
+		String avatar = "";
+		
+		if (atributos!=null)
+		{
+			nombre = atributos.getNombre();
+			docente = atributos.getDocente();
+			avatar= atributos.getLetraDeGrupo();
+		}
+	
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
@@ -971,37 +1043,7 @@ public class GroupView {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 
-		JButton btnNewButton_25 = new JButton("Cambiar letra");
-		btnNewButton_25.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_25.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_25.setBounds(467, 100, 154, 21);
-		btnNewButton_25.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				seleccionarLetras2();
-			}
-		});
-		panel_1.add(btnNewButton_25);
-
-		JButton btnNewButton_26 = new JButton("Agregar alumno");
-		btnNewButton_26.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_26.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_26.setBounds(467, 160, 154, 70);
-		btnNewButton_26.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				agregarAlumno2();
-			}
-		});
-		panel_1.add(btnNewButton_26);
 
 		JLabel lblNewLabel_28 = new JLabel("Nombre del grupo");
 		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
@@ -1018,13 +1060,17 @@ public class GroupView {
 		lblNewLabel_28_1_1.setBounds(31, 130, 155, 25);
 		panel_1.add(lblNewLabel_28_1_1);
 
-		JTextField textField_11 = new JTextField();
+		JTextField textField_11 = new JTextField(nombre);
 		textField_11.setBounds(31, 40, 412, 19);
 		textField_11.setBackground(Color.decode("#D9D9D9"));
+		textField_11.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_11.setBorder(null);
+		textField_11.setOpaque(false);
+		textField_11.setEditable(false);
 		panel_1.add(textField_11);
 		textField_11.setColumns(10);
 
-		JTextField textField_12 = new JTextField();
+		JTextField textField_12 = new JTextField(docente);
 		textField_12.setColumns(10);
 		textField_12.setBounds(31, 100, 412, 20);
 		textField_12.setBackground(Color.decode("#D9D9D9"));
@@ -1069,7 +1115,7 @@ public class GroupView {
 
 
 
-		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Letra_A.png"));
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource(avatar));
 		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
 		etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
 		etiquetaAvatar.setBounds(467, 17, 154, 77);
@@ -1109,12 +1155,58 @@ public class GroupView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				
+				String nombre = textField_11.getText();
+				String docente = textField_12.getText();
+				String letraAvatar = atributos.getLetraDeGrupo();
+				String alumno ="holis";
+				
+				control.editarGrupo(nombre, docente, letraAvatar, alumno);
 				frame.remove(panel);
 				frame.dispose();
+				
+				
 				grupoEditadoPanel();
 			}
 		});
 		panel.add(btnNewButton_14);
+		
+		JButton btnNewButton_25 = new JButton("Cambiar letra");
+		btnNewButton_25.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_25.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_25.setBounds(467, 100, 154, 21);
+		btnNewButton_25.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				atributos.setDocente(textField_12.getText());
+				
+				frame.remove(panel);
+				frame.dispose();
+				seleccionarLetras2(atributos);
+			}
+		});
+		panel_1.add(btnNewButton_25);
+
+		JButton btnNewButton_26 = new JButton("Agregar alumno");
+		btnNewButton_26.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_26.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_26.setBounds(467, 160, 154, 70);
+		btnNewButton_26.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				atributos.setDocente(textField_12.getText());
+				frame.remove(panel);
+				frame.dispose();
+				agregarAlumno2(atributos);
+			}
+		});
+		panel_1.add(btnNewButton_26);
 
 
 		metodoMenu(panel);
@@ -1125,7 +1217,7 @@ public class GroupView {
 		frame.revalidate();
 	}
 
-	public void seleccionarLetras2() {
+	public void seleccionarLetras2(AtributosGroup atributos) {
 		JPanel panelseleccionAvatar = new JPanel();
 		panelseleccionAvatar.setLayout(null);
 		panelseleccionAvatar.setBackground(Color.decode("#C3E1F1"));
@@ -1149,7 +1241,6 @@ public class GroupView {
 				"/Imagenes/Icono_Letra_A.png",
 				"/Imagenes/Icono_Letra_B.png",
 				"/Imagenes/Icono_Letra_C.png",
-				"/Imagenes/Icono_Letra_C.png",
 				"/Imagenes/Icono_Letra_D.png",
 				"/Imagenes/Icono_Letra_E.png",
 				"/Imagenes/Icono_Letra_F.png",
@@ -1159,19 +1250,20 @@ public class GroupView {
 				"/Imagenes/Icono_Letra_K.png",
 				"/Imagenes/Icono_Letra_L.png",
 		};
+		final String[] selectedImagePath = new String[1];
 
-		for (int i = 0; i <= 11; i++) {
+		for (int i = 0; i <= 9; i++) {
 			ImageIcon iconoAvatar = new ImageIcon(getClass().getResource(imagePaths[i]));
-			JButton button = new JButton(iconoAvatar); // Cambiado a JButton
+
+			RoundedButton button = new RoundedButton(iconoAvatar, Color.decode("#D9D9D9"));
 			final String imagePath = imagePaths[i];
 			button.setPreferredSize(new Dimension(94, 94));
-			button.setBackground(Color.decode("#D9D9D9"));
 			button.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-
+					selectedImagePath[0] = imagePath;
 				}
 			});
 			panel_1.add(button);
@@ -1186,14 +1278,24 @@ public class GroupView {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					frame.remove(panelseleccionAvatar);
-					frame.dispose();
+					
+					if (selectedImagePath[0] != null) {
+		                atributos.setLetraDeGrupo(selectedImagePath[0]);
+		                frame.remove(panelseleccionAvatar);
+		                frame.dispose();
+		                editarGrupo(atributos);
+		            } else {
+		                JOptionPane.showMessageDialog(frame, "Por favor, seleccione un avatar.", "Error", JOptionPane.ERROR_MESSAGE);
+		            }
 
-					editarGrupo();
+
+
+					
 				}
 			});
 			panelseleccionAvatar.add(btnNewButton_14);
 		}	
+
 
 		frame.add(panelseleccionAvatar);
 		frame.setVisible(true);
@@ -1202,7 +1304,7 @@ public class GroupView {
 
 	}
 
-	public void agregarAlumno2() {
+	public void agregarAlumno2(AtributosGroup atributos) {
 		JPanel panel = new JPanel();
 		panel.setForeground(new Color(0, 0, 0));
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -1253,8 +1355,10 @@ public class GroupView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
+				
+				
 				frame.dispose();
-				editarGrupo();
+				editarGrupo(atributos);
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -1270,7 +1374,7 @@ public class GroupView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				editarGrupo();
+				editarGrupo(atributos);
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -1341,13 +1445,15 @@ public class GroupView {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(59, 128, 652, 243);
 		panel.add(scrollPane);		
 		frame.getContentPane().add(panel);
 
-		List<List> datos = model.get();
+		List<List> datos = control.get();
 
 		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
@@ -1355,16 +1461,20 @@ public class GroupView {
 		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
-			JButton button = new JButton(datos.get(i).get(0).toString());
+			String id = datos.get(i).get(0).toString();
+			JButton button = new JButton(id);
 			button.setBackground(Color.white);
 			button.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
+					String selectedId = id;
+					System.out.println("ID seleccionado: " + selectedId);
+					AtributosGroup detalles = control.datosDelGrupo(selectedId);
 					frame.remove(panel);
 					frame.dispose();
-					eliminarGrupo();
+					eliminarGrupo(detalles);
 				}
 			});
 			informacion[i][0] = button;
@@ -1425,10 +1535,21 @@ public class GroupView {
 
 	}
 
-	public void eliminarGrupo() {
+	public void eliminarGrupo(AtributosGroup atributos) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		String nombre = "";
+		String docente = "";
+		String avatar = "";
+		
+		if (atributos!=null)
+		{
+			nombre = atributos.getNombre();
+			docente = atributos.getDocente();
+			avatar= atributos.getLetraDeGrupo();
+		}
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
@@ -1453,17 +1574,26 @@ public class GroupView {
 		lblNewLabel_28_1_1.setBounds(31, 130, 155, 25);
 		panel_1.add(lblNewLabel_28_1_1);
 
-		JTextField textField_11 = new JTextField();
+		JTextField textField_11 = new JTextField(nombre);
 		textField_11.setBounds(31, 40, 412, 19);
 		textField_11.setBackground(Color.decode("#D9D9D9"));
+		textField_11.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_11.setBorder(null);
+		textField_11.setOpaque(false);
+		textField_11.setEditable(false);
 		panel_1.add(textField_11);
 		textField_11.setColumns(10);
 
-		JTextField textField_12 = new JTextField();
+		JTextField textField_12 = new JTextField(docente);
 		textField_12.setColumns(10);
 		textField_12.setBounds(31, 100, 412, 20);
 		textField_12.setBackground(Color.decode("#D9D9D9"));
+		textField_12.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_12.setBorder(null);
+		textField_12.setOpaque(false);
+		textField_12.setEditable(false);
 		panel_1.add(textField_12);
+		textField_12.setColumns(10);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(31, 160, 412, 70);
@@ -1500,7 +1630,7 @@ public class GroupView {
 
 		frame.setVisible(true);
 
-		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Letra_A.png"));
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource(avatar));
 		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
 		etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
 		etiquetaAvatar.setBounds(467, 17, 154, 77);
@@ -1540,9 +1670,11 @@ public class GroupView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				String idGrupo = textField_11.getText();
 				frame.remove(panel);
 				frame.dispose();
-				confirmarEliminarPanel();
+				confirmarEliminarPanel(atributos,idGrupo);
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -1556,7 +1688,7 @@ public class GroupView {
 		frame.revalidate();
 	}
 
-	public void confirmarEliminarPanel() {
+	public void confirmarEliminarPanel(AtributosGroup atributos, String nombre) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -1592,7 +1724,7 @@ public class GroupView {
 				frame.remove(panel);
 				frame.dispose();
 
-				eliminarGrupo();
+				eliminarGrupo(atributos);
 			}
 		});
 		panel_1.add(btnNewButton_7);
@@ -1615,7 +1747,8 @@ public class GroupView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				grupoEliminadoPanel();
+				grupoEliminadoPanel(atributos);
+				control.eliminarGrupo(nombre);
 
 
 			}
@@ -1628,7 +1761,7 @@ public class GroupView {
 		frame.revalidate();
 	}
 
-	public void grupoEliminadoPanel() {
+	public void grupoEliminadoPanel(AtributosGroup atributos) {
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);

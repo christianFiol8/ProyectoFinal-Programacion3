@@ -11,9 +11,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -113,92 +116,160 @@ public class teacherModel {
 		}
 		return null;
 	}
-	
+
 	public void generarPDFDatos(String idDocentes) {
 
 
-		 atributosTeacher docente = buscarDocentes(idDocentes);
+		atributosTeacher docente = buscarDocentes(idDocentes);
 
-		    if (docente == null) {
-		        JOptionPane.showMessageDialog(null, "No se encontraron datos del docente.");
-		        return;
-		    }
+		if (docente == null) {
+			JOptionPane.showMessageDialog(null, "No se encontraron datos del docente.");
+			return;
+		}
 
-		    Document document = new Document(PageSize.A4.rotate());
-		    JFileChooser chooser = new JFileChooser();
-		    chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		    chooser.setAcceptAllFileFilterUsed(false);
-		    FileNameExtensionFilter pdfs = new FileNameExtensionFilter("Documentos PDF", "pdf");
-		    chooser.addChoosableFileFilter(pdfs);
-		    chooser.setFileFilter(pdfs);
-		    
-		    if (JFileChooser.CANCEL_OPTION == chooser.showDialog(null, "Generar PDF")) {
-		        JOptionPane.showMessageDialog(null, "No se generó el PDF.");
-		        return;
-		    }
+		Document document = new Document(PageSize.A4.rotate());
+		JFileChooser chooser = new JFileChooser();
+		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		chooser.setAcceptAllFileFilterUsed(false);
+		FileNameExtensionFilter pdfs = new FileNameExtensionFilter("Documentos PDF", "pdf");
+		chooser.addChoosableFileFilter(pdfs);
+		chooser.setFileFilter(pdfs);
 
-		    try {
-		        PdfWriter.getInstance(document, new FileOutputStream(chooser.getSelectedFile() + ".pdf"));
-		        document.open();
+		if (JFileChooser.CANCEL_OPTION == chooser.showDialog(null, "Generar PDF")) {
+			JOptionPane.showMessageDialog(null, "No se generó el PDF.");
+			return;
+		}
 
-		        // Agrega contenido al documento
-		        document.add(new Paragraph("Información del docente"));
+		try {
+			PdfWriter.getInstance(document, new FileOutputStream(chooser.getSelectedFile() + ".pdf"));
+			document.open();
 
-		        // Crea la tabla
-		        // Crea la tabla
-		        PdfPTable table = new PdfPTable(new float[]{1, 1, 1, 1, 1, 1, 1, 1});
-		        table.setWidthPercentage(100);
+			// Agrega contenido al documento
+			document.add(new Paragraph("Información del docente"));
 
-		        // Agrega encabezados a la tabla
-		        PdfPCell nombresHeader = new PdfPCell(new Phrase("ID del docente"));
-		        nombresHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-		        PdfPCell apellidosHeader = new PdfPCell(new Phrase("Apellido paterno"));
-		        apellidosHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-		        PdfPCell idHeader = new PdfPCell(new Phrase("Apellido materno"));
-		        idHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-		        PdfPCell nacimientoHeader = new PdfPCell(new Phrase("Nombre"));
-		        nacimientoHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-		        PdfPCell emailHeader = new PdfPCell(new Phrase("Fecha de nacimiento"));
-		        emailHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-		        PdfPCell estudiosHeader = new PdfPCell(new Phrase("Correo electronico"));
-		        estudiosHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-		        PdfPCell telefonoHeader = new PdfPCell(new Phrase("Grado academico"));
-		        telefonoHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-		        PdfPCell direccionHeader = new PdfPCell(new Phrase("Telefono"));
-		        direccionHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+			// Crea la tabla
+			// Crea la tabla
+			PdfPTable table = new PdfPTable(new float[]{1, 1, 1, 1, 1, 1, 1, 1});
+			table.setWidthPercentage(100);
+
+			// Agrega encabezados a la tabla
+			PdfPCell nombresHeader = new PdfPCell(new Phrase("ID del docente"));
+			nombresHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+			PdfPCell apellidosHeader = new PdfPCell(new Phrase("Apellido paterno"));
+			apellidosHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+			PdfPCell idHeader = new PdfPCell(new Phrase("Apellido materno"));
+			idHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+			PdfPCell nacimientoHeader = new PdfPCell(new Phrase("Nombre"));
+			nacimientoHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+			PdfPCell emailHeader = new PdfPCell(new Phrase("Fecha de nacimiento"));
+			emailHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+			PdfPCell estudiosHeader = new PdfPCell(new Phrase("Correo electronico"));
+			estudiosHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+			PdfPCell telefonoHeader = new PdfPCell(new Phrase("Grado academico"));
+			telefonoHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+			PdfPCell direccionHeader = new PdfPCell(new Phrase("Telefono"));
+			direccionHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
 
 
-		        table.addCell(nombresHeader);
-		        table.addCell(apellidosHeader);
-		        table.addCell(idHeader);
-		        table.addCell(nacimientoHeader);
-		        table.addCell(emailHeader);
-		        table.addCell(estudiosHeader);
-		        table.addCell(telefonoHeader);
-		        table.addCell(direccionHeader);
-		    
+			table.addCell(nombresHeader);
+			table.addCell(apellidosHeader);
+			table.addCell(idHeader);
+			table.addCell(nacimientoHeader);
+			table.addCell(emailHeader);
+			table.addCell(estudiosHeader);
+			table.addCell(telefonoHeader);
+			table.addCell(direccionHeader);
 
-		        // Agrega fila a la tabla utilizando los datos obtenidos de docente
-		        table.addCell(docente.getDocentesId());
-		        table.addCell(docente.getApellidoPaterno());
-		        table.addCell(docente.getApellidoMaterno());
-		        table.addCell(docente.getNombre());
-		        table.addCell(docente.getNacimiento());
-		        table.addCell(docente.getEmail());
-		        table.addCell(docente.getEstudios());
-		        table.addCell(docente.getTelefono()); // Reemplaza con el dato real
-		    
 
-		        // Agrega la tabla al documento
-		        document.add(table);
+			// Agrega fila a la tabla utilizando los datos obtenidos de docente
+			table.addCell(docente.getDocentesId());
+			table.addCell(docente.getApellidoPaterno());
+			table.addCell(docente.getApellidoMaterno());
+			table.addCell(docente.getNombre());
+			table.addCell(docente.getNacimiento());
+			table.addCell(docente.getEmail());
+			table.addCell(docente.getEstudios());
+			table.addCell(docente.getTelefono()); // Reemplaza con el dato real
 
-		        // Cierra el documento
-		        document.close();
 
-		    } catch (FileNotFoundException | DocumentException e) {
-		        e.printStackTrace();
-		        System.out.println("No se genero");
-		    }
+			// Agrega la tabla al documento
+			document.add(table);
+
+			// Cierra el documento
+			document.close();
+
+		} catch (FileNotFoundException | DocumentException e) {
+			e.printStackTrace();
+			System.out.println("No se genero");
+		}
+	}
+	
+	public void generarCredencial (String idDocentes)
+	{
+	    atributosTeacher docente = buscarDocentes(idDocentes);
+
+	    if (docente == null) {
+	        JOptionPane.showMessageDialog(null, "No se encontraron datos del docente.");
+	        return;
+	    }
+
+	    // Tamaño de credencial (3.37 x 2.13 pulgadas)
+	    Rectangle credencialSize = new Rectangle(3.37f * 72, 2.13f * 72);
+	    Document document = new Document(credencialSize);
+
+	    JFileChooser chooser = new JFileChooser();
+	    chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+	    chooser.setAcceptAllFileFilterUsed(false);
+	    FileNameExtensionFilter pdfs = new FileNameExtensionFilter("Documentos PDF", "pdf");
+	    chooser.addChoosableFileFilter(pdfs);
+	    chooser.setFileFilter(pdfs);
+
+	    if (JFileChooser.CANCEL_OPTION == chooser.showDialog(null, "Generar PDF")) {
+	        JOptionPane.showMessageDialog(null, "No se generó el PDF.");
+	        return;
+	    }
+
+	    try {
+	        PdfWriter.getInstance(document, new FileOutputStream(chooser.getSelectedFile() + ".pdf"));
+	        document.open();
+
+	        // Crear una tabla con una sola columna para centrar el contenido
+	        PdfPTable table = new PdfPTable(1);
+	        table.setWidthPercentage(100);
+
+	        // Agrega la imagen del avatar
+	        try {
+	            Image avatarImage = Image.getInstance(getClass().getResource(docente.getAvatar()));
+	            avatarImage.scaleToFit(72, 72); // Ajusta el tamaño de la imagen (1 inch = 72 points)
+	            avatarImage.setAlignment(Element.ALIGN_CENTER);
+	            PdfPCell imageCell = new PdfPCell(avatarImage, true);
+	            imageCell.setBorder(Rectangle.NO_BORDER);
+	            imageCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	            table.addCell(imageCell);
+	        } catch (Exception e) {
+	            System.err.println("Error al cargar la imagen del avatar: " + e.getMessage());
+	        }
+
+	        // Agrega el nombre y los apellidos
+	        Font font = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+	        Paragraph nombreCompleto = new Paragraph(docente.getNombre() + " " + docente.getApellidoPaterno() + " " + docente.getApellidoMaterno(), font);
+	        nombreCompleto.setAlignment(Element.ALIGN_CENTER);
+	        PdfPCell textCell = new PdfPCell(nombreCompleto);
+	        textCell.setBorder(Rectangle.NO_BORDER);
+	        textCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        textCell.setVerticalAlignment(Element.ALIGN_TOP);
+	        table.addCell(textCell);
+
+	        // Agrega la tabla al documento
+	        document.add(table);
+
+	        // Cierra el documento
+	        document.close();
+
+	    } catch (FileNotFoundException | DocumentException e) {
+	        e.printStackTrace();
+	        System.out.println("No se generó");
+	    }
 	}
 
 
