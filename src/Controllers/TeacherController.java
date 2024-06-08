@@ -1,5 +1,7 @@
 package Controllers;
 
+import javax.swing.JTextField;
+
 import Models.atributosTeacher;
 import Views.StudentView;
 import Views.TeacherView;

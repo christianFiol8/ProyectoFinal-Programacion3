@@ -36,6 +36,7 @@ import Controllers.TeacherController;
 import Models.AtributosGroup;
 import Models.GroupModel;
 import Models.StudentModel;
+import Models.atributosStudent;
 import Models.teacherModel;
 
 public class GroupView {
@@ -887,9 +888,23 @@ public class GroupView {
 				// TODO Auto-generated method stub
 				
 				
-				frame.remove(panel);
-				frame.dispose();
-				crearGrupo(atributos);
+				if (textField_2.getText().equals("")) {
+				    JOptionPane.showMessageDialog(null, "Llenar campo");
+				} else {
+				    // Busca al alumno en la base de datos
+				    atributosStudent alumno = model.buscarAlumno(textField_2.getText());
+				    
+				    // Verifica si el alumno fue encontrado
+				    if (alumno != null) {
+				        // Si el alumno fue encontrado, procede con la siguiente operación
+				        frame.remove(panel);
+				        frame.dispose();
+				        crearGrupo(atributos);
+				    } else {
+				        // Si el alumno no fue encontrado, muestra una advertencia
+				        JOptionPane.showMessageDialog(null, "El alumno no existe");
+				    }
+				}
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -1354,11 +1369,23 @@ public class GroupView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				frame.remove(panel);
-				
-				
-				frame.dispose();
-				editarGrupo(atributos);
+				if (textField_2.getText().equals("")) {
+				    JOptionPane.showMessageDialog(null, "Llenar campo");
+				} else {
+				    // Busca al alumno en la base de datos
+				    atributosStudent alumno = model.buscarAlumno(textField_2.getText());
+				    
+				    // Verifica si el alumno fue encontrado
+				    if (alumno != null) {
+				        // Si el alumno fue encontrado, procede con la siguiente operación
+				        frame.remove(panel);
+				        frame.dispose();
+				        editarGrupo(atributos);
+				    } else {
+				        // Si el alumno no fue encontrado, muestra una advertencia
+				        JOptionPane.showMessageDialog(null, "El alumno no existe");
+				    }
+				}
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -2251,7 +2278,7 @@ public class GroupView {
 				// TODO Auto-generated method stub
 				frame.dispose();
 				student = new StudentController();
-				student.editarInformacionAlumno();
+				student.buscarIDPanel3();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_9);
@@ -2264,7 +2291,7 @@ public class GroupView {
 				// TODO Auto-generated method stub
 				frame.dispose();
 				student = new StudentController();
-				student.eliminarAlumnoPanel();
+				student.buscarIDPanel4();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_10);
@@ -2371,6 +2398,9 @@ public class GroupView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				subject = new SubjectController();
+				subject.buscarAsignatura4();
 			}
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_17);
