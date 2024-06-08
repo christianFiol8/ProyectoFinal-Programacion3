@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -17,6 +18,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import Controllers.AuthController;
 import Controllers.GroupController;
@@ -24,6 +30,8 @@ import Controllers.HomeController;
 import Controllers.StudentController;
 import Controllers.SubjectController;
 import Controllers.TeacherController;
+import Models.GroupModel;
+import Models.StudentModel;
 
 public class SubjectView {
 
@@ -33,6 +41,8 @@ public class SubjectView {
 	public TeacherController teacher;
 	public SubjectController subject;
 	public GroupController group;
+	StudentModel model = new StudentModel();
+	GroupModel control = new GroupModel();
 	public AuthController view;
 
 	public SubjectView() {
@@ -51,83 +61,63 @@ public class SubjectView {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(59, 128, 652, 243);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JButton btnNewButton_16 = new JButton("Ver detalles");
-		btnNewButton_16.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_16.setBounds(532, 20, 110, 21);
-		btnNewButton_16.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_16.addActionListener(new ActionListener() {
 
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(59, 128, 652, 243);
+		panel.add(scrollPane);		
+		frame.getContentPane().add(panel);
+
+
+		JButton btnNewButton_14 = new JButton("Ver detalles");
+		btnNewButton_14.setForeground(Color.white);
+		btnNewButton_14.setOpaque(true);
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(236, 384, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
 				buscarAsignatura();
 			}
 		});
-		panel_1.add(btnNewButton_16);
-		
-		JButton btnNewButton_17 = new JButton("Ver detalles");
-		btnNewButton_17.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_17.setBounds(532, 77, 110, 21);
-		btnNewButton_17.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_17.addActionListener(new ActionListener() {
+		panel.add(btnNewButton_14);
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				buscarAsignatura();
-			}
-		});
-		panel_1.add(btnNewButton_17);
-		
-		JButton btnNewButton_18 = new JButton("Ver detalles");
-		btnNewButton_18.setBounds(532, 140, 110, 21);
-		btnNewButton_18.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_18.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_18.addActionListener(new ActionListener() {
+		List<List> datos = control.get();
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				buscarAsignatura();
-			}
-		});
-		panel_1.add(btnNewButton_18);
-		
-		JButton btnNewButton_19 = new JButton("Ver detalles");
-		btnNewButton_19.setBounds(532, 193, 110, 21);
-		btnNewButton_19.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_19.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_19.addActionListener(new ActionListener() {
+		// Columnas de la tabla
+		String[] columnNames = {"Nombre"};
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				detallesAsignaturaPanel();
-			}
-		});
-		panel_1.add(btnNewButton_19);
-		
+		// Datos de la tabla
+		Object[][] informacion = new Object[datos.size()][1];
+		for (int i = 0; i < datos.size(); i++) {
+			informacion[i][0] = datos.get(i).get(0);
+
+		}
+
+		// Crear el modelo de tabla con los datos obtenidos
+		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
+
+		// Crear la tabla con el modelo
+		JTable table = new JTable(tableModel);
+
+		// Configuración de la tabla
+		table.setDefaultRenderer(Object.class, new RenderTabla());
+		table.getColumnModel().getColumn(0).setPreferredWidth(90);
+
+		table.setBounds(59, 128, 652, 243);
+		table.setRowHeight(50);
+
+		scrollPane.setViewportView(table);
+
+		frame.setVisible(true);
+
 		JLabel lblNewLabel_15 = new JLabel("Asignaturas registradas");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_15.setBounds(59, 92, 186, 30);		
+		lblNewLabel_15.setBounds(59, 92, 206, 30);		
 		panel.add(lblNewLabel_15);
-		
+
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
@@ -145,33 +135,85 @@ public class SubjectView {
 			}
 		});
 		panel.add(btnNewButton_15);
-	
-		 
-		
+
+
+
+
 		metodoMenu(panel);
-		
+
 		frame.add(panel);
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
+	
 	}
 
 	public void buscarAsignatura() {
 		JPanel panel = new JPanel();
-		panel.setForeground(new Color(0, 0, 0));
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JLabel lblNewLabel_15 = new JLabel("Selecciona una asignatura");
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(59, 128, 652, 243);
+		panel.add(scrollPane);		
+		frame.getContentPane().add(panel);
+
+		List<List> datos = control.get();
+
+		// Columnas de la tabla
+		String[] columnNames = {"Grupos"};
+
+		// Datos de la tabla
+		Object[][] informacion = new Object[datos.size()][1];
+		for (int i = 0; i < datos.size(); i++) {
+			String id = datos.get(i).get(0).toString();
+			JButton button = new JButton(id);
+			button.setBackground(Color.white);
+			button.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					String selectedId = id;
+					System.out.println("ID seleccionado: " + selectedId);
+					frame.remove(panel);
+					frame.dispose();
+					detallesAsignatura();
+				}
+			});
+			informacion[i][0] = button;
+
+		}
+
+		// Crear el modelo de tabla con los datos obtenidos
+		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
+
+		// Crear la tabla con el modelo
+		JTable table = new JTable(tableModel);
+
+		// Configuración de la tabla
+		table.setDefaultRenderer(Object.class, new RenderTabla());
+		table.getColumnModel().getColumn(0).setPreferredWidth(90);
+
+		table.setBounds(59, 128, 652, 243);
+		table.getColumnModel().getColumn(0).setCellRenderer(new RenderTabla());
+		table.getColumnModel().getColumn(0).setCellEditor(new ButtonEditor());
+		table.setRowHeight(50);
+		table.setTableHeader(null);
+
+		scrollPane.setViewportView(table);
+
+		frame.setVisible(true);
+
+		JLabel lblNewLabel_15 = new JLabel("Seleccionar asignatura");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_15.setBounds(269, 91, 282, 30);
+		lblNewLabel_15.setBounds(265, 91, 282, 30);
 		panel.add(lblNewLabel_15);
-		
+
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(71, 79, 110, 30);
+		btnNewButton_15.setBounds(59, 50, 110, 25);
 		btnNewButton_15.addActionListener(new ActionListener() {
 
 			@Override
@@ -179,423 +221,25 @@ public class SubjectView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
+
 				asignaturasRegistradasPanel();
 			}
 		});
 		panel.add(btnNewButton_15);
-	
-		 
-		
-		
+
+
+
+
 		metodoMenu(panel);
-		
-		JButton btnNewButton_22 = new JButton("A");
-		btnNewButton_22.setFont(new Font("Inter", Font.BOLD, 25));
-		btnNewButton_22.setBounds(217, 199, 85, 68);
-		btnNewButton_22.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				detallesAsignaturaPanel();
-			}
-		});
-		panel.add(btnNewButton_22);
-		
-		JButton btnNewButton_23 = new JButton("B");
-		btnNewButton_23.setFont(new Font("Inter", Font.BOLD, 25));
-		btnNewButton_23.setBounds(339, 199, 85, 68);
-		btnNewButton_23.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				detallesAsignaturaPanel();
-			}
-		});
-		panel.add(btnNewButton_23);
-		
-		JButton btnNewButton_24 = new JButton("C");
-		btnNewButton_24.setFont(new Font("Inter", Font.BOLD, 25));
-		btnNewButton_24.setBounds(466, 199, 85, 68);
-		btnNewButton_24.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				detallesAsignaturaPanel();
-			}
-		});
-		panel.add(btnNewButton_24);
-		
-metodoMenu(panel);
-		
 		frame.add(panel);
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
+		
 	}
 
-	
-	public void buscarAsignatura2() {
-		JPanel panel = new JPanel();
-		panel.setForeground(new Color(0, 0, 0));
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JLabel lblNewLabel_15 = new JLabel("Selecciona una asignatura");
-		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_15.setBounds(269, 91, 282, 30);
-		panel.add(lblNewLabel_15);
-		
-		JButton btnNewButton_15 = new JButton("Volver");
-		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(71, 79, 110, 30);
-		btnNewButton_15.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-
-				home = new HomeController();
-				home.asignaturasPanel();
-			}
-		});
-		panel.add(btnNewButton_15);
-	
-		 
-		
-		
-		metodoMenu(panel);
-		
-		JButton btnNewButton_22 = new JButton("A");
-		btnNewButton_22.setFont(new Font("Inter", Font.BOLD, 25));
-		btnNewButton_22.setBounds(217, 199, 85, 68);
-		btnNewButton_22.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				EditarAsignaturaPanel();
-			}
-		});
-		panel.add(btnNewButton_22);
-		
-		JButton btnNewButton_23 = new JButton("B");
-		btnNewButton_23.setFont(new Font("Inter", Font.BOLD, 25));
-		btnNewButton_23.setBounds(339, 199, 85, 68);
-		btnNewButton_23.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				EditarAsignaturaPanel();
-			}
-		});
-		panel.add(btnNewButton_23);
-		
-		JButton btnNewButton_24 = new JButton("C");
-		btnNewButton_24.setFont(new Font("Inter", Font.BOLD, 25));
-		btnNewButton_24.setBounds(466, 199, 85, 68);
-		btnNewButton_24.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				EditarAsignaturaPanel();
-			}
-		});
-		panel.add(btnNewButton_24);
-		
-metodoMenu(panel);
-		
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-	}
-
-	public void buscarAsignatura3() {
-		JPanel panel = new JPanel();
-		panel.setForeground(new Color(0, 0, 0));
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JLabel lblNewLabel_15 = new JLabel("Selecciona una asignatura");
-		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_15.setBounds(269, 91, 282, 30);
-		panel.add(lblNewLabel_15);
-		
-		JButton btnNewButton_15 = new JButton("Volver");
-		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(71, 79, 110, 30);
-		btnNewButton_15.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-
-				home = new HomeController();
-				home.asignaturasPanel();
-			}
-		});
-		panel.add(btnNewButton_15);
-	
-		 
-		
-		
-		metodoMenu(panel);
-		
-		JButton btnNewButton_22 = new JButton("A");
-		btnNewButton_22.setFont(new Font("Inter", Font.BOLD, 25));
-		btnNewButton_22.setBounds(217, 199, 85, 68);
-		btnNewButton_22.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				confirmarEliminarPanel();
-			}
-		});
-		panel.add(btnNewButton_22);
-		
-		JButton btnNewButton_23 = new JButton("B");
-		btnNewButton_23.setFont(new Font("Inter", Font.BOLD, 25));
-		btnNewButton_23.setBounds(339, 199, 85, 68);
-		btnNewButton_23.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				confirmarEliminarPanel();
-			}
-		});
-		panel.add(btnNewButton_23);
-		
-		JButton btnNewButton_24 = new JButton("C");
-		btnNewButton_24.setFont(new Font("Inter", Font.BOLD, 25));
-		btnNewButton_24.setBounds(466, 199, 85, 68);
-		btnNewButton_24.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				confirmarEliminarPanel();
-			}
-		});
-		panel.add(btnNewButton_24);
-		
-metodoMenu(panel);
-		
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-	}
-
-
-	public void EditarAsignaturaPanel() {
-		JPanel panel = new JPanel();
-		
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JLabel lblNewLabel_15 = new JLabel("Editar asignatura");
-		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_15.setBounds(296, 90, 282, 30);
-		panel.add(lblNewLabel_15);
-		
-		JButton btnNewButton_15 = new JButton("Volver");
-		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(71, 79, 110, 30);
-		btnNewButton_15.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				buscarAsignatura2();
-			}
-		});
-		panel.add(btnNewButton_15);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(204, 128, 374, 243);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JButton btnNewButton_14 = new JButton("Editar datos");
-		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_14.setBounds(256, 381, 300, 30);
-		btnNewButton_14.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				ConfirmarCambiosPanel();
-			}
-		});
-		panel.add(btnNewButton_14);
-		
-
-metodoMenu(panel);
-		
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-
-	}
-
-	public void ConfirmarCambiosPanel() {
-		JPanel panel = new JPanel();
-		
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JLabel lblNewLabel_15 = new JLabel("Editar datos");
-		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_15.setBounds(296, 90, 282, 30);
-		panel.add(lblNewLabel_15);
-		
-		JButton btnNewButton_15 = new JButton("Volver");
-		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(71, 79, 110, 30);
-		btnNewButton_15.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				EditarAsignaturaPanel();
-			}
-		});
-		panel.add(btnNewButton_15);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(204, 128, 374, 243);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JButton btnNewButton_14 = new JButton("Confirmar Cambios");
-		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_14.setBounds(256, 381, 300, 30);
-		btnNewButton_14.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				cambiosGuardadosPanel();
-			}
-		});
-		panel.add(btnNewButton_14);
-		
-
-metodoMenu(panel);
-		
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-
-	}
-
-	
-	public void listaAlumnosPanel2() {
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JLabel lblNewLabel_15 = new JLabel("Asignatura");
-		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_15.setBounds(296, 90, 282, 30);
-		panel.add(lblNewLabel_15);
-		
-		JButton btnNewButton_15 = new JButton("Volver");
-		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(71, 79, 110, 30);
-		btnNewButton_15.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				buscarAsignatura2();
-			}
-		});
-		panel.add(btnNewButton_15);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(204, 128, 374, 243);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		
-		JButton btnNewButton_14 = new JButton("Confirmar cambios");
-		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_14.setBounds(256, 381, 300, 30);
-		btnNewButton_14.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				buscarAsignatura2();
-			}
-		});
-		panel.add(btnNewButton_14);
-
-metodoMenu(panel);
-		
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-	}
-
-	public void confirmarEliminarPanel() {
+	public void detallesAsignatura() {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -604,221 +248,50 @@ metodoMenu(panel);
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
 		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(170, 67, 450, 295);
+		panel_1.setBounds(139, 128, 502, 243);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_12 = new JLabel("Por favor, confirme");
-		lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
-		lblNewLabel_12.setBounds(128, 126, 209, 21);
-		panel_1.add(lblNewLabel_12);
+		JLabel lblNewLabel_28 = new JLabel("Docente");
+		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28.setBounds(46, 10, 155, 25);
+		panel_1.add(lblNewLabel_28);
 		
-		JButton btnNewButton_7 = new JButton("No,volver");
-		btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_7.setForeground(new Color(255, 255, 255));
-		btnNewButton_7.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_7.setBounds(34, 181, 167, 25);
-		btnNewButton_7.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-
-				frame.dispose();
-				buscarAsignatura3();
-			}
-		});
-		panel_1.add(btnNewButton_7);
+		JLabel lblNewLabel_28_1 = new JLabel("Descripción");
+		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28_1.setBounds(46, 70, 155, 25);
+		panel_1.add(lblNewLabel_28_1);
 		
-		JLabel lblNewLabel_24 = new JLabel("¿Esta seguro de que quiere eliminar a esta asignatura?");
-		lblNewLabel_24.setFont(new Font("Inter", Font.BOLD, 11));
-		lblNewLabel_24.setBounds(86, 157, 277, 13);
-		panel_1.add(lblNewLabel_24);
+		JTextField textField_11 = new JTextField();
+		textField_11.setBounds(46, 40, 412, 19);
+		textField_11.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_11);
+		textField_11.setColumns(10);
 		
-		JButton btnNewButton_21 = new JButton("Si,estoy seguro");
-		btnNewButton_21.setBackground(new Color(255, 255, 255));
-		btnNewButton_21.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_21.setBounds(239, 183, 167, 25);
-		btnNewButton_21.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-
-				frame.dispose();
-				asignaturaEliminadaPanel();
-			}
-		});
-		panel_1.add(btnNewButton_21);
+		JTextArea textField_12 = new JTextArea();
+		textField_12.setColumns(10);
+		textField_12.setBounds(46, 100, 412, 133);
+		textField_12.setLineWrap(true);
+	    textField_12.setWrapStyleWord(true);
+		textField_12.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_12);
 		
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-	}
-	public void asignaturaEliminadaPanel() {
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(46, 105, 5, 22);
+		panel_1.add(textArea);
+		frame.getContentPane().add(panel);		
 		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(170, 67, 450, 295);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		
-		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/checked (2).png"));
-		JLabel lblNewLabel_14 = new JLabel();
-		lblNewLabel_14.setIcon(iconoPregunta);
-		lblNewLabel_14.setBounds(193, 34, 70, 70);
-		panel_1.add(lblNewLabel_14);
-		
-		JLabel lblNewLabel_12 = new JLabel("Asignatura eliminada con éxito");
-		lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
-		lblNewLabel_12.setBounds(125, 130, 284, 25);
-		panel_1.add(lblNewLabel_12);
-		
-		JButton btnNewButton_7 = new JButton("Volver a inicio");
-		btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_7.setForeground(new Color(255, 255, 255));
-		btnNewButton_7.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_7.setBounds(142, 182, 167, 25);
-		btnNewButton_7.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.dispose();
-
-				home = new HomeController();
-				home.asignaturasPanel();
-			}
-		});
-		panel_1.add(btnNewButton_7);
-		
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-	}
-
-	
-	public void cambiosGuardadosPanel() {
-		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(170, 67, 450, 295);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		
-		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/checked (2).png"));
-		JLabel lblNewLabel_14 = new JLabel();
-		lblNewLabel_14.setIcon(iconoPregunta);
-		lblNewLabel_14.setBounds(193, 34, 70, 70);
-		panel_1.add(lblNewLabel_14);
-		
-		JLabel lblNewLabel_12 = new JLabel("Grupo editado");
-		lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
-		lblNewLabel_12.setBounds(125, 130, 284, 25);
-		panel_1.add(lblNewLabel_12);
-		
-		JButton btnNewButton_7 = new JButton("Volver a inicio");
-		btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_7.setForeground(new Color(255, 255, 255));
-		btnNewButton_7.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_7.setBounds(142, 182, 167, 25);
-		btnNewButton_7.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.dispose();
-
-				home = new HomeController();
-				home.asignaturasPanel();
-			}
-		});
-		panel_1.add(btnNewButton_7);
-		
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-	}
-
-	public void verListaPanel() {
-		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(170, 67, 450, 295);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		
-		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/checked (2).png"));
-		JLabel lblNewLabel_14 = new JLabel();
-		lblNewLabel_14.setIcon(iconoPregunta);
-		lblNewLabel_14.setBounds(193, 34, 70, 70);
-		panel_1.add(lblNewLabel_14);
-		
-		JLabel lblNewLabel_12 = new JLabel("Este grupo  lleva esta asignatura");
-		lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
-		lblNewLabel_12.setBounds(125, 130, 284, 25);
-		panel_1.add(lblNewLabel_12);
-		
-		JButton btnNewButton_7 = new JButton("Volver a inicio");
-		btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
-		btnNewButton_7.setForeground(new Color(255, 255, 255));
-		btnNewButton_7.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_7.setBounds(142, 182, 167, 25);
-		btnNewButton_7.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.dispose();
-
-				home = new HomeController();
-				home.asignaturasPanel();
-			}
-		});
-		panel_1.add(btnNewButton_7);
-		
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-	}
-
-	
-	public void detallesAsignaturaPanel() {
-		JPanel panel = new JPanel();
-		
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
 		
 		JLabel lblNewLabel_15 = new JLabel("Detalles de asignatura");
-		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_15.setBounds(296, 90, 282, 30);
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 18));
+		lblNewLabel_15.setBounds(289, 90, 282, 30);
 		panel.add(lblNewLabel_15);
 		
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(71, 79, 110, 30);
+		btnNewButton_15.setBounds(59, 50, 110, 25);
 		btnNewButton_15.addActionListener(new ActionListener() {
 
 			@Override
@@ -831,16 +304,12 @@ metodoMenu(panel);
 		});
 		panel.add(btnNewButton_15);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(204, 128, 374, 243);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
 		
 		JButton btnNewButton_14 = new JButton("Ver grupos con asignatura");
+		btnNewButton_14.setForeground(new Color(255, 255, 255));
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_14.setBounds(256, 381, 300, 30);
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(229, 384, 300, 30);
 		btnNewButton_14.addActionListener(new ActionListener() {
 
 			@Override
@@ -848,102 +317,86 @@ metodoMenu(panel);
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				seleccionarGrupo();
+				buscarGrupo();
 			}
 		});
 		panel.add(btnNewButton_14);
-		
-
-metodoMenu(panel);
-		
-		frame.add(panel);
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-
-	}
-
-	
-	public void seleccionarGrupo() {
-		JPanel panel = new JPanel();
-		panel.setForeground(new Color(0, 0, 0));
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
-		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JLabel lblNewLabel_13 = new JLabel("Seleccionar grupo ");
-		lblNewLabel_13.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_13.setBounds(276, 31, 256, 30);
-		panel.add(lblNewLabel_13);
-		
-		JButton btnNewButton_14 = new JButton("Elegir");
-		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_14.setBounds(256, 381, 300, 30);
-		btnNewButton_14.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				verListaPanel();
-			}
-		});
-		panel.add(btnNewButton_14);
-		
-		JButton btnNewButton_27 = new JButton("A");
-		btnNewButton_27.setFont(new Font("Inter", Font.BOLD, 25));
-		btnNewButton_27.setBounds(122, 81, 94, 74);
-		panel.add(btnNewButton_27);
-		
-		JButton btnNewButton_28 = new JButton("B");
-		btnNewButton_28.setFont(new Font("Inter", Font.BOLD, 25));
-		btnNewButton_28.setBounds(256, 81, 94, 74);
-		panel.add(btnNewButton_28);
-		
-		JButton btnNewButton_28_1 = new JButton("C");
-		btnNewButton_28_1.setFont(new Font("Inter", Font.BOLD, 25));
-		btnNewButton_28_1.setBounds(387, 81, 94, 74);
-		panel.add(btnNewButton_28_1);
-		
-		JButton btnNewButton_28_1_1 = new JButton("D");
-		btnNewButton_28_1_1.setFont(new Font("Inter", Font.BOLD, 25));
-		btnNewButton_28_1_1.setBounds(519, 81, 94, 74);
-		panel.add(btnNewButton_28_1_1);
 
 
-metodoMenu(panel);
+		metodoMenu(panel);
 		
-		frame.add(panel);
+		frame.getContentPane().add(panel);
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
 			
 	}
 	
-	
-
-	/*public void agregarAlumno() {
+	public void buscarGrupo() {
 		JPanel panel = new JPanel();
-		panel.setForeground(new Color(0, 0, 0));
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JLabel lblNewLabel_15 = new JLabel("Agregar alumno a un grupo");
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(59, 128, 652, 243);
+		panel.add(scrollPane);		
+		frame.getContentPane().add(panel);
+
+		List<List> datos = control.get();
+
+		// Columnas de la tabla
+		String[] columnNames = {"Grupos"};
+
+		// Datos de la tabla
+		Object[][] informacion = new Object[datos.size()][1];
+		for (int i = 0; i < datos.size(); i++) {
+			String id = datos.get(i).get(0).toString();
+			JButton button = new JButton(id);
+			button.setBackground(Color.white);
+			button.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					String selectedId = id;
+					System.out.println("ID seleccionado: " + selectedId);
+					frame.remove(panel);
+					frame.dispose();
+				}
+			});
+			informacion[i][0] = button;
+
+		}
+
+		// Crear el modelo de tabla con los datos obtenidos
+		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
+
+		// Crear la tabla con el modelo
+		JTable table = new JTable(tableModel);
+
+		// Configuración de la tabla
+		table.setDefaultRenderer(Object.class, new RenderTabla());
+		table.getColumnModel().getColumn(0).setPreferredWidth(90);
+
+		table.setBounds(59, 128, 652, 243);
+		table.getColumnModel().getColumn(0).setCellRenderer(new RenderTabla());
+		table.getColumnModel().getColumn(0).setCellEditor(new ButtonEditor());
+		table.setRowHeight(50);
+		table.setTableHeader(null);
+
+		scrollPane.setViewportView(table);
+
+		frame.setVisible(true);
+
+		JLabel lblNewLabel_15 = new JLabel("Selecciona un grupo");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_15.setBounds(254, 89, 333, 30);
+		lblNewLabel_15.setBounds(269, 91, 282, 30);
 		panel.add(lblNewLabel_15);
-		
-		JButton btnNewButton_14 = new JButton("Agregar Alumno");
-		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_14.setBounds(256, 381, 300, 30);
-		panel.add(btnNewButton_14);
-		
+
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(71, 79, 110, 30);
+		btnNewButton_15.setBounds(59, 50, 110, 25);
 		btnNewButton_15.addActionListener(new ActionListener() {
 
 			@Override
@@ -951,22 +404,575 @@ metodoMenu(panel);
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				crearGrupo();
+
+				detallesAsignatura();
 			}
 		});
 		panel.add(btnNewButton_15);
+
+
+
+
+		metodoMenu(panel);
+
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
 		
-metodoMenu(panel);
+	}
+	
+	public void aisgnaturaInexistente() {
 		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(170, 67, 450, 295);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/Icono_Cerrar.png"));
+		JLabel lblNewLabel_14 = new JLabel();
+		lblNewLabel_14.setIcon(iconoPregunta);
+		lblNewLabel_14.setBounds(182, 27, 84, 84);
+		panel_1.add(lblNewLabel_14);
+		
+		JLabel lblNewLabel_12 = new JLabel("Este grupo no lleva esta asignatura");
+		lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
+		lblNewLabel_12.setBounds(51, 130, 352, 21);
+		panel_1.add(lblNewLabel_12);
+		
+		JButton btnNewButton_7 = new JButton("Volver a selección de grupo");
+		btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_7.setForeground(new Color(255, 255, 255));
+		btnNewButton_7.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_7.setBounds(127, 182, 197, 25);
+		btnNewButton_7.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				buscarGrupo();
+			}
+		});
+		panel_1.add(btnNewButton_7);
+		
+		frame.getContentPane().add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+	}
+
+	public void listaAlumnosPanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(184, 128, 414, 243);
+		panel.add(scrollPane);		
+		frame.getContentPane().add(panel);
+
+		JLabel lblNewLabel_15 = new JLabel("Lista de alumnos");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
+		lblNewLabel_15.setBounds(296, 90, 282, 30);
+		panel.add(lblNewLabel_15);
+
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(59, 50, 110, 25);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				buscarGrupo();
+			}
+		});
+		panel.add(btnNewButton_15);
+
+		List<List> datos = model.get();
+
+		// Columnas de la tabla
+		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
+
+		// Datos de la tabla
+		Object[][] informacion = new Object[datos.size()][3];
+		for (int i = 0; i < datos.size(); i++) {
+			informacion[i][0] = datos.get(i).get(0);
+
+		}
+
+		// Crear el modelo de tabla con los datos obtenidos
+		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
+
+		// Crear la tabla con el modelo
+		JTable table = new JTable(tableModel);
+
+		// Configuración de la tabla
+		table.setDefaultRenderer(Object.class, new RenderTabla());
+		table.getColumnModel().getColumn(0).setPreferredWidth(80);
+		table.getColumnModel().getColumn(1).setPreferredWidth(80);
+		table.getColumnModel().getColumn(2).setPreferredWidth(100);
+
+		table.setBounds(184, 128, 414, 243);
+		table.setRowHeight(50);
+
+		scrollPane.setViewportView(table);
+
+		frame.setVisible(true);
+
+		JButton btnNewButton_14 = new JButton("Descargar Informacion");
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setForeground(new Color(255, 255, 255));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(229, 384, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		panel.add(btnNewButton_14);
+
+		metodoMenu(panel);
+
 		frame.add(panel);
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
 
-	}*/
+	}
+	
+	
+	
+	
+	
+	
+	
+	public void buscarAsignatura4() {
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(59, 128, 652, 243);
+		panel.add(scrollPane);		
+		frame.getContentPane().add(panel);
+
+		List<List> datos = control.get();
+
+		// Columnas de la tabla
+		String[] columnNames = {"Grupos"};
+
+		// Datos de la tabla
+		Object[][] informacion = new Object[datos.size()][1];
+		for (int i = 0; i < datos.size(); i++) {
+			String id = datos.get(i).get(0).toString();
+			JButton button = new JButton(id);
+			button.setBackground(Color.white);
+			button.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					String selectedId = id;
+					System.out.println("ID seleccionado: " + selectedId);
+					frame.remove(panel);
+					frame.dispose();
+					detallesAsignatura2();
+				}
+			});
+			informacion[i][0] = button;
+
+		}
+
+		// Crear el modelo de tabla con los datos obtenidos
+		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
+
+		// Crear la tabla con el modelo
+		JTable table = new JTable(tableModel);
+
+		// Configuración de la tabla
+		table.setDefaultRenderer(Object.class, new RenderTabla());
+		table.getColumnModel().getColumn(0).setPreferredWidth(90);
+
+		table.setBounds(59, 128, 652, 243);
+		table.getColumnModel().getColumn(0).setCellRenderer(new RenderTabla());
+		table.getColumnModel().getColumn(0).setCellEditor(new ButtonEditor());
+		table.setRowHeight(50);
+		table.setTableHeader(null);
+
+		scrollPane.setViewportView(table);
+
+		frame.setVisible(true);
+
+		JLabel lblNewLabel_15 = new JLabel("Seleccionar asignatura");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
+		lblNewLabel_15.setBounds(265, 91, 282, 30);
+		panel.add(lblNewLabel_15);
+
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(59, 50, 110, 25);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+
+				home = new HomeController();
+				home.asignaturasPanel();
+			}
+		});
+		panel.add(btnNewButton_15);
+
+
+
+
+		metodoMenu(panel);
+
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+		
+	}
+
+	public void detallesAsignatura2() {
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(139, 128, 502, 243);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_28 = new JLabel("Docente");
+		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28.setBounds(46, 10, 155, 25);
+		panel_1.add(lblNewLabel_28);
+		
+		JLabel lblNewLabel_28_1 = new JLabel("Descripción");
+		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28_1.setBounds(46, 70, 155, 25);
+		panel_1.add(lblNewLabel_28_1);
+		
+		JTextField textField_11 = new JTextField();
+		textField_11.setBounds(46, 40, 412, 19);
+		textField_11.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_11);
+		textField_11.setColumns(10);
+		
+		JTextArea textField_12 = new JTextArea();
+		textField_12.setColumns(10);
+		textField_12.setBounds(46, 100, 412, 133);
+		textField_12.setLineWrap(true);
+	    textField_12.setWrapStyleWord(true);
+		textField_12.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_12);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(46, 105, 5, 22);
+		panel_1.add(textArea);
+		frame.getContentPane().add(panel);		
+		
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
+		
+		JLabel lblNewLabel_15 = new JLabel("Detalles de asignatura");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 18));
+		lblNewLabel_15.setBounds(289, 90, 282, 30);
+		panel.add(lblNewLabel_15);
+		
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(59, 50, 110, 25);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				buscarAsignatura4();
+			}
+		});
+		panel.add(btnNewButton_15);
+		
+		
+		JButton btnNewButton_14 = new JButton("Ver grupos con asignatura");
+		btnNewButton_14.setForeground(new Color(255, 255, 255));
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(229, 384, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				buscarGrupo2();
+			}
+		});
+		panel.add(btnNewButton_14);
+
+
+		metodoMenu(panel);
+		
+		frame.getContentPane().add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+			
+	}
+
+	public void buscarGrupo2() {
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(59, 128, 652, 243);
+		panel.add(scrollPane);		
+		frame.getContentPane().add(panel);
+
+		List<List> datos = control.get();
+
+		// Columnas de la tabla
+		String[] columnNames = {"Grupos"};
+
+		// Datos de la tabla
+		Object[][] informacion = new Object[datos.size()][1];
+		for (int i = 0; i < datos.size(); i++) {
+			String id = datos.get(i).get(0).toString();
+			JButton button = new JButton(id);
+			button.setBackground(Color.white);
+			button.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					String selectedId = id;
+					System.out.println("ID seleccionado: " + selectedId);
+					frame.remove(panel);
+					frame.dispose();
+				
+				}
+			});
+			informacion[i][0] = button;
+
+		}
+
+		// Crear el modelo de tabla con los datos obtenidos
+		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
+
+		// Crear la tabla con el modelo
+		JTable table = new JTable(tableModel);
+
+		// Configuración de la tabla
+		table.setDefaultRenderer(Object.class, new RenderTabla());
+		table.getColumnModel().getColumn(0).setPreferredWidth(90);
+
+		table.setBounds(59, 128, 652, 243);
+		table.getColumnModel().getColumn(0).setCellRenderer(new RenderTabla());
+		table.getColumnModel().getColumn(0).setCellEditor(new ButtonEditor());
+		table.setRowHeight(50);
+		table.setTableHeader(null);
+
+		scrollPane.setViewportView(table);
+
+		frame.setVisible(true);
+
+		JLabel lblNewLabel_15 = new JLabel("Selecciona un grupo");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
+		lblNewLabel_15.setBounds(269, 91, 282, 30);
+		panel.add(lblNewLabel_15);
+
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(59, 50, 110, 25);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+
+				detallesAsignatura2();
+			}
+		});
+		panel.add(btnNewButton_15);
+
+
+
+
+		metodoMenu(panel);
+
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+		
+	}
+
+	public void aisgnaturaInexistente2() {
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(170, 67, 450, 295);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/Icono_Cerrar.png"));
+		JLabel lblNewLabel_14 = new JLabel();
+		lblNewLabel_14.setIcon(iconoPregunta);
+		lblNewLabel_14.setBounds(182, 27, 84, 84);
+		panel_1.add(lblNewLabel_14);
+		
+		JLabel lblNewLabel_12 = new JLabel("Este grupo no lleva esta asignatura");
+		lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
+		lblNewLabel_12.setBounds(51, 130, 352, 21);
+		panel_1.add(lblNewLabel_12);
+		
+		JButton btnNewButton_7 = new JButton("Volver a selección de grupo");
+		btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_7.setForeground(new Color(255, 255, 255));
+		btnNewButton_7.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_7.setBounds(127, 182, 197, 25);
+		btnNewButton_7.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+
+				frame.remove(panel);
+				frame.dispose();
+				buscarGrupo2();
+			}
+		});
+		panel_1.add(btnNewButton_7);
+		
+		frame.getContentPane().add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+	}
+	
+	public void listaAlumnosPanel2() {
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(184, 128, 414, 243);
+		panel.add(scrollPane);		
+		frame.getContentPane().add(panel);
+
+		JLabel lblNewLabel_15 = new JLabel("Lista de alumnos");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
+		lblNewLabel_15.setBounds(296, 90, 282, 30);
+		panel.add(lblNewLabel_15);
+
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(59, 50, 110, 25);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				buscarGrupo2();
+			}
+		});
+		panel.add(btnNewButton_15);
+
+		List<List> datos = model.get();
+
+		// Columnas de la tabla
+		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
+
+		// Datos de la tabla
+		Object[][] informacion = new Object[datos.size()][3];
+		for (int i = 0; i < datos.size(); i++) {
+			informacion[i][0] = datos.get(i).get(0);
+
+		}
+
+		// Crear el modelo de tabla con los datos obtenidos
+		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
+
+		// Crear la tabla con el modelo
+		JTable table = new JTable(tableModel);
+
+		// Configuración de la tabla
+		table.setDefaultRenderer(Object.class, new RenderTabla());
+		table.getColumnModel().getColumn(0).setPreferredWidth(80);
+		table.getColumnModel().getColumn(1).setPreferredWidth(80);
+		table.getColumnModel().getColumn(2).setPreferredWidth(100);
+
+		table.setBounds(184, 128, 414, 243);
+		table.setRowHeight(50);
+
+		scrollPane.setViewportView(table);
+
+		frame.setVisible(true);
+
+		JButton btnNewButton_14 = new JButton("Descargar Informacion");
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setForeground(new Color(255, 255, 255));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(229, 384, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		panel.add(btnNewButton_14);
+
+		metodoMenu(panel);
+
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+
+	}
+
+	
 	
 	public void crearAsignatura() {
-		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -978,15 +984,57 @@ metodoMenu(panel);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_15 = new JLabel("Crear Asignatura");
-		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_15.setBounds(296, 90, 282, 30);
+		JLabel lblNewLabel_28 = new JLabel("Nombre");
+		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28.setBounds(28, 10, 155, 25);
+		panel_1.add(lblNewLabel_28);
+		
+		JLabel lblNewLabel_28_1 = new JLabel("Descripción");
+		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28_1.setBounds(28, 70, 155, 25);
+		panel_1.add(lblNewLabel_28_1);
+		
+		JTextField textField_11 = new JTextField();
+		textField_11.setBounds(28, 40, 303, 19);
+		textField_11.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_11);
+		textField_11.setColumns(10);
+		
+		JTextArea textField_12 = new JTextArea();
+		textField_12.setColumns(10);
+		textField_12.setBounds(28, 100, 593, 133);
+		textField_12.setLineWrap(true);
+	    textField_12.setWrapStyleWord(true);
+		textField_12.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_12);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(46, 105, 5, 22);
+		panel_1.add(textArea);
+		
+		JLabel lblNewLabel_28_2 = new JLabel("Docente");
+		lblNewLabel_28_2.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28_2.setBounds(379, 10, 155, 25);
+		panel_1.add(lblNewLabel_28_2);
+		
+		JTextField textField_14 = new JTextField();
+		textField_14.setColumns(10);
+		textField_14.setBackground(new Color(217, 217, 217));
+		textField_14.setBounds(382, 40, 239, 19);
+		panel_1.add(textField_14);
+		frame.getContentPane().add(panel);		
+		
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
+		
+		JLabel lblNewLabel_15 = new JLabel("Crear asignatura");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 18));
+		lblNewLabel_15.setBounds(300, 90, 282, 30);
 		panel.add(lblNewLabel_15);
 		
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(71, 79, 110, 30);
+		btnNewButton_15.setBounds(59, 50, 110, 25);
 		btnNewButton_15.addActionListener(new ActionListener() {
 
 			@Override
@@ -999,16 +1047,11 @@ metodoMenu(panel);
 		});
 		panel.add(btnNewButton_15);
 		
-		JPanel panel_16 = new JPanel();
-		panel_16.setBackground(new Color(255, 255, 255));
-		panel_16.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_16.setBounds(204, 128, 374, 243);
-		panel_16.add(panel_1);
-		panel_16.setLayout(null);
-		
-		JButton btnNewButton_14 = new JButton("Crear Asignatura");
+		JButton btnNewButton_14 = new JButton("Crear asignatura");
+		btnNewButton_14.setForeground(new Color(255, 255, 255));
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_14.setBounds(256, 381, 300, 30);
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(229, 384, 300, 30);
 		btnNewButton_14.addActionListener(new ActionListener() {
 
 			@Override
@@ -1022,13 +1065,13 @@ metodoMenu(panel);
 		panel.add(btnNewButton_14);
 
 
-metodoMenu(panel);
+		metodoMenu(panel);
 		
-		frame.add(panel);
+		frame.getContentPane().add(panel);
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
-			
+		
 	}
 	
 	public void asignaturaCreadaPanel() {
@@ -1052,7 +1095,7 @@ metodoMenu(panel);
 		
 		JLabel lblNewLabel_12 = new JLabel("Asignatura creada con éxito");
 		lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
-		lblNewLabel_12.setBounds(100, 130, 258, 21);
+		lblNewLabel_12.setBounds(90, 130, 298, 21);
 		panel_1.add(lblNewLabel_12);
 		
 		JButton btnNewButton_7 = new JButton("Volver a inicio");
@@ -1077,6 +1120,206 @@ metodoMenu(panel);
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	public void buscarAsignatura2() {
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(59, 128, 652, 243);
+		panel.add(scrollPane);		
+		frame.getContentPane().add(panel);
+
+		List<List> datos = control.get();
+
+		// Columnas de la tabla
+		String[] columnNames = {"Grupos"};
+
+		// Datos de la tabla
+		Object[][] informacion = new Object[datos.size()][1];
+		for (int i = 0; i < datos.size(); i++) {
+			String id = datos.get(i).get(0).toString();
+			JButton button = new JButton(id);
+			button.setBackground(Color.white);
+			button.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					String selectedId = id;
+					System.out.println("ID seleccionado: " + selectedId);
+					frame.remove(panel);
+					frame.dispose();
+					EditarAsignaturaPanel();
+				}
+			});
+			informacion[i][0] = button;
+
+		}
+
+		// Crear el modelo de tabla con los datos obtenidos
+		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
+
+		// Crear la tabla con el modelo
+		JTable table = new JTable(tableModel);
+
+		// Configuración de la tabla
+		table.setDefaultRenderer(Object.class, new RenderTabla());
+		table.getColumnModel().getColumn(0).setPreferredWidth(90);
+
+		table.setBounds(59, 128, 652, 243);
+		table.getColumnModel().getColumn(0).setCellRenderer(new RenderTabla());
+		table.getColumnModel().getColumn(0).setCellEditor(new ButtonEditor());
+		table.setRowHeight(50);
+		table.setTableHeader(null);
+
+		scrollPane.setViewportView(table);
+
+		frame.setVisible(true);
+
+		JLabel lblNewLabel_15 = new JLabel("Seleccionar asignatura");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
+		lblNewLabel_15.setBounds(265, 91, 282, 30);
+		panel.add(lblNewLabel_15);
+
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(59, 50, 110, 25);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+
+				home = new HomeController();
+				home.asignaturasPanel();
+			}
+		});
+		panel.add(btnNewButton_15);
+
+
+
+
+		metodoMenu(panel);
+
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+	}
+
+	public void EditarAsignaturaPanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(59, 128, 652, 243);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_28 = new JLabel("Nombre");
+		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28.setBounds(28, 10, 155, 25);
+		panel_1.add(lblNewLabel_28);
+		
+		JLabel lblNewLabel_28_1 = new JLabel("Descripción");
+		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28_1.setBounds(28, 70, 155, 25);
+		panel_1.add(lblNewLabel_28_1);
+		
+		JTextField textField_11 = new JTextField();
+		textField_11.setBounds(28, 40, 303, 19);
+		textField_11.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_11);
+		textField_11.setColumns(10);
+		
+		JTextArea textField_12 = new JTextArea();
+		textField_12.setColumns(10);
+		textField_12.setBounds(28, 100, 593, 133);
+		textField_12.setLineWrap(true);
+	    textField_12.setWrapStyleWord(true);
+		textField_12.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_12);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(46, 105, 5, 22);
+		panel_1.add(textArea);
+		
+		JLabel lblNewLabel_28_2 = new JLabel("Docente");
+		lblNewLabel_28_2.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28_2.setBounds(379, 10, 155, 25);
+		panel_1.add(lblNewLabel_28_2);
+		
+		JTextField textField_14 = new JTextField();
+		textField_14.setColumns(10);
+		textField_14.setBackground(new Color(217, 217, 217));
+		textField_14.setBounds(382, 40, 239, 19);
+		panel_1.add(textField_14);
+		frame.getContentPane().add(panel);		
+		
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
+		
+		JLabel lblNewLabel_15 = new JLabel("Editar asignatura");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 18));
+		lblNewLabel_15.setBounds(300, 90, 282, 30);
+		panel.add(lblNewLabel_15);
+		
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(59, 50, 110, 25);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				buscarAsignatura2();
+			}
+		});
+		panel.add(btnNewButton_15);
+		
+		JButton btnNewButton_14 = new JButton("Editar asignatura");
+		btnNewButton_14.setForeground(new Color(255, 255, 255));
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(229, 384, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				grupoEditadoPanel();
+			}
+		});
+		panel.add(btnNewButton_14);
+
+
+		metodoMenu(panel);
+		
+		frame.getContentPane().add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+
 	}
 
 	public void grupoEditadoPanel() {
@@ -1098,9 +1341,9 @@ metodoMenu(panel);
 		lblNewLabel_14.setBounds(190, 34, 70, 70);
 		panel_1.add(lblNewLabel_14);
 		
-		JLabel lblNewLabel_12 = new JLabel("Grupo creado con éxito");
+		JLabel lblNewLabel_12 = new JLabel("Asignatura editada con éxito");
 		lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
-		lblNewLabel_12.setBounds(100, 130, 258, 21);
+		lblNewLabel_12.setBounds(82, 130, 308, 21);
 		panel_1.add(lblNewLabel_12);
 		
 		JButton btnNewButton_7 = new JButton("Volver a inicio");
@@ -1126,31 +1369,77 @@ metodoMenu(panel);
 		frame.repaint();
 		frame.revalidate();
 	}
-
-
-	public void editarGrupo() {
-		
+	
+	
+	
+	
+	
+	public void buscarAsignatura3() {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 255, 255));
-		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(59, 128, 652, 243);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
-		
-		
-		JLabel lblNewLabel_15 = new JLabel("Grupo");
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(59, 128, 652, 243);
+		panel.add(scrollPane);		
+		frame.getContentPane().add(panel);
+
+		List<List> datos = control.get();
+
+		// Columnas de la tabla
+		String[] columnNames = {"Grupos"};
+
+		// Datos de la tabla
+		Object[][] informacion = new Object[datos.size()][1];
+		for (int i = 0; i < datos.size(); i++) {
+			String id = datos.get(i).get(0).toString();
+			JButton button = new JButton(id);
+			button.setBackground(Color.white);
+			button.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					String selectedId = id;
+					System.out.println("ID seleccionado: " + selectedId);
+					frame.remove(panel);
+					frame.dispose();
+					confirmarEliminarPanel();
+				}
+			});
+			informacion[i][0] = button;
+
+		}
+
+		// Crear el modelo de tabla con los datos obtenidos
+		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
+
+		// Crear la tabla con el modelo
+		JTable table = new JTable(tableModel);
+
+		// Configuración de la tabla
+		table.setDefaultRenderer(Object.class, new RenderTabla());
+		table.getColumnModel().getColumn(0).setPreferredWidth(90);
+
+		table.setBounds(59, 128, 652, 243);
+		table.getColumnModel().getColumn(0).setCellRenderer(new RenderTabla());
+		table.getColumnModel().getColumn(0).setCellEditor(new ButtonEditor());
+		table.setRowHeight(50);
+		table.setTableHeader(null);
+
+		scrollPane.setViewportView(table);
+
+		frame.setVisible(true);
+
+		JLabel lblNewLabel_15 = new JLabel("Seleccionar asignatura");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_15.setBounds(296, 90, 282, 30);
+		lblNewLabel_15.setBounds(265, 91, 282, 30);
 		panel.add(lblNewLabel_15);
-		
+
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_15.setBounds(71, 79, 110, 30);
+		btnNewButton_15.setBounds(59, 50, 110, 25);
 		btnNewButton_15.addActionListener(new ActionListener() {
 
 			@Override
@@ -1158,45 +1447,145 @@ metodoMenu(panel);
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				grupoEditadoPanel();
+
+				home = new HomeController();
+				home.asignaturasPanel();
 			}
 		});
-		
 		panel.add(btnNewButton_15);
-		
-		JPanel panel_16 = new JPanel();
-		panel_16.setBackground(new Color(255, 255, 255));
-		panel_16.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_16.setBounds(204, 128, 374, 243);
-		panel_16.add(panel_1);
-		panel_16.setLayout(null);
-		
-		JButton btnNewButton_14 = new JButton("Confirmar cambios");
-		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
-		btnNewButton_14.setBounds(256, 381, 300, 30);
-		btnNewButton_14.addActionListener(new ActionListener() {
+
+
+
+
+		metodoMenu(panel);
+
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+	}
+
+	public void confirmarEliminarPanel() {
+
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(170, 67, 450, 295);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+
+		JLabel lblNewLabel_12 = new JLabel("Por favor, confirme");
+		lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
+		lblNewLabel_12.setBounds(128, 126, 209, 21);
+		panel_1.add(lblNewLabel_12);
+
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Advertencia.png"));
+		JLabel lblNewLabel_27 = new JLabel(iconoDescargar);
+		lblNewLabel_27.setBounds(189, 40, 70, 70);
+		panel_1.add(lblNewLabel_27);
+
+		JButton btnNewButton_7 = new JButton("No,volver");
+		btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_7.setForeground(Color.white);
+		btnNewButton_7.setOpaque(true);
+		btnNewButton_7.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_7.setBounds(38, 200, 167, 25);
+		btnNewButton_7.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				grupoEditadoPanel();
+
+				buscarAsignatura3();
 			}
 		});
-		panel.add(btnNewButton_14);
+		panel_1.add(btnNewButton_7);
+
+		JLabel lblNewLabel_24 = new JLabel("¿Esta seguro de que quiere eliminar esta asignatura?");
+		lblNewLabel_24.setFont(new Font("Inter", Font.BOLD, 11));
+		lblNewLabel_24.setBounds(84, 157, 300, 13);
+		panel_1.add(lblNewLabel_24);
+
+		JButton btnNewButton_21 = new JButton("Si,estoy seguro");
+		btnNewButton_7.setOpaque(true);
+		btnNewButton_21.setBackground(new Color(255, 255, 255));
+		btnNewButton_21.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_21.setBorder(BorderFactory.createLineBorder(Color.decode("#4A85A4") , 2));
+		btnNewButton_21.setBounds(242, 200, 167, 25);
+		btnNewButton_21.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				asignaturaEliminadaPanel();
 
 
-metodoMenu(panel);
-		
+			}
+		});
+		panel_1.add(btnNewButton_21);
+
 		frame.add(panel);
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
-			
 	}
 	
-	
+	public void asignaturaEliminadaPanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(170, 67, 450, 295);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+
+		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/like.png"));
+		JLabel lblNewLabel_14 = new JLabel();
+		lblNewLabel_14.setIcon(iconoPregunta);
+		lblNewLabel_14.setBounds(190, 34, 70, 70);
+		panel_1.add(lblNewLabel_14);
+
+		JLabel lblNewLabel_12 = new JLabel("Asignatura eliminada con éxito");
+		lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
+		lblNewLabel_12.setBounds(70, 130, 310, 21);
+		panel_1.add(lblNewLabel_12);
+
+		JButton btnNewButton_7 = new JButton("Volver a inicio");
+		btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_7.setForeground(Color.white);
+		btnNewButton_7.setOpaque(true);
+		btnNewButton_7.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_7.setBounds(142, 182, 167, 25);
+		btnNewButton_7.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+
+				home = new HomeController();
+				home.asignaturasPanel();
+			}
+		});
+		panel_1.add(btnNewButton_7);
+
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+	}
+
 	
 	
 	
@@ -1341,340 +1730,343 @@ public void cerrarSesionPanel() {
 
 
 
-public void metodoMenu(JPanel panel) {
-	JPanel panelCopia;
-	panelCopia = panel;
+	public void metodoMenu(JPanel panel) {
+		JPanel panelCopia;
+		panelCopia = panel;
 
-	ImageIcon iconoCerrarSesion = new ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion.png"));
-	JButton btnNewButton_13 = new JButton("Cerrar Sesión", iconoCerrarSesion);
-	btnNewButton_13.setFont(new Font("Inter", Font.BOLD, 11));
-	btnNewButton_13.setBounds(615, 402, 167, 35);
-	btnNewButton_13.setBorderPainted(false);
-	btnNewButton_13.setContentAreaFilled(false);
-	btnNewButton_13.addActionListener(new ActionListener() {
+		ImageIcon iconoCerrarSesion = new ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion.png"));
+		JButton btnNewButton_13 = new JButton("Cerrar Sesión", iconoCerrarSesion);
+		btnNewButton_13.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_13.setBounds(615, 402, 167, 35);
+		btnNewButton_13.setBorderPainted(false);
+		btnNewButton_13.setContentAreaFilled(false);
+		btnNewButton_13.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.remove(panel);
-			frame.dispose();
-			ConfirmarCerrarSesionPanel(panelCopia);
-		}
-	});
-	panel.add(btnNewButton_13);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				ConfirmarCerrarSesionPanel(panelCopia);
+			}
+		});
+		panel.add(btnNewButton_13);
 
-	JMenuBar menuBar = new JMenuBar();
-	menuBar.setBounds(0, 0, 932, 40);
-	menuBar.setBackground(Color.decode("#4A85A4"));
-	menuBar.setBorder(BorderFactory.createLineBorder(Color.decode("#4A85A4")));
-	panel.add(menuBar);
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, 932, 40);
+		menuBar.setBackground(Color.decode("#4A85A4"));
+		menuBar.setBorder(BorderFactory.createLineBorder(Color.decode("#4A85A4")));
+		panel.add(menuBar);
 
-	ImageIcon iconoControlEscolar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Control_Escolar.png"));
-	JLabel controlEscolar = new JLabel("Control Escolar");
-	controlEscolar.setForeground(new Color(255, 255, 255));
-	controlEscolar.setFont(new Font("Inter", Font.BOLD, 12));
-	controlEscolar.setIcon(iconoControlEscolar);
+		ImageIcon iconoControlEscolar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Control_Escolar.png"));
+		JLabel controlEscolar = new JLabel("Control Escolar");
+		controlEscolar.setForeground(new Color(255, 255, 255));
+		controlEscolar.setFont(new Font("Inter", Font.BOLD, 12));
+		controlEscolar.setIcon(iconoControlEscolar);
 
-	menuBar.add(controlEscolar);
+		menuBar.add(controlEscolar);
 
-	menuBar.add(Box.createHorizontalStrut(35));
+		menuBar.add(Box.createHorizontalStrut(35));
 
-	ImageIcon iconoGrupos = new ImageIcon(getClass().getResource("/Imagenes/Icono_Grupos.png")); 
-	JMenu mnNewMenu = new JMenu("Grupos");
-	mnNewMenu.setIcon(iconoGrupos);
-	mnNewMenu.setForeground(new Color(255, 255, 255));
-	mnNewMenu.setFont(new Font("Inter", Font.BOLD, 12));
-	menuBar.add(mnNewMenu);
+		ImageIcon iconoGrupos = new ImageIcon(getClass().getResource("/Imagenes/Icono_Grupos.png")); 
+		JMenu mnNewMenu = new JMenu("Grupos");
+		mnNewMenu.setIcon(iconoGrupos);
+		mnNewMenu.setForeground(new Color(255, 255, 255));
+		mnNewMenu.setFont(new Font("Inter", Font.BOLD, 12));
+		menuBar.add(mnNewMenu);
 
-	JMenuItem mntmNewMenuItem_1 = new JMenuItem("Descargar Información");
-	mntmNewMenuItem_1.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Descargar Información");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.remove(panel);
-			frame.dispose();
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
 
-			group = new GroupController();
-			group.gruposRegistradosPanel();
-		}
-	});
-	mnNewMenu.add(mntmNewMenuItem_1);
+				group = new GroupController();
+				group.gruposRegistradosPanel();
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem_1);
 
-	JMenuItem mntmNewMenuItem_2 = new JMenuItem("Consultar");
-	mntmNewMenuItem_2.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Consultar");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.remove(panel);
-			frame.dispose();
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
 
-			group = new GroupController();
-			group.buscarGrupo2();
-		}
-	});
-	mnNewMenu.add(mntmNewMenuItem_2);
+				group = new GroupController();
+				group.buscarGrupo2();
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem_2);
 
-	JMenuItem mntmNewMenuItem_3 = new JMenuItem("Crear");
-	mntmNewMenuItem_3.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Crear");
+		mntmNewMenuItem_3.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			group = new GroupController();
-			group.crearGrupo();
-		}
-	});
-	mnNewMenu.add(mntmNewMenuItem_3);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				group = new GroupController();
+				group.crearGrupo();
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem_3);
 
-	JMenuItem mntmNewMenuItem_4 = new JMenuItem("Editar");
-	mntmNewMenuItem_4.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Editar");
+		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			group = new GroupController();
-			group.buscarGrupo3();
-		}
-	});
-	mnNewMenu.add(mntmNewMenuItem_4);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				group = new GroupController();
+				group.buscarGrupo3();
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem_4);
 
-	JMenuItem mntmNewMenuItem_5 = new JMenuItem("Eliminar");
-	mntmNewMenuItem_5.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Eliminar");
+		mntmNewMenuItem_5.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			group = new GroupController();
-			group.buscarGrupo4();
-		}
-	});
-	mnNewMenu.add(mntmNewMenuItem_5);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				group = new GroupController();
+				group.buscarGrupo4();
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem_5);
 
-	menuBar.add(Box.createHorizontalStrut(12));
+		menuBar.add(Box.createHorizontalStrut(12));
 
-	ImageIcon iconoAlumnos = new ImageIcon(getClass().getResource("/Imagenes/student-with-graduation-cap.png")); 
-	JMenu mnNewMenu_1 = new JMenu("Alumnos");
-	mnNewMenu_1.setIcon(iconoAlumnos);
-	mnNewMenu_1.setForeground(new Color(255, 255, 255));
-	mnNewMenu_1.setFont(new Font("Inter", Font.BOLD, 12));
-	menuBar.add(mnNewMenu_1);
+		ImageIcon iconoAlumnos = new ImageIcon(getClass().getResource("/Imagenes/student-with-graduation-cap.png")); 
+		JMenu mnNewMenu_1 = new JMenu("Alumnos");
+		mnNewMenu_1.setIcon(iconoAlumnos);
+		mnNewMenu_1.setForeground(new Color(255, 255, 255));
+		mnNewMenu_1.setFont(new Font("Inter", Font.BOLD, 12));
+		menuBar.add(mnNewMenu_1);
 
-	JMenuItem mntmNewMenuItem_6 = new JMenuItem("Descargar Información");
-	mntmNewMenuItem_6.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Descargar Información");
+		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			student = new StudentController();
-			student.alumnosRegistradosPanel();
-		}
-	});
-	mnNewMenu_1.add(mntmNewMenuItem_6);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				student = new StudentController();
+				student.alumnosRegistradosPanel();
+			}
+		});
+		mnNewMenu_1.add(mntmNewMenuItem_6);
 
-	JMenuItem mntmNewMenuItem_7 = new JMenuItem("Consultar");
-	mntmNewMenuItem_7.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Consultar");
+		mntmNewMenuItem_7.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			student = new StudentController();
-			student.buscarIDPanel();
-		}
-	});
-	mnNewMenu_1.add(mntmNewMenuItem_7);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				student = new StudentController();
+				student.buscarIDPanel();
+			}
+		});
+		mnNewMenu_1.add(mntmNewMenuItem_7);
 
-	JMenuItem mntmNewMenuItem_8 = new JMenuItem("Crear");
-	mntmNewMenuItem_8.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_8 = new JMenuItem("Crear");
+		mntmNewMenuItem_8.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			student = new StudentController();
-			student.crearAlumnoPanel();
-		}
-	});
-	mnNewMenu_1.add(mntmNewMenuItem_8);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				student = new StudentController();
+				student.crearAlumnoPanel();
+			}
+		});
+		mnNewMenu_1.add(mntmNewMenuItem_8);
 
-	JMenuItem mntmNewMenuItem_9 = new JMenuItem("Editar");
-	mntmNewMenuItem_9.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_9 = new JMenuItem("Editar");
+		mntmNewMenuItem_9.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			student = new StudentController();
-			student.editarInformacionAlumno();
-		}
-	});
-	mnNewMenu_1.add(mntmNewMenuItem_9);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				student = new StudentController();
+				student.buscarIDPanel3();
+			}
+		});
+		mnNewMenu_1.add(mntmNewMenuItem_9);
 
-	JMenuItem mntmNewMenuItem_10 = new JMenuItem("Eliminar");
-	mntmNewMenuItem_10.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_10 = new JMenuItem("Eliminar");
+		mntmNewMenuItem_10.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			student = new StudentController();
-			student.eliminarAlumnoPanel();
-		}
-	});
-	mnNewMenu_1.add(mntmNewMenuItem_10);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				student = new StudentController();
+				student.buscarIDPanel4();
+			}
+		});
+		mnNewMenu_1.add(mntmNewMenuItem_10);
 
-	menuBar.add(Box.createHorizontalStrut(12));
+		menuBar.add(Box.createHorizontalStrut(12));
 
-	ImageIcon iconoDocentes = new ImageIcon(getClass().getResource("/Imagenes/school (1).png")); 
-	JMenu mnNewMenu_2 = new JMenu("Docentes");
-	mnNewMenu_2.setIcon(iconoDocentes);
-	mnNewMenu_2.setForeground(new Color(255, 255, 255));
-	mnNewMenu_2.setFont(new Font("Inter", Font.BOLD, 12));
-	menuBar.add(mnNewMenu_2);
+		ImageIcon iconoDocentes = new ImageIcon(getClass().getResource("/Imagenes/school (1).png")); 
+		JMenu mnNewMenu_2 = new JMenu("Docentes");
+		mnNewMenu_2.setIcon(iconoDocentes);
+		mnNewMenu_2.setForeground(new Color(255, 255, 255));
+		mnNewMenu_2.setFont(new Font("Inter", Font.BOLD, 12));
+		menuBar.add(mnNewMenu_2);
 
-	JMenuItem mntmNewMenuItem_11 = new JMenuItem("Descargar información");
-	mntmNewMenuItem_11.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Descargar información");
+		mntmNewMenuItem_11.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			teacher = new TeacherController();
-			teacher.docenteRegistradosPanel();			
-		}
-	});
-	mnNewMenu_2.add(mntmNewMenuItem_11);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				teacher = new TeacherController();
+				teacher.docenteRegistradosPanel();			
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_11);
 
-	JMenuItem mntmNewMenuItem_12 = new JMenuItem("Consultar");
-	mntmNewMenuItem_12.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Consultar");
+		mntmNewMenuItem_12.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			teacher = new TeacherController();
-			teacher.buscarIDPanel2();		
-		}
-	});
-	mnNewMenu_2.add(mntmNewMenuItem_12);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				teacher = new TeacherController();
+				teacher.buscarIDPanel2();		
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_12);
 
-	JMenuItem mntmNewMenuItem_13 = new JMenuItem("Crear");
-	mntmNewMenuItem_13.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_13 = new JMenuItem("Crear");
+		mntmNewMenuItem_13.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			teacher = new TeacherController();
-			teacher.crearDocentePanel();
-		}
-	});
-	mnNewMenu_2.add(mntmNewMenuItem_13);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				teacher = new TeacherController();
+				teacher.crearDocentePanel();
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_13);
 
-	JMenuItem mntmNewMenuItem_14 = new JMenuItem("Editar");
-	mntmNewMenuItem_14.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_14 = new JMenuItem("Editar");
+		mntmNewMenuItem_14.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			teacher = new TeacherController();
-			teacher.buscarIDPanel3();
-		}
-	});
-	mnNewMenu_2.add(mntmNewMenuItem_14);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				teacher = new TeacherController();
+				teacher.buscarIDPanel3();
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_14);
 
-	JMenuItem mntmNewMenuItem_15 = new JMenuItem("Eliminar");
-	mntmNewMenuItem_15.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_15 = new JMenuItem("Eliminar");
+		mntmNewMenuItem_15.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			teacher = new TeacherController();
-			teacher.buscarIDPanel4();
-		}
-	});
-	mnNewMenu_2.add(mntmNewMenuItem_15);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				teacher = new TeacherController();
+				teacher.buscarIDPanel4();
+			}
+		});
+		mnNewMenu_2.add(mntmNewMenuItem_15);
 
-	menuBar.add(Box.createHorizontalStrut(12));
+		menuBar.add(Box.createHorizontalStrut(12));
 
-	ImageIcon iconoAsignaturas = new ImageIcon(getClass().getResource("/Imagenes/educacion.png")); 
-	JMenu mnNewMenu_3 = new JMenu("Asignaturas");
-	mnNewMenu_3.setIcon(iconoAsignaturas);
-	mnNewMenu_3.setForeground(new Color(255, 255, 255));
-	mnNewMenu_3.setFont(new Font("Inter", Font.BOLD, 12));
-	menuBar.add(mnNewMenu_3);
+		ImageIcon iconoAsignaturas = new ImageIcon(getClass().getResource("/Imagenes/educacion.png")); 
+		JMenu mnNewMenu_3 = new JMenu("Asignaturas");
+		mnNewMenu_3.setIcon(iconoAsignaturas);
+		mnNewMenu_3.setForeground(new Color(255, 255, 255));
+		mnNewMenu_3.setFont(new Font("Inter", Font.BOLD, 12));
+		menuBar.add(mnNewMenu_3);
 
-	JMenuItem mntmNewMenuItem_16 = new JMenuItem("Descargar información");
-	mntmNewMenuItem_16.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_16 = new JMenuItem("Descargar información");
+		mntmNewMenuItem_16.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			subject = new SubjectController();
-			subject.asignaturasRegistradasPanel();
-		}
-	});
-	mnNewMenu_3.add(mntmNewMenuItem_16);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				subject = new SubjectController();
+				subject.asignaturasRegistradasPanel();
+			}
+		});
+		mnNewMenu_3.add(mntmNewMenuItem_16);
 
-	JMenuItem mntmNewMenuItem_17 = new JMenuItem("Consultar");
-	mntmNewMenuItem_17.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_17 = new JMenuItem("Consultar");
+		mntmNewMenuItem_17.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-		}
-	});
-	mnNewMenu_3.add(mntmNewMenuItem_17);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				subject = new SubjectController();
+				subject.buscarAsignatura4();
+			}
+		});
+		mnNewMenu_3.add(mntmNewMenuItem_17);
 
-	JMenuItem mntmNewMenuItem_18 = new JMenuItem("Crear");
-	mntmNewMenuItem_18.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_18 = new JMenuItem("Crear");
+		mntmNewMenuItem_18.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			subject = new SubjectController();
-			subject.crearAsignatura();
-		}
-	});
-	mnNewMenu_3.add(mntmNewMenuItem_18);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				subject = new SubjectController();
+				subject.crearAsignatura();
+			}
+		});
+		mnNewMenu_3.add(mntmNewMenuItem_18);
 
-	JMenuItem mntmNewMenuItem_19 = new JMenuItem("Editar");
-	mntmNewMenuItem_19.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_19 = new JMenuItem("Editar");
+		mntmNewMenuItem_19.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			subject = new SubjectController();
-			subject.buscarAsignatura2();
-		}
-	});
-	mnNewMenu_3.add(mntmNewMenuItem_19);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				subject = new SubjectController();
+				subject.buscarAsignatura2();
+			}
+		});
+		mnNewMenu_3.add(mntmNewMenuItem_19);
 
-	JMenuItem mntmNewMenuItem_20 = new JMenuItem("Eliminar");
-	mntmNewMenuItem_20.addActionListener(new ActionListener() {
+		JMenuItem mntmNewMenuItem_20 = new JMenuItem("Eliminar");
+		mntmNewMenuItem_20.addActionListener(new ActionListener() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			subject = new SubjectController();
-			subject.buscarAsignatura3();
-		}
-	});
-	mnNewMenu_3.add(mntmNewMenuItem_20);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				subject = new SubjectController();
+				subject.buscarAsignatura3();
+			}
+		});
+		mnNewMenu_3.add(mntmNewMenuItem_20);
 
-}
+	}
 
 
 

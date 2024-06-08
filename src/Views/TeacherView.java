@@ -2487,7 +2487,7 @@ public class TeacherView {
 				// TODO Auto-generated method stub
 				frame.dispose();
 				student = new StudentController();
-				student.editarInformacionAlumno();
+				student.buscarIDPanel3();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_9);
@@ -2500,7 +2500,7 @@ public class TeacherView {
 				// TODO Auto-generated method stub
 				frame.dispose();
 				student = new StudentController();
-				student.eliminarAlumnoPanel();
+				student.buscarIDPanel4();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_10);
@@ -2607,6 +2607,9 @@ public class TeacherView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				subject = new SubjectController();
+				subject.buscarAsignatura4();
 			}
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_17);

@@ -7,6 +7,9 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -227,7 +230,9 @@ public class StudentView {
 		});
 		panel.add(btnNewButton_15);
 
-
+		JTextField[] caracteres2TextFields = {textField_2};
+		agregarFiltroNumerosATextFields(caracteres2TextFields, 10);
+		
 		metodoMenu(panel);
 
 		frame.add(panel);
@@ -260,6 +265,9 @@ public class StudentView {
 		textField_2.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_2);
 		textField_2.setColumns(10);
+		
+		JTextField[] caracteres2TextFields = {textField_2};
+		agregarFiltroNumerosATextFields(caracteres2TextFields, 10);
 
 		JButton btnNewButton_14 = new JButton("Buscar alumno");
 		btnNewButton_14.setForeground(new Color(255, 255, 255));
@@ -392,44 +400,44 @@ public class StudentView {
 		panel.add(btnNewButton_14);
 
 		JLabel lblNewLabel_25 = new JLabel("Numero de Control");
-		lblNewLabel_25.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25.setBounds(22, 9, 132, 13);
 		panel_1.add(lblNewLabel_25);
 
 		JLabel lblNewLabel_25_1 = new JLabel("Apellido Paterno");
-		lblNewLabel_25_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_1.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_1.setBounds(38, 40, 144, 13);
 		panel_1.add(lblNewLabel_25_1);
 
 		JLabel lblNewLabel_25_2 = new JLabel("Apellido Materno");
-		lblNewLabel_25_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_2.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_2.setBounds(36, 70, 144, 13);
 		panel_1.add(lblNewLabel_25_2);
 
 		JLabel lblNewLabel_25_3 = new JLabel("Nombre(s)");
-		lblNewLabel_25_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_3.setBounds(79, 100, 144, 13);
 		panel_1.add(lblNewLabel_25_3);
 
 		JLabel lblNewLabel_25_3_1 = new JLabel("Fecha de Nacimiento");
-		lblNewLabel_25_3_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_1.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_3_1.setBounds(11, 130, 144, 13);
 		panel_1.add(lblNewLabel_25_3_1);
 
 		JLabel lblNewLabel_25_3_2 = new JLabel("Correo Electrónico");
-		lblNewLabel_25_3_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_2.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_3_2.setBounds(24, 160, 144, 13);
 		panel_1.add(lblNewLabel_25_3_2);
 
 		JLabel lblNewLabel_25_3_3 = new JLabel("Grado del Alumno");
-		lblNewLabel_25_3_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_3.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_3_3.setBounds(31, 190, 144, 13);
 		panel_1.add(lblNewLabel_25_3_3);
 
 		JLabel lblNewLabel_25_3_4 = new JLabel("Teléfono");
 		lblNewLabel_25_3_4.setBounds(89, 220, 144, 13);
 		panel_1.add(lblNewLabel_25_3_4);
-		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.PLAIN, 13));
 
 		JTextField textField_3 = new JTextField(idAlumno);
 		textField_3.setBounds(153, 7, 290, 19);
@@ -623,44 +631,44 @@ public class StudentView {
 		panel.add(btnNewButton_14);
 
 		JLabel lblNewLabel_25 = new JLabel("Numero de Control");
-		lblNewLabel_25.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25.setBounds(22, 9, 132, 13);
 		panel_1.add(lblNewLabel_25);
 
 		JLabel lblNewLabel_25_1 = new JLabel("Apellido Paterno");
-		lblNewLabel_25_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_1.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_1.setBounds(38, 40, 144, 13);
 		panel_1.add(lblNewLabel_25_1);
 
 		JLabel lblNewLabel_25_2 = new JLabel("Apellido Materno");
-		lblNewLabel_25_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_2.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_2.setBounds(36, 70, 144, 13);
 		panel_1.add(lblNewLabel_25_2);
 
 		JLabel lblNewLabel_25_3 = new JLabel("Nombre(s)");
-		lblNewLabel_25_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_3.setBounds(79, 100, 144, 13);
 		panel_1.add(lblNewLabel_25_3);
 
 		JLabel lblNewLabel_25_3_1 = new JLabel("Fecha de Nacimiento");
-		lblNewLabel_25_3_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_1.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_3_1.setBounds(11, 130, 144, 13);
 		panel_1.add(lblNewLabel_25_3_1);
 
 		JLabel lblNewLabel_25_3_2 = new JLabel("Correo Electrónico");
-		lblNewLabel_25_3_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_2.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_3_2.setBounds(24, 160, 144, 13);
 		panel_1.add(lblNewLabel_25_3_2);
 
 		JLabel lblNewLabel_25_3_3 = new JLabel("Grado del Alumno");
-		lblNewLabel_25_3_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_3.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_3_3.setBounds(31, 190, 144, 13);
 		panel_1.add(lblNewLabel_25_3_3);
 
 		JLabel lblNewLabel_25_3_4 = new JLabel("Teléfono");
 		lblNewLabel_25_3_4.setBounds(89, 220, 144, 13);
 		panel_1.add(lblNewLabel_25_3_4);
-		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.PLAIN, 13));
 
 		JTextField textField_3 = new JTextField(idAlumno);
 		textField_3.setBounds(153, 7, 290, 19);
@@ -998,7 +1006,17 @@ public class StudentView {
 		});
 		panel.add(btnNewButton_15);
 
+		JTextField[] numerosTextFields = {textField_3, textField_10};
+		agregarFiltroNumerosATextFields(numerosTextFields, 10);
 
+		JTextField[] letrasTextFields = {textField_4, textField_5, textField_6, textField_9};
+		agregarFiltroLetrasATextFields(letrasTextFields, 40);
+
+		JTextField[] caracteresTextFields = {textField_7 };
+		agregarLimiteCaracteresATextFields(caracteresTextFields, 20);
+
+		JTextField[] caracteres2TextFields = {textField_8};
+		agregarLimiteCaracteresATextFields(caracteres2TextFields, 40);
 
 
 		if (atributos!=null)
@@ -1189,6 +1207,9 @@ public class StudentView {
 		textField_2.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_2);
 		textField_2.setColumns(10);
+		
+		JTextField[] caracteres2TextFields = {textField_2};
+		agregarFiltroNumerosATextFields(caracteres2TextFields, 10);
 
 		JButton btnNewButton_14 = new JButton("Buscar alumno");
 		btnNewButton_14.setForeground(new Color(255, 255, 255));
@@ -1348,9 +1369,7 @@ public class StudentView {
 		JTextField textField_3 = new JTextField(idAlumno);
 		textField_3.setBounds(153, 7, 290, 19);
 		textField_3.setBackground(Color.decode("#D9D9D9"));
-		textField_3.setFont(new Font("Inter", Font.BOLD, 13));
 		textField_3.setBorder(null);
-		textField_3.setOpaque(false);
 		textField_3.setEditable(false); // No editable
 		panel_1.add(textField_3);
 		textField_3.setColumns(10);
@@ -1488,7 +1507,17 @@ public class StudentView {
 		});
 		panel.add(btnNewButton_14);
 
+		JTextField[] numerosTextFields = {textField_3, textField_10};
+		agregarFiltroNumerosATextFields(numerosTextFields, 10);
 
+		JTextField[] letrasTextFields = {textField_4, textField_5, textField_6, textField_9};
+		agregarFiltroLetrasATextFields(letrasTextFields, 40);
+
+		JTextField[] caracteresTextFields = {textField_7 };
+		agregarLimiteCaracteresATextFields(caracteresTextFields, 20);
+
+		JTextField[] caracteres2TextFields = {textField_8};
+		agregarLimiteCaracteresATextFields(caracteres2TextFields, 40);
 
 		metodoMenu(panel);
 
@@ -1667,6 +1696,9 @@ public class StudentView {
 		textField_2.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_2);
 		textField_2.setColumns(10);
+		
+		JTextField[] caracteres2TextFields = {textField_2};
+		agregarFiltroNumerosATextFields(caracteres2TextFields, 10);
 
 		JButton btnNewButton_14 = new JButton("Buscar alumno");
 		btnNewButton_14.setForeground(new Color(255, 255, 255));
@@ -1805,44 +1837,44 @@ public class StudentView {
 		panel.add(btnNewButton_15);
 
 		JLabel lblNewLabel_25 = new JLabel("Numero de Control");
-		lblNewLabel_25.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25.setBounds(22, 9, 132, 13);
 		panel_1.add(lblNewLabel_25);
 
 		JLabel lblNewLabel_25_1 = new JLabel("Apellido Paterno");
-		lblNewLabel_25_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_1.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_1.setBounds(38, 40, 144, 13);
 		panel_1.add(lblNewLabel_25_1);
 
 		JLabel lblNewLabel_25_2 = new JLabel("Apellido Materno");
-		lblNewLabel_25_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_2.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_2.setBounds(36, 70, 144, 13);
 		panel_1.add(lblNewLabel_25_2);
 
 		JLabel lblNewLabel_25_3 = new JLabel("Nombre(s)");
-		lblNewLabel_25_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_3.setBounds(79, 100, 144, 13);
 		panel_1.add(lblNewLabel_25_3);
 
 		JLabel lblNewLabel_25_3_1 = new JLabel("Fecha de Nacimiento");
-		lblNewLabel_25_3_1.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_1.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_3_1.setBounds(11, 130, 144, 13);
 		panel_1.add(lblNewLabel_25_3_1);
 
 		JLabel lblNewLabel_25_3_2 = new JLabel("Correo Electrónico");
-		lblNewLabel_25_3_2.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_2.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_3_2.setBounds(24, 160, 144, 13);
 		panel_1.add(lblNewLabel_25_3_2);
 
 		JLabel lblNewLabel_25_3_3 = new JLabel("Grado del Alumno");
-		lblNewLabel_25_3_3.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_3.setFont(new Font("Inter", Font.PLAIN, 13));
 		lblNewLabel_25_3_3.setBounds(31, 190, 144, 13);
 		panel_1.add(lblNewLabel_25_3_3);
 
 		JLabel lblNewLabel_25_3_4 = new JLabel("Teléfono");
 		lblNewLabel_25_3_4.setBounds(89, 220, 144, 13);
 		panel_1.add(lblNewLabel_25_3_4);
-		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.BOLD, 13));
+		lblNewLabel_25_3_4.setFont(new Font("Inter", Font.PLAIN, 13));
 
 		JTextField textField_3 = new JTextField(idAlumno);
 		textField_3.setBounds(153, 7, 290, 19);
@@ -2372,7 +2404,7 @@ public class StudentView {
 				// TODO Auto-generated method stub
 				frame.dispose();
 				student = new StudentController();
-				student.editarInformacionAlumno();
+				student.buscarIDPanel3();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_9);
@@ -2385,7 +2417,7 @@ public class StudentView {
 				// TODO Auto-generated method stub
 				frame.dispose();
 				student = new StudentController();
-				student.eliminarAlumnoPanel();
+				student.buscarIDPanel4();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_10);
@@ -2492,6 +2524,9 @@ public class StudentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				subject = new SubjectController();
+				subject.buscarAsignatura4();
 			}
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_17);
@@ -2538,6 +2573,83 @@ public class StudentView {
 	}
 
 
+	private void limitarEntradaANumeros(KeyEvent evt, JTextField textField, int longitud) {
+		// TODO Auto-generated method stub
+		char key = evt.getKeyChar();
 
+		boolean esNumero = Character.isDigit(key);
+
+		boolean esBorrarOEnviar = key == KeyEvent.VK_BACK_SPACE || key == KeyEvent.VK_ENTER;
+
+		if (!esNumero && !esBorrarOEnviar) {
+			evt.consume();
+
+			JOptionPane.showMessageDialog(null, "Solo números", "Advertencia", JOptionPane.WARNING_MESSAGE);
+		}
+
+
+		if (textField.getText().length() >= longitud) {
+			evt.consume();
+		}
+	}
+
+	private void agregarFiltroNumerosATextFields(JTextField[] textFields, int longitud) {
+		for (JTextField textField : textFields) {
+			textField.addKeyListener((KeyListener) new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent evt) {
+					limitarEntradaANumeros(evt, textField, longitud);
+				}
+			});
+		}
+	}
+
+	private void limitarEntradaALetras(KeyEvent evt, JTextField textField, int longitud) {
+		int key = evt.getKeyChar();
+
+		boolean mayusculas = key >= 65 && key <= 90;
+		boolean minusculas = key >= 97 && key <= 122;
+		boolean espacio = key == 32;
+		boolean esBorrarOEnviar = key == KeyEvent.VK_BACK_SPACE || key == KeyEvent.VK_ENTER;
+
+		if (!(minusculas || mayusculas || espacio|| esBorrarOEnviar))
+		{
+			evt.consume();
+			JOptionPane.showMessageDialog(null, "Solo letras", "Advertencia", JOptionPane.WARNING_MESSAGE);
+		}
+
+		if (textField.getText().length() >= longitud) {
+			evt.consume();
+		}
+	}
+
+	private void agregarFiltroLetrasATextFields(JTextField[] textFields, int longitud) {
+		for (JTextField textField : textFields) {
+			textField.addKeyListener((KeyListener) new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent evt) {
+					limitarEntradaALetras(evt, textField, longitud);
+				}
+			});
+		}
+	}
+
+	private void limitarEntradaCaracteres(KeyEvent evt, JTextField textField, int longitudMaxima) {
+
+		if (textField.getText().length() >= longitudMaxima) {
+			evt.consume();
+		}
+	}
+
+	private void agregarLimiteCaracteresATextFields(JTextField[] textFields, int longitud) {
+		for (JTextField textField : textFields) {
+			textField.addKeyListener((KeyListener) new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent evt) {
+					limitarEntradaCaracteres(evt, textField, longitud);
+				}
+			});
+		}
+	}
 
 }

@@ -25,6 +25,8 @@ import Controllers.HomeController;
 import Controllers.StudentController;
 import Controllers.SubjectController;
 import Controllers.TeacherController;
+import Models.atributosStudent;
+import Models.atributosTeacher;
 
 public class HomeView {
 
@@ -35,6 +37,7 @@ public class HomeView {
 	private GroupController group;
 	private SubjectController subject;
 	private AuthController view;
+	
 
 
 	public HomeView() {
@@ -124,10 +127,10 @@ public class HomeView {
 		lblNewLabel_17.setBounds(25, 7, 74, 13);
 		panel3.add(lblNewLabel_17);
 
-		JLabel lblNewLabel_22 = new JLabel("alumno");
+		JLabel lblNewLabel_22 = new JLabel("grupo");
 		lblNewLabel_22.setFont(new Font("Inter", Font.BOLD, 12));
 		lblNewLabel_22.setForeground(new Color(255, 255, 255));
-		lblNewLabel_22.setBounds(35, 23, 45, 13);
+		lblNewLabel_22.setBounds(40, 23, 45, 13);
 		panel3.add(lblNewLabel_22);
 
 		ImageIcon iconoCrearAlumno = new ImageIcon(getClass().getResource("/Imagenes/add.png"));
@@ -625,7 +628,7 @@ public class HomeView {
 				// TODO Auto-generated method stub
 				frame.dispose();
 				subject = new SubjectController();
-				//subject.buscarAsignatura2();
+				subject.buscarAsignatura4();
 			}
 		});
 		panel.add(btnNewButton_9);
@@ -643,10 +646,10 @@ public class HomeView {
 		lblNewLabel_17.setBounds(25, 7, 74, 13);
 		panel3.add(lblNewLabel_17);
 
-		JLabel lblNewLabel_22 = new JLabel("alumno");
+		JLabel lblNewLabel_22 = new JLabel("asignatura");
 		lblNewLabel_22.setFont(new Font("Inter", Font.BOLD, 12));
 		lblNewLabel_22.setForeground(new Color(255, 255, 255));
-		lblNewLabel_22.setBounds(35, 23, 45, 13);
+		lblNewLabel_22.setBounds(28, 23, 70, 13);
 		panel3.add(lblNewLabel_22);
 
 		ImageIcon iconoCrearAlumno = new ImageIcon(getClass().getResource("/Imagenes/books.png"));
@@ -1156,7 +1159,8 @@ public class HomeView {
 				// TODO Auto-generated method stub
 				frame.dispose();
 				student = new StudentController();
-				student.crearAlumnoPanel();
+				
+				student.crearAlumnoPanel( );
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_8);
@@ -1169,7 +1173,7 @@ public class HomeView {
 				// TODO Auto-generated method stub
 				frame.dispose();
 				student = new StudentController();
-				student.editarInformacionAlumno();
+				student.buscarIDPanel3();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_9);
@@ -1182,7 +1186,7 @@ public class HomeView {
 				// TODO Auto-generated method stub
 				frame.dispose();
 				student = new StudentController();
-				student.eliminarAlumnoPanel();
+				student.buscarIDPanel4();
 			}
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_10);
@@ -1289,6 +1293,9 @@ public class HomeView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				frame.dispose();
+				subject = new SubjectController();
+				subject.buscarAsignatura4();
 			}
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_17);

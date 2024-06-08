@@ -16,25 +16,11 @@ public class SubjectController {
 	public void asignaturasRegistradasPanel() {
 		vista.asignaturasRegistradasPanel();
 	}
-	public void detallesAsignaturaPanel() {
-		vista.detallesAsignaturaPanel();
-
-		
-	}
-	public void listaAlumnosPanel2() {
-		vista.listaAlumnosPanel2();
-
-		
-	}
-	
-	public void seleccionarGrupo() {
-		vista.seleccionarGrupo();
-
-	}
 	
 	public void buscarAsignatura2() {
 		vista.buscarAsignatura2();
 	}
+	
 	public void buscarAsignatura() {
 		vista.buscarAsignatura();
 
@@ -45,8 +31,8 @@ public class SubjectController {
 
 	}
 	
-	public void editarGrupo() {
-	vista.editarGrupo();
+	public void buscarAsignatura4() {
+	vista.buscarAsignatura4();
 	}
 
 	public void crearAsignatura() {
