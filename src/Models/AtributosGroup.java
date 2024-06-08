@@ -4,12 +4,12 @@ public class AtributosGroup {
 	
 	private String nombre, docente, letraDeGrupo,alumnos;
 
-	public AtributosGroup(String nombre,String docente, String letraDeGrupo,String alumnos) {
+	public AtributosGroup(String nombre,String docente, String letraDeGrupo) {
 		// TODO Auto-generated constructor stub
 		this.nombre=nombre;
 		this.docente=docente;
 		this.letraDeGrupo=letraDeGrupo;
-		this.alumnos=alumnos;
+		
 		
 	}
 

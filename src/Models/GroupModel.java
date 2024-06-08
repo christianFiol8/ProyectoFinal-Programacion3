@@ -1,5 +1,6 @@
 package Models;
 
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +10,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Flow.Publisher;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import javax.swing.JOptionPane;
 
@@ -17,6 +36,7 @@ public class GroupModel {
 	public static String URL = "jdbc:mysql://sql.freedb.tech:3306/freedb_db_test_32";
 	public static String USER = "freedb_administrador_proyecto";
 	public static String CLAVE = "jwTgdZDt7e%?2M8";
+	StudentModel estudiante = new StudentModel();
 	PreparedStatement ps = null;
 	ResultSet rs= null;
 
@@ -24,19 +44,22 @@ public class GroupModel {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void crearGrupo (String nombre,String docente,String letra, String alumnos)
+	public void crearGrupo (String nombre,String docente,String letra)
 	{
 		try {
 			
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection(URL,USER,CLAVE);
-			ps =con.prepareStatement("INSERT INTO `Grupos` Values(?,?,?,?)");
+			ps =con.prepareStatement("INSERT INTO `Grupos` Values(?,?,?)");
 			ps.setString(1, nombre);
 			ps.setString(2, docente);
 			ps.setString(3, letra);
-			ps.setString(4, alumnos);
+
 			ps.executeUpdate();
 			
+			StudentModel grupo = new StudentModel();
+			
+	
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -85,11 +108,11 @@ public class GroupModel {
 				String nombres = rs.getString("Nombre");
 				String Docente = rs.getString("Docente");
 				String letra = rs.getString("Letra");
-				String alumno = rs.getString("Alumnos");
+				
 
 
 				//Crea un objeto en el cual va a guardar los datos
-				AtributosGroup informacion = new AtributosGroup(nombre,Docente,letra,alumno);
+				AtributosGroup informacion = new AtributosGroup(nombres,Docente,letra);
 
 
 				return informacion;
@@ -105,17 +128,16 @@ public class GroupModel {
 	}
 	
 	
-	public void editarGrupo (String Nombre,String Docente,String Letra, String Alumno ) {
+	public void editarGrupo (String Nombre,String Docente,String Letra ) {
 
 		//Con este se busca al docente ya creado para editarlo
-		String consulta = "UPDATE Grupos SET Docente = ?, Letra = ?, Alumnos = ? WHERE Nombre = ?";
+		String consulta = "UPDATE Grupos SET Docente = ?, Letra = ? WHERE Nombre = ?";
 
 		try (Connection conexion = DriverManager.getConnection(URL, USER, CLAVE);
 				PreparedStatement st = conexion.prepareStatement(consulta)) {
 
 			st.setString(1, Docente);
 			st.setString(2, Letra);
-			st.setString(3, Alumno);
 			st.setString(4, Nombre);
 
 
@@ -157,8 +179,79 @@ public class GroupModel {
 
 	}
 	
-	public void añadirAlumno()
-	{
+	public void datosGruposPDF(String grupo) {
+		
+		try {
+			
+		
+		        List<List> datos = estudiante.alumnosGrupo(grupo);
+
+		        if (datos == null || datos.isEmpty()) {
+		            JOptionPane.showMessageDialog(null, "No se encontraron datos de alumnos para el grupo.");
+		            return;
+		        }
+
+		        // Tamaño de credencial (8.5 x 11 pulgadas)
+		        Rectangle pageSize = new Rectangle(8.5f * 72, 11f * 72);
+		        Document document = new Document(pageSize);
+
+		        JFileChooser chooser = new JFileChooser();
+		        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		        chooser.setAcceptAllFileFilterUsed(false);
+		        FileNameExtensionFilter pdfs = new FileNameExtensionFilter("Documentos PDF", "pdf");
+		        chooser.addChoosableFileFilter(pdfs);
+		        chooser.setFileFilter(pdfs);
+
+		        if (JFileChooser.CANCEL_OPTION == chooser.showDialog(null, "Generar PDF")) {
+		            JOptionPane.showMessageDialog(null, "No se generó el PDF.");
+		            return;
+		        }
+
+		        try {
+		            PdfWriter.getInstance(document, new FileOutputStream(chooser.getSelectedFile() + ".pdf"));
+		            document.open();
+
+		            // Crear la tabla con 3 columnas para los datos de los estudiantes
+		            PdfPTable table = new PdfPTable(4);
+		            table.setWidthPercentage(100);
+		            table.setSpacingBefore(10f);
+		            table.setSpacingAfter(10f);
+
+		            // Encabezados de la tabla
+		            Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 8);
+		            PdfPCell cell = new PdfPCell(new Phrase("Apellido Paterno", font));
+		            table.addCell(cell);
+		            cell = new PdfPCell(new Phrase("Apellido Materno", font));
+		            table.addCell(cell);
+		            cell = new PdfPCell(new Phrase("Nombre", font));
+		            table.addCell(cell);
+		            cell = new PdfPCell(new Phrase("No. Control", font));
+		            table.addCell(cell);
+
+		            // Datos de la tabla
+		            font = FontFactory.getFont(FontFactory.HELVETICA, 8);
+		            for (List<String> alumno : datos) {
+		                table.addCell(new PdfPCell(new Phrase(alumno.get(1), font)));
+		                table.addCell(new PdfPCell(new Phrase(alumno.get(2), font)));
+		                table.addCell(new PdfPCell(new Phrase(alumno.get(3), font)));
+		                table.addCell(new PdfPCell(new Phrase(alumno.get(0), font)));
+		            }
+
+		            // Agregar la tabla al documento
+		            document.add(table);
+
+		            // Cerrar el documento
+		            document.close();
+
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		            JOptionPane.showMessageDialog(null, "No se generó el PDF.");
+		        }
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		
 	}
 	

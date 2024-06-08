@@ -1592,35 +1592,35 @@ public class SubjectView {
 	
 	
 
-public void ConfirmarCerrarSesionPanel(JPanel panelCopia) {
-		
+	public void ConfirmarCerrarSesionPanel(JPanel panelCopia) {
+
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
 		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
 		panel_1.setBounds(170, 67, 450, 295);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
-		
+
 		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/logout.png"));
 		JLabel lblNewLabel_14 = new JLabel();
 		lblNewLabel_14.setIcon(iconoPregunta);
 		lblNewLabel_14.setBounds(190, 34, 70, 70);
 		panel_1.add(lblNewLabel_14);
-		
+
 		JLabel lblNewLabel_10 = new JLabel("¡Vuelve pronto!");
 		lblNewLabel_10.setFont(new Font("Inter", Font.BOLD, 20));
 		lblNewLabel_10.setBounds(148, 123, 163, 25);
 		panel_1.add(lblNewLabel_10);
-		
+
 		JLabel lblNewLabel_11 = new JLabel("¿Seguro que quieres cerrar sesión?");
 		lblNewLabel_11.setFont(new Font("Inter", Font.BOLD, 11));
 		lblNewLabel_11.setBounds(124, 163, 194, 13);
 		panel_1.add(lblNewLabel_11);
-		
+
 		JButton btnNewButton_5 = new JButton("No,volver");
 		btnNewButton_5.setForeground(new Color(255, 255, 255));
 		btnNewButton_5.setFont(new Font("Inter", Font.BOLD, 11));
@@ -1640,7 +1640,7 @@ public void ConfirmarCerrarSesionPanel(JPanel panelCopia) {
 			}
 		});
 		panel_1.add(btnNewButton_5);
-		
+
 		JButton btnNewButton_6 = new JButton("Si,cerrar sesión");
 		btnNewButton_6.setBackground(new Color(255, 255, 255));
 		btnNewButton_6.setFont(new Font("Inter", Font.BOLD, 11));
@@ -1654,71 +1654,71 @@ public void ConfirmarCerrarSesionPanel(JPanel panelCopia) {
 				frame.remove(panel);
 				frame.dispose();
 				cerrarSesionPanel();
-				
+
 			}
 		});
 		panel_1.add(btnNewButton_6);
-		
-		
+
+
 		frame.add(panel);
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
-}
+	}
 
 
 
 
-public void cerrarSesionPanel() {
-	
-	JPanel panel = new JPanel();
-	panel.setForeground(new Color(0, 0, 0));
-	frame.getContentPane().add(panel, BorderLayout.CENTER);
-	panel.setLayout(null);
-	panel.setBackground(Color.decode("#C3E1F1"));
-	
-	JPanel panel_1 = new JPanel();
-	panel_1.setBackground(new Color(255, 255, 255));
-	panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-	panel_1.setBounds(170, 67, 450, 295);
-	panel.add(panel_1);
-	panel_1.setLayout(null);
-	
-	ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/like.png"));
-	JLabel lblNewLabel_14 = new JLabel();
-	lblNewLabel_14.setIcon(iconoPregunta);
-	lblNewLabel_14.setBounds(190, 34, 70, 70);
-	panel_1.add(lblNewLabel_14);
-	
-	JLabel lblNewLabel_12 = new JLabel("Usted cerró sesión");
-	lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
-	lblNewLabel_12.setBounds(128, 130, 200, 21);
-	panel_1.add(lblNewLabel_12);
-	
-	JButton btnNewButton_7 = new JButton("Volver a inicio de sesión");
-	btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
-	btnNewButton_7.setForeground(new Color(255, 255, 255));
-	btnNewButton_7.setBackground(Color.decode("#4A85A4"));
-	btnNewButton_7.setBounds(142, 182, 167, 25);
-	btnNewButton_7.addActionListener(new ActionListener() {
+	public void cerrarSesionPanel() {
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			frame.dispose();
-			view = new AuthController();
-			view.login();
-			
-		}
-	});
-	
-	panel_1.add(btnNewButton_7);
-	
-	frame.add(panel);
-	frame.setVisible(true);
-	frame.repaint();
-	frame.revalidate();
-}
+		JPanel panel = new JPanel();
+		panel.setForeground(new Color(0, 0, 0));
+		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(170, 67, 450, 295);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+
+		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/like.png"));
+		JLabel lblNewLabel_14 = new JLabel();
+		lblNewLabel_14.setIcon(iconoPregunta);
+		lblNewLabel_14.setBounds(190, 34, 70, 70);
+		panel_1.add(lblNewLabel_14);
+
+		JLabel lblNewLabel_12 = new JLabel("Usted cerró sesión");
+		lblNewLabel_12.setFont(new Font("Inter", Font.BOLD, 20));
+		lblNewLabel_12.setBounds(128, 130, 200, 21);
+		panel_1.add(lblNewLabel_12);
+
+		JButton btnNewButton_7 = new JButton("Volver a inicio de sesión");
+		btnNewButton_7.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_7.setForeground(new Color(255, 255, 255));
+		btnNewButton_7.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_7.setBounds(142, 182, 167, 25);
+		btnNewButton_7.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.dispose();
+				view = new AuthController();
+				view.login();
+
+			}
+		});
+
+		panel_1.add(btnNewButton_7);
+
+		frame.add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+	}
 
 
 

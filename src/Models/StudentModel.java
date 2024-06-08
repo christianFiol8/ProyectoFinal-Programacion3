@@ -52,7 +52,7 @@ public class StudentModel {
 
 			//Aqui se añade al docente
 			Connection con = DriverManager.getConnection(URL,USER,CLAVE);
-			ps =con.prepareStatement("INSERT INTO `alumnos` Values(?,?,?,?,?,?,?,?,?)");
+			ps =con.prepareStatement("INSERT INTO `alumnos` Values(?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1, idAlumno);
 			ps.setString(2, apellidoPaterno);
 			ps.setString(3, apellidoMaterno);
@@ -62,12 +62,37 @@ public class StudentModel {
 			ps.setString(7, gradoDelAlumno);
 			ps.setString(8, telefono);
 			ps.setString(9, avatar);
+			ps.setString(10, "");
 
 			ps.executeUpdate();
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	public void agregarGrupoAlumnos (String Grupo, String alumnos)
+	{
+		
+		String consulta = "UPDATE alumnos SET Grupo =? WHERE id =?";
+
+		try (Connection conexion = DriverManager.getConnection(URL, USER, CLAVE);
+				PreparedStatement st = conexion.prepareStatement(consulta)) {
+
+			st.setString(1, Grupo);
+			st.setString(2, alumnos);
+
+			int filasAfectadas = st.executeUpdate();
+			if (filasAfectadas > 0) {
+
+			} else {
+				JOptionPane.showMessageDialog(null, "No se agrego a un grupo");
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			
 		}
 	}
 
@@ -98,6 +123,37 @@ public class StudentModel {
 		}
 		return null;
 	}
+	
+	public List<List> alumnosGrupo(String grupo) {
+		List<List> datos = new ArrayList<>(); // Define el tipo de lista correctamente
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(URL, USER, CLAVE);
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM `alumnos` WHERE Grupo = '" + grupo + "';");
+
+			while (rs.next()) {
+				// Obtén los datos de la fila actual
+
+				String id = rs.getString(1);
+				String nombre = rs.getString(2);
+				String apellidoPaterno = rs.getString(3);
+				String apellidoMaterno = rs.getString(4);
+
+				String [] docentes = {id,nombre,apellidoPaterno,apellidoMaterno};
+				List<String> info = Arrays.asList(docentes);	
+				datos.add(info);
+			}
+			con.close();
+			return datos; // Devuelve la lista de datos
+
+		} catch (Exception e) {
+			e.printStackTrace(); // Maneja adecuadamente las excepciones
+		}
+		return null;
+	}
+	
+	
 
 	public atributosStudent buscarAlumno (String idAlumno)
 	{

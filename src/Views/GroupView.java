@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -47,10 +48,15 @@ public class GroupView {
 	public StudentController student;
 	public SubjectController subject;
 	public AuthController view;
+	DefaultTableModel tablaAlumnosPrevia;
+	
 	StudentModel model = new StudentModel();
 	GroupModel control = new GroupModel();
 	private JFrame frame;
-	AtributosGroup grupo = new AtributosGroup("", "", "","");
+	AtributosGroup grupo = new AtributosGroup("", "", "");
+	ArrayList<String> array = new ArrayList<String>();
+	
+	
 	public GroupView() {
 		// TODO Auto-generated constructor stub
 
@@ -179,9 +185,10 @@ public class GroupView {
 					// TODO Auto-generated method stub
 					String selectedId = id;
 					System.out.println("ID seleccionado: " + selectedId);
+					AtributosGroup detalles = control.datosDelGrupo(selectedId);
 					frame.remove(panel);
 					frame.dispose();
-					listaAlumnosPanel();
+					listaAlumnosPanel(selectedId);
 				}
 			});
 			informacion[i][0] = button;
@@ -272,7 +279,7 @@ public class GroupView {
 					System.out.println("ID seleccionado: " + selectedId);
 					frame.remove(panel);
 					frame.dispose();
-					listaAlumnosPanel2();
+					listaAlumnosPanel2(selectedId);
 				}
 			});
 			informacion[i][0] = button;
@@ -333,7 +340,7 @@ public class GroupView {
 		frame.revalidate();
 	}
 
-	public void listaAlumnosPanel() {
+	public void listaAlumnosPanel(String nombre) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -364,7 +371,7 @@ public class GroupView {
 		});
 		panel.add(btnNewButton_15);
 
-		List<List> datos = model.get();
+		List<List> datos = model.alumnosGrupo(nombre);
 
 		// Columnas de la tabla
 		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
@@ -372,7 +379,9 @@ public class GroupView {
 		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][3];
 		for (int i = 0; i < datos.size(); i++) {
-			informacion[i][0] = datos.get(i).get(0);
+			informacion[i][0] = datos.get(i).get(1);
+			informacion[i][1] = datos.get(i).get(2);
+			informacion[i][2] = datos.get(i).get(3);
 
 		}
 
@@ -405,6 +414,7 @@ public class GroupView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				control.datosGruposPDF(nombre);
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -418,7 +428,7 @@ public class GroupView {
 
 	}
 
-	public void listaAlumnosPanel2() {
+	public void listaAlumnosPanel2(String grupo) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -449,7 +459,7 @@ public class GroupView {
 		});
 		panel.add(btnNewButton_15);
 
-		List<List> datos = model.get();
+		List<List> datos = model.alumnosGrupo(grupo);
 
 		// Columnas de la tabla
 		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
@@ -457,7 +467,9 @@ public class GroupView {
 		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][3];
 		for (int i = 0; i < datos.size(); i++) {
-			informacion[i][0] = datos.get(i).get(0);
+			informacion[i][0] = datos.get(i).get(1);
+			informacion[i][1] = datos.get(i).get(2);
+			informacion[i][2] = datos.get(i).get(3);
 
 		}
 
@@ -490,6 +502,7 @@ public class GroupView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				control.datosGruposPDF(grupo);
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -588,6 +601,7 @@ public class GroupView {
 		frame.getContentPane().add(panel);
 
 		List<List> datos = model.get();
+		
 
 		// Columnas de la tabla
 		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
@@ -602,10 +616,10 @@ public class GroupView {
 		}
 
 		// Crear el modelo de tabla con los datos obtenidos
-		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
+		tablaAlumnosPrevia = new DefaultTableModel(informacion, columnNames);
 
 		// Crear la tabla con el modelo
-		JTable table = new JTable(tableModel);
+		JTable table = new JTable(tablaAlumnosPrevia);
 
 		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
@@ -667,15 +681,24 @@ public class GroupView {
 					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
 
 				} else{
+					
+
+					
 					frame.remove(panel);
 					frame.dispose();
 					grupoCreadoPanel();
 					
+					
 					String nombre = textField_11.getText();
 					String docente = textField_12.getText();
 					String avatar = atributos.getLetraDeGrupo();
-					String alumno = "hola";
-					control.crearGrupo(nombre,docente,avatar,alumno);
+					
+					control.crearGrupo(nombre,docente,avatar);
+					
+					for (String idAlumno : array) {
+						
+						model.agregarGrupoAlumnos(nombre,idAlumno);
+					}
 	
 				}
 
@@ -875,7 +898,10 @@ public class GroupView {
 		});
 		panel_1.add(textField_2);
 		textField_2.setColumns(10);
-
+		
+		//Donde guarda a los alumnos del grupo
+		
+		
 		JButton btnNewButton_14 = new JButton("Agregar Alumno");
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
@@ -891,17 +917,31 @@ public class GroupView {
 				if (textField_2.getText().equals("")) {
 				    JOptionPane.showMessageDialog(null, "Llenar campo");
 				} else {
+					
 				    // Busca al alumno en la base de datos
+					
 				    atributosStudent alumno = model.buscarAlumno(textField_2.getText());
 				    
 				    // Verifica si el alumno fue encontrado
+				    
 				    if (alumno != null) {
+				    	
 				        // Si el alumno fue encontrado, procede con la siguiente operación
+			    	
+				    	array.add(alumno.getAlumnoId());
+				    	
+				    	//"Apellido Paterno", "Apellido Materno", "Nombre"
+				    	
+				    	tablaAlumnosPrevia.addRow(new String [] {alumno.getApellidoPaterno(),alumno.getApellidoMaterno(), alumno.getNombre()});
+				    	tablaAlumnosPrevia.fireTableDataChanged();
 				        frame.remove(panel);
 				        frame.dispose();
 				        crearGrupo(atributos);
+				        
 				    } else {
+				    	
 				        // Si el alumno no fue encontrado, muestra una advertencia
+				    	
 				        JOptionPane.showMessageDialog(null, "El alumno no existe");
 				    }
 				}
@@ -1096,7 +1136,7 @@ public class GroupView {
 		panel_1.add(scrollPane);		
 		frame.getContentPane().add(panel);
 
-		List<List> datos = model.get();
+		List<List> datos = model.alumnosGrupo(nombre);
 
 		// Columnas de la tabla
 		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
@@ -1104,7 +1144,9 @@ public class GroupView {
 		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][3];
 		for (int i = 0; i < datos.size(); i++) {
-			informacion[i][0] = datos.get(i).get(0);
+			informacion[i][0] = datos.get(i).get(1);
+			informacion[i][1] = datos.get(i).get(2);
+			informacion[i][2] = datos.get(i).get(3);
 
 		}
 
@@ -1175,11 +1217,17 @@ public class GroupView {
 				String nombre = textField_11.getText();
 				String docente = textField_12.getText();
 				String letraAvatar = atributos.getLetraDeGrupo();
-				String alumno ="holis";
 				
-				control.editarGrupo(nombre, docente, letraAvatar, alumno);
+				
+				control.editarGrupo(nombre, docente, letraAvatar);
 				frame.remove(panel);
 				frame.dispose();
+				
+				for (String idAlumno : array) {
+					
+					model.agregarGrupoAlumnos(nombre,idAlumno);
+				}
+
 				
 				
 				grupoEditadoPanel();
@@ -1214,11 +1262,13 @@ public class GroupView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				String grupo = textField_11.getText();
 				// TODO Auto-generated method stub
 				atributos.setDocente(textField_12.getText());
 				frame.remove(panel);
 				frame.dispose();
-				agregarAlumno2(atributos);
+				agregarAlumno2(atributos,grupo);
 			}
 		});
 		panel_1.add(btnNewButton_26);
@@ -1319,7 +1369,7 @@ public class GroupView {
 
 	}
 
-	public void agregarAlumno2(AtributosGroup atributos) {
+	public void agregarAlumno2(AtributosGroup atributos,String nombre) {
 		JPanel panel = new JPanel();
 		panel.setForeground(new Color(0, 0, 0));
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -1377,10 +1427,15 @@ public class GroupView {
 				    
 				    // Verifica si el alumno fue encontrado
 				    if (alumno != null) {
+				    	
+				    	array.add(alumno.getAlumnoId());
 				        // Si el alumno fue encontrado, procede con la siguiente operación
 				        frame.remove(panel);
 				        frame.dispose();
 				        editarGrupo(atributos);
+				        
+				    	
+				        
 				    } else {
 				        // Si el alumno no fue encontrado, muestra una advertencia
 				        JOptionPane.showMessageDialog(null, "El alumno no existe");
@@ -1627,7 +1682,7 @@ public class GroupView {
 		panel_1.add(scrollPane);		
 		frame.getContentPane().add(panel);
 
-		List<List> datos = model.get();
+		List<List> datos = model.alumnosGrupo(nombre);
 
 		// Columnas de la tabla
 		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
@@ -1635,7 +1690,9 @@ public class GroupView {
 		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][3];
 		for (int i = 0; i < datos.size(); i++) {
-			informacion[i][0] = datos.get(i).get(0);
+			informacion[i][0] = datos.get(i).get(1);
+			informacion[i][1] = datos.get(i).get(2);
+			informacion[i][2] = datos.get(i).get(3);
 
 		}
 
@@ -2445,6 +2502,7 @@ public class GroupView {
 		mnNewMenu_3.add(mntmNewMenuItem_20);
 
 	}
+	
 
 
 

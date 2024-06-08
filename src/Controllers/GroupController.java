@@ -24,12 +24,12 @@ public class GroupController {
 		vista.gruposRegistradosPanel();
 	}
 	public void listaAlumnosPanel() {
-		vista.listaAlumnosPanel();
+		vista.listaAlumnosPanel(null);
 
 		
 	}
 	public void listaAlumnosPanel2() {
-		vista.listaAlumnosPanel2();
+		vista.listaAlumnosPanel2("");
 
 		
 	}
@@ -55,7 +55,7 @@ public class GroupController {
 	}
 
 	public void crearGrupo() {
-		vista.crearGrupo(new AtributosGroup("","","",""));
+		vista.crearGrupo(new AtributosGroup("","",""));
 	}
 	public void buscarGrupo4() {
 		vista.buscarGrupo4();
