@@ -435,10 +435,10 @@ public class SubjectView {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/like.png"));
+		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/Icono_Cerrar.png"));
 		JLabel lblNewLabel_14 = new JLabel();
 		lblNewLabel_14.setIcon(iconoPregunta);
-		lblNewLabel_14.setBounds(190, 34, 70, 70);
+		lblNewLabel_14.setBounds(182, 27, 84, 84);
 		panel_1.add(lblNewLabel_14);
 		
 		JLabel lblNewLabel_12 = new JLabel("Este grupo no lleva esta asignatura");
@@ -849,10 +849,10 @@ public class SubjectView {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/like.png"));
+		ImageIcon iconoPregunta = new ImageIcon(getClass().getResource("/Imagenes/Icono_Cerrar.png"));
 		JLabel lblNewLabel_14 = new JLabel();
 		lblNewLabel_14.setIcon(iconoPregunta);
-		lblNewLabel_14.setBounds(190, 34, 70, 70);
+		lblNewLabel_14.setBounds(182, 27, 84, 84);
 		panel_1.add(lblNewLabel_14);
 		
 		JLabel lblNewLabel_12 = new JLabel("Este grupo no lleva esta asignatura");
