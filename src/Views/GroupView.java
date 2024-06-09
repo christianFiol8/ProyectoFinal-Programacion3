@@ -532,21 +532,21 @@ public class GroupView {
 		panel_1.setLayout(null);
 		
 		JTextField textField_11 = new JTextField();
-		textField_11.setBounds(31, 40, 412, 19);
+		textField_11.setBounds(31, 78, 412, 19);
 		textField_11.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_11);
 		textField_11.setColumns(10);
 
 		JTextField textField_12 = new JTextField();
 		textField_12.setColumns(10);
-		textField_12.setBounds(31, 100, 412, 20);
+		textField_12.setBounds(31, 175, 412, 20);
 		textField_12.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_12);
 
 		JButton btnNewButton_25 = new JButton("Elegir letra del grupo");
 		btnNewButton_25.setFont(new Font("Inter", Font.BOLD, 11));
 		btnNewButton_25.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_25.setBounds(467, 100, 154, 21);
+		btnNewButton_25.setBounds(467, 130, 154, 21);
 		btnNewButton_25.addActionListener(new ActionListener() {
 
 			@Override
@@ -565,7 +565,7 @@ public class GroupView {
 		JButton btnNewButton_26 = new JButton("Agregar alumno");
 		btnNewButton_26.setFont(new Font("Inter", Font.BOLD, 11));
 		btnNewButton_26.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_26.setBounds(467, 160, 154, 70);
+		btnNewButton_26.setBounds(467, 174, 154, 20);
 		btnNewButton_26.addActionListener(new ActionListener() {
 
 			@Override
@@ -582,56 +582,15 @@ public class GroupView {
 
 		JLabel lblNewLabel_28 = new JLabel("Nombre del grupo");
 		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28.setBounds(31, 10, 155, 25);
+		lblNewLabel_28.setBounds(31, 43, 155, 25);
 		panel_1.add(lblNewLabel_28);
 
 		JLabel lblNewLabel_28_1 = new JLabel("Docente de grupo");
 		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_1.setBounds(31, 70, 155, 25);
+		lblNewLabel_28_1.setBounds(31, 140, 155, 25);
 		panel_1.add(lblNewLabel_28_1);
 
-		JLabel lblNewLabel_28_1_1 = new JLabel("Lista de alumnos");
-		lblNewLabel_28_1_1.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_1_1.setBounds(31, 130, 155, 25);
-		panel_1.add(lblNewLabel_28_1_1);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(31, 160, 412, 70);
-		panel_1.add(scrollPane);		
-		frame.getContentPane().add(panel);
-
-		List<List> datos = model.get();
 		
-
-		// Columnas de la tabla
-		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
-
-		// Datos de la tabla
-		Object[][] informacion = new Object[datos.size()][3];
-		for (int i = 0; i < datos.size(); i++) {
-			informacion[i][0] = datos.get(i).get(1);
-			informacion[i][1] = datos.get(i).get(2);
-			informacion[i][2] = datos.get(i).get(3);
-			
-		}
-
-		// Crear el modelo de tabla con los datos obtenidos
-		tablaAlumnosPrevia = new DefaultTableModel(informacion, columnNames);
-
-		// Crear la tabla con el modelo
-		JTable table = new JTable(tablaAlumnosPrevia);
-
-		// Configuración de la tabla
-		table.setDefaultRenderer(Object.class, new RenderTabla());
-		table.getColumnModel().getColumn(0).setPreferredWidth(80);
-		table.getColumnModel().getColumn(1).setPreferredWidth(80);
-		table.getColumnModel().getColumn(2).setPreferredWidth(100);        
-		table.setBounds(31, 160, 412, 70);
-		table.setRowHeight(20);
-
-		scrollPane.setViewportView(table);
-
-		frame.setVisible(true);
 
 
 
@@ -640,7 +599,7 @@ public class GroupView {
 		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource(atributos.getLetraDeGrupo()));
 		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
 		etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
-		etiquetaAvatar.setBounds(467, 17, 154, 77);
+		etiquetaAvatar.setBounds(467, 43, 154, 77);
 		etiquetaAvatar.setOpaque(true);
 		etiquetaAvatar.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(etiquetaAvatar);
@@ -868,34 +827,34 @@ public class GroupView {
 
 		JLabel lblNewLabel_15 = new JLabel("Agregar alumno a grupo");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 18));
-		lblNewLabel_15.setBounds(293, 89, 258, 30);
+		lblNewLabel_15.setBounds(291, 89, 260, 30);
 		panel.add(lblNewLabel_15);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
 		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(170, 120, 450, 100);
+		panel_1.setBounds(170, 125, 450, 267);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel_16 = new JLabel("No. Control");
 		lblNewLabel_16.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_16.setBounds(157, 10, 139, 30);
+		lblNewLabel_16.setBounds(159, 53, 186, 30);
 		panel_1.add(lblNewLabel_16);
 
 		JTextField textField_2 = new JTextField();
-		textField_2.setBounds(80, 60, 300, 30);
+		textField_2.setBounds(80, 103, 300, 30);
 		textField_2.setBackground(Color.decode("#D9D9D9"));
-		textField_2.addActionListener(new ActionListener() {
+		/*textField_2.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				descargarInformacionAlumno(panel);
+				//descargarInformacionAlumno(panel);
 			}
-		});
+		});*/
 		panel_1.add(textField_2);
 		textField_2.setColumns(10);
 		
@@ -906,7 +865,7 @@ public class GroupView {
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
 		btnNewButton_14.setForeground(Color.white);
-		btnNewButton_14.setBounds(256, 381, 300, 30);
+		btnNewButton_14.setBounds(80, 168, 300, 30);
 		btnNewButton_14.addActionListener(new ActionListener() {
 
 			@Override
@@ -947,7 +906,7 @@ public class GroupView {
 				}
 			}
 		});
-		panel.add(btnNewButton_14);
+		panel_1.add(btnNewButton_14);
 
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
@@ -1098,84 +1057,34 @@ public class GroupView {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 
-
-
 		JLabel lblNewLabel_28 = new JLabel("Nombre del grupo");
 		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28.setBounds(31, 10, 155, 25);
+		lblNewLabel_28.setBounds(31, 43, 155, 25);
 		panel_1.add(lblNewLabel_28);
 
 		JLabel lblNewLabel_28_1 = new JLabel("Docente de grupo");
 		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_1.setBounds(31, 70, 155, 25);
+		lblNewLabel_28_1.setBounds(31, 140, 155, 25);
 		panel_1.add(lblNewLabel_28_1);
 
-		JLabel lblNewLabel_28_1_1 = new JLabel("Lista de alumnos");
-		lblNewLabel_28_1_1.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_1_1.setBounds(31, 130, 155, 25);
-		panel_1.add(lblNewLabel_28_1_1);
-
 		JTextField textField_11 = new JTextField(nombre);
-		textField_11.setBounds(31, 40, 412, 19);
+		textField_11.setBounds(31, 78, 412, 19);
 		textField_11.setBackground(Color.decode("#D9D9D9"));
-		textField_11.setFont(new Font("Inter", Font.BOLD, 13));
-		textField_11.setBorder(null);
-		textField_11.setOpaque(false);
 		textField_11.setEditable(false);
 		panel_1.add(textField_11);
 		textField_11.setColumns(10);
 
 		JTextField textField_12 = new JTextField(docente);
 		textField_12.setColumns(10);
-		textField_12.setBounds(31, 100, 412, 20);
+		textField_12.setBounds(31, 175, 412, 20);
 		textField_12.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_12);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(31, 160, 412, 70);
-		panel_1.add(scrollPane);		
-		frame.getContentPane().add(panel);
-
-		List<List> datos = model.alumnosGrupo(nombre);
-
-		// Columnas de la tabla
-		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
-
-		// Datos de la tabla
-		Object[][] informacion = new Object[datos.size()][3];
-		for (int i = 0; i < datos.size(); i++) {
-			informacion[i][0] = datos.get(i).get(1);
-			informacion[i][1] = datos.get(i).get(2);
-			informacion[i][2] = datos.get(i).get(3);
-
-		}
-
-		// Crear el modelo de tabla con los datos obtenidos
-		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
-
-		// Crear la tabla con el modelo
-		JTable table = new JTable(tableModel);
-
-		// Configuración de la tabla
-		table.setDefaultRenderer(Object.class, new RenderTabla());
-		table.getColumnModel().getColumn(0).setPreferredWidth(80);
-		table.getColumnModel().getColumn(1).setPreferredWidth(80);
-		table.getColumnModel().getColumn(2).setPreferredWidth(100);        
-		table.setBounds(31, 160, 412, 70);
-		table.setRowHeight(20);
-
-		scrollPane.setViewportView(table);
-
-		frame.setVisible(true);
-
-
-
 
 
 		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource(avatar));
 		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
 		etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
-		etiquetaAvatar.setBounds(467, 17, 154, 77);
+		etiquetaAvatar.setBounds(467, 43, 154, 77);
 		etiquetaAvatar.setOpaque(true);
 		etiquetaAvatar.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(etiquetaAvatar);
@@ -1238,7 +1147,7 @@ public class GroupView {
 		JButton btnNewButton_25 = new JButton("Cambiar letra");
 		btnNewButton_25.setFont(new Font("Inter", Font.BOLD, 11));
 		btnNewButton_25.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_25.setBounds(467, 100, 154, 21);
+		btnNewButton_25.setBounds(467, 130, 154, 21);
 		btnNewButton_25.addActionListener(new ActionListener() {
 
 			@Override
@@ -1257,7 +1166,7 @@ public class GroupView {
 		JButton btnNewButton_26 = new JButton("Agregar alumno");
 		btnNewButton_26.setFont(new Font("Inter", Font.BOLD, 11));
 		btnNewButton_26.setBackground(Color.decode("#D9D9D9"));
-		btnNewButton_26.setBounds(467, 160, 154, 70);
+		btnNewButton_26.setBounds(467, 174, 154, 20);
 		btnNewButton_26.addActionListener(new ActionListener() {
 
 			@Override
@@ -1384,17 +1293,17 @@ public class GroupView {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
 		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
-		panel_1.setBounds(170, 120, 450, 100);
+		panel_1.setBounds(170, 125, 450, 267);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel_16 = new JLabel("No. Control");
 		lblNewLabel_16.setFont(new Font("Inter", Font.BOLD, 24));
-		lblNewLabel_16.setBounds(157, 10, 139, 30);
+		lblNewLabel_16.setBounds(159, 53, 186, 30);
 		panel_1.add(lblNewLabel_16);
 
 		JTextField textField_2 = new JTextField();
-		textField_2.setBounds(80, 60, 300, 30);
+		textField_2.setBounds(80, 103, 300, 30);
 		textField_2.setBackground(Color.decode("#D9D9D9"));
 		textField_2.addActionListener(new ActionListener() {
 
@@ -1413,7 +1322,7 @@ public class GroupView {
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
 		btnNewButton_14.setForeground(Color.white);
-		btnNewButton_14.setBounds(256, 381, 300, 30);
+		btnNewButton_14.setBounds(80, 168, 300, 30);
 		btnNewButton_14.addActionListener(new ActionListener() {
 
 			@Override
@@ -1443,7 +1352,7 @@ public class GroupView {
 				}
 			}
 		});
-		panel.add(btnNewButton_14);
+		panel_1.add(btnNewButton_14);
 
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
@@ -1640,24 +1549,19 @@ public class GroupView {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 
-
 		JLabel lblNewLabel_28 = new JLabel("Nombre del grupo");
 		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28.setBounds(31, 10, 155, 25);
+		lblNewLabel_28.setBounds(31, 43, 155, 25);
 		panel_1.add(lblNewLabel_28);
 
 		JLabel lblNewLabel_28_1 = new JLabel("Docente de grupo");
 		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_1.setBounds(31, 70, 155, 25);
+		lblNewLabel_28_1.setBounds(31, 140, 155, 25);
 		panel_1.add(lblNewLabel_28_1);
 
-		JLabel lblNewLabel_28_1_1 = new JLabel("Lista de alumnos");
-		lblNewLabel_28_1_1.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_1_1.setBounds(31, 130, 155, 25);
-		panel_1.add(lblNewLabel_28_1_1);
 
 		JTextField textField_11 = new JTextField(nombre);
-		textField_11.setBounds(31, 40, 412, 19);
+		textField_11.setBounds(31, 78, 412, 19);
 		textField_11.setBackground(Color.decode("#D9D9D9"));
 		textField_11.setFont(new Font("Inter", Font.BOLD, 13));
 		textField_11.setBorder(null);
@@ -1668,7 +1572,7 @@ public class GroupView {
 
 		JTextField textField_12 = new JTextField(docente);
 		textField_12.setColumns(10);
-		textField_12.setBounds(31, 100, 412, 20);
+		textField_12.setBounds(31, 175, 412, 20);
 		textField_12.setBackground(Color.decode("#D9D9D9"));
 		textField_12.setFont(new Font("Inter", Font.BOLD, 13));
 		textField_12.setBorder(null);
@@ -1677,47 +1581,12 @@ public class GroupView {
 		panel_1.add(textField_12);
 		textField_12.setColumns(10);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(31, 160, 412, 70);
-		panel_1.add(scrollPane);		
-		frame.getContentPane().add(panel);
-
-		List<List> datos = model.alumnosGrupo(nombre);
-
-		// Columnas de la tabla
-		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
-
-		// Datos de la tabla
-		Object[][] informacion = new Object[datos.size()][3];
-		for (int i = 0; i < datos.size(); i++) {
-			informacion[i][0] = datos.get(i).get(1);
-			informacion[i][1] = datos.get(i).get(2);
-			informacion[i][2] = datos.get(i).get(3);
-
-		}
-
-		// Crear el modelo de tabla con los datos obtenidos
-		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
-
-		// Crear la tabla con el modelo
-		JTable table = new JTable(tableModel);
-
-		// Configuración de la tabla
-		table.setDefaultRenderer(Object.class, new RenderTabla());
-		table.getColumnModel().getColumn(0).setPreferredWidth(80);
-		table.getColumnModel().getColumn(1).setPreferredWidth(80);
-		table.getColumnModel().getColumn(2).setPreferredWidth(100);        
-		table.setBounds(31, 160, 412, 70);
-		table.setRowHeight(20);
-
-		scrollPane.setViewportView(table);
-
-		frame.setVisible(true);
+		
 
 		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource(avatar));
 		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
 		etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
-		etiquetaAvatar.setBounds(467, 17, 154, 77);
+		etiquetaAvatar.setBounds(467, 43, 154, 77);
 		etiquetaAvatar.setOpaque(true);
 		etiquetaAvatar.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(etiquetaAvatar);
