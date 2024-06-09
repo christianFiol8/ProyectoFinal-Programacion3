@@ -794,7 +794,7 @@ public class SubjectView {
 		panel.add(scrollPane);		
 		frame.getContentPane().add(panel);
 
-		List<List> datos = medidor.asignaturaGrupo(atributos.getNombre());
+		ArrayList<String> datos = control.tiraDeMaterias(atributos.getNombre());
 
 		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
@@ -802,7 +802,7 @@ public class SubjectView {
 		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
-			String id = datos.get(i).get(0).toString();
+			String id = datos.get(i).toString();
 			JButton button = new JButton(id);
 			button.setBackground(Color.white);
 			button.addActionListener(new ActionListener() {
