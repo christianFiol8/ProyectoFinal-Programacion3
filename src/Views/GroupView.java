@@ -640,18 +640,9 @@ public class GroupView {
 					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
 
 				} else{
-					
-
-					
-					frame.remove(panel);
-					frame.dispose();
-					grupoCreadoPanel();
-					
-					
 					String nombre = textField_11.getText();
 					String docente = textField_12.getText();
 					String avatar = atributos.getLetraDeGrupo();
-					
 					control.crearGrupo(nombre,docente,avatar);
 					
 					for (String idAlumno : array) {
@@ -659,11 +650,12 @@ public class GroupView {
 						model.agregarGrupoAlumnos(nombre,idAlumno);
 					}
 	
-				}
+					frame.remove(panel);
+					frame.dispose();
+					grupoCreadoPanel();
 
-				// TODO Auto-generated method stub
+				}
 	
-				
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -889,10 +881,9 @@ public class GroupView {
 			    	
 				    	array.add(alumno.getAlumnoId());
 				    	
-				    	//"Apellido Paterno", "Apellido Materno", "Nombre"
+		
+				    	JOptionPane.showMessageDialog(null, "Se ha agregado el alumno");
 				    	
-				    	tablaAlumnosPrevia.addRow(new String [] {alumno.getApellidoPaterno(),alumno.getApellidoMaterno(), alumno.getNombre()});
-				    	tablaAlumnosPrevia.fireTableDataChanged();
 				        frame.remove(panel);
 				        frame.dispose();
 				        crearGrupo(atributos);

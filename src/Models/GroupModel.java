@@ -50,10 +50,11 @@ public class GroupModel {
 			
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection(URL,USER,CLAVE);
-			ps =con.prepareStatement("INSERT INTO `Grupos` Values(?,?,?)");
+			ps =con.prepareStatement("INSERT INTO `Grupos` Values(?,?,?,?)");
 			ps.setString(1, nombre);
 			ps.setString(2, docente);
 			ps.setString(3, letra);
+			ps.setString(4,"");
 
 			ps.executeUpdate();
 			
@@ -90,6 +91,29 @@ public class GroupModel {
 		return null;
 	}
 
+	
+	public void asigrnarMateria (String materia, String grupo) {
+		
+		String consulta = "UPDATE Grupos SET materia =? WHERE Nombre =?";
+
+		try (Connection conexion = DriverManager.getConnection(URL, USER, CLAVE);
+				PreparedStatement st = conexion.prepareStatement(consulta)) {
+
+			st.setString(1, grupo);
+			st.setString(2, materia);
+
+			int filasAfectadas = st.executeUpdate();
+			if (filasAfectadas > 0) {
+
+			} else {
+				JOptionPane.showMessageDialog(null, "No se agrego a un grupo");
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			
+		}
+	}
 	
 	public AtributosGroup datosDelGrupo(String nombre) {
 		
@@ -255,6 +279,31 @@ public class GroupModel {
 		
 	}
 	
+	public ArrayList<String> tiraDeMaterias (String asignatura)
+	{
+		ArrayList<String>materias = new ArrayList<String>();
+		
+		try {
+			
+			String consulta = "SELECT idGrupo FROM tiraDeMaterias WHERE IdMateria = '"+asignatura+"';";
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(URL, USER, CLAVE);
+			PreparedStatement st = con.prepareStatement(consulta);
+			ResultSet rs = st.executeQuery();
+			
+			while (rs.next())
+			{
+				materias.add(rs.getString("idGrupo"));
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	
+		return materias;
+		
+		
+	}
 	
 }

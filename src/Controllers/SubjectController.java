@@ -1,5 +1,6 @@
 package Controllers;
 
+import Models.atributosSubject;
 import Views.GroupView;
 import Views.SubjectView;
 
@@ -18,7 +19,7 @@ public class SubjectController {
 	}
 	
 	public void buscarAsignatura2() {
-		vista.buscarAsignatura2();
+		vista.buscarAsignatura2(null);
 	}
 	
 	public void buscarAsignatura() {
@@ -36,6 +37,6 @@ public class SubjectController {
 	}
 
 	public void crearAsignatura() {
-		vista.crearAsignatura();
+		vista.crearAsignatura(new atributosSubject("", "", ""));
 	}
 }

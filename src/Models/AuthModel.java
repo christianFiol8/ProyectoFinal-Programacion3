@@ -44,7 +44,7 @@ public class AuthModel {
 
 				home = new HomeController();
 
-				System.out.println("Hola");
+			
 				home.administrarPanel();
 				return true;
 			}

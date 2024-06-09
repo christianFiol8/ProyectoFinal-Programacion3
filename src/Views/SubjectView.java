@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -17,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -30,8 +32,12 @@ import Controllers.HomeController;
 import Controllers.StudentController;
 import Controllers.SubjectController;
 import Controllers.TeacherController;
+import Models.AtributosGroup;
 import Models.GroupModel;
 import Models.StudentModel;
+import Models.SubjectModel;
+import Models.atributosStudent;
+import Models.atributosSubject;
 
 public class SubjectView {
 
@@ -43,6 +49,8 @@ public class SubjectView {
 	public GroupController group;
 	StudentModel model = new StudentModel();
 	GroupModel control = new GroupModel();
+	SubjectModel medidor = new SubjectModel();
+	ArrayList<String> array = new ArrayList<String>();
 	public AuthController view;
 
 	public SubjectView() {
@@ -84,7 +92,7 @@ public class SubjectView {
 		});
 		panel.add(btnNewButton_14);
 
-		List<List> datos = control.get();
+		List<List> datos = medidor.get();
 
 		// Columnas de la tabla
 		String[] columnNames = {"Nombre"};
@@ -158,7 +166,7 @@ public class SubjectView {
 		panel.add(scrollPane);		
 		frame.getContentPane().add(panel);
 
-		List<List> datos = control.get();
+		List<List> datos = medidor.get();
 
 		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
@@ -176,9 +184,10 @@ public class SubjectView {
 					// TODO Auto-generated method stub
 					String selectedId = id;
 					System.out.println("ID seleccionado: " + selectedId);
+					atributosSubject detalle = medidor.datosMateria(selectedId);
 					frame.remove(panel);
 					frame.dispose();
-					detallesAsignatura();
+					detallesAsignatura(detalle);
 				}
 			});
 			informacion[i][0] = button;
@@ -239,11 +248,21 @@ public class SubjectView {
 		
 	}
 
-	public void detallesAsignatura() {
+	public void detallesAsignatura(atributosSubject atributos) {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
+		String nombre = "";
+		String docente = "";
+		String descripcion = "";
+		
+		if (atributos!=null)
+		{
+			nombre = atributos.getNombre();
+			docente = atributos.getDocente();
+			descripcion= atributos.getDescripcion();
+		}
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
@@ -262,15 +281,17 @@ public class SubjectView {
 		lblNewLabel_28_1.setBounds(46, 70, 155, 25);
 		panel_1.add(lblNewLabel_28_1);
 		
-		JTextField textField_11 = new JTextField();
+		JTextField textField_11 = new JTextField(docente);
 		textField_11.setBounds(46, 40, 412, 19);
+		textField_11.setEditable(false);
 		textField_11.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_11);
 		textField_11.setColumns(10);
 		
-		JTextArea textField_12 = new JTextArea();
+		JTextArea textField_12 = new JTextArea(descripcion);
 		textField_12.setColumns(10);
 		textField_12.setBounds(46, 100, 412, 133);
+		textField_12.setEditable(false);
 		textField_12.setLineWrap(true);
 	    textField_12.setWrapStyleWord(true);
 		textField_12.setBackground(Color.decode("#D9D9D9"));
@@ -317,7 +338,7 @@ public class SubjectView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				buscarGrupo();
+				buscarGrupo(atributos);
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -332,7 +353,7 @@ public class SubjectView {
 			
 	}
 	
-	public void buscarGrupo() {
+	public void buscarGrupo(atributosSubject atributos) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -342,7 +363,7 @@ public class SubjectView {
 		panel.add(scrollPane);		
 		frame.getContentPane().add(panel);
 
-		List<List> datos = control.get();
+		ArrayList<String> datos = control.tiraDeMaterias(atributos.getNombre());
 
 		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
@@ -350,7 +371,7 @@ public class SubjectView {
 		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
-			String id = datos.get(i).get(0).toString();
+			String id = datos.get(i).toString();
 			JButton button = new JButton(id);
 			button.setBackground(Color.white);
 			button.addActionListener(new ActionListener() {
@@ -360,8 +381,10 @@ public class SubjectView {
 					// TODO Auto-generated method stub
 					String selectedId = id;
 					System.out.println("ID seleccionado: " + selectedId);
+					
 					frame.remove(panel);
 					frame.dispose();
+					listaAlumnosPanel(atributos,selectedId);
 				}
 			});
 			informacion[i][0] = button;
@@ -405,7 +428,7 @@ public class SubjectView {
 				frame.remove(panel);
 				frame.dispose();
 
-				detallesAsignatura();
+				detallesAsignatura(atributos);
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -458,7 +481,7 @@ public class SubjectView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				buscarGrupo();
+				buscarGrupo(null);
 			}
 		});
 		panel_1.add(btnNewButton_7);
@@ -469,7 +492,7 @@ public class SubjectView {
 		frame.revalidate();
 	}
 
-	public void listaAlumnosPanel() {
+	public void listaAlumnosPanel(atributosSubject atributos,String grupo) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -495,12 +518,12 @@ public class SubjectView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				buscarGrupo();
+				buscarGrupo(atributos);
 			}
 		});
 		panel.add(btnNewButton_15);
 
-		List<List> datos = model.get();
+		List<List> datos = model.alumnosGrupo(grupo);
 
 		// Columnas de la tabla
 		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
@@ -508,7 +531,9 @@ public class SubjectView {
 		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][3];
 		for (int i = 0; i < datos.size(); i++) {
-			informacion[i][0] = datos.get(i).get(0);
+			informacion[i][0] = datos.get(i).get(1);
+			informacion[i][1] = datos.get(i).get(2);
+			informacion[i][2] = datos.get(i).get(3);
 
 		}
 
@@ -570,7 +595,7 @@ public class SubjectView {
 		panel.add(scrollPane);		
 		frame.getContentPane().add(panel);
 
-		List<List> datos = control.get();
+		List<List> datos = medidor.get();
 
 		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
@@ -588,9 +613,10 @@ public class SubjectView {
 					// TODO Auto-generated method stub
 					String selectedId = id;
 					System.out.println("ID seleccionado: " + selectedId);
+					atributosSubject detalle = medidor.datosMateria(selectedId);
 					frame.remove(panel);
 					frame.dispose();
-					detallesAsignatura2();
+					detallesAsignatura2(detalle);
 				}
 			});
 			informacion[i][0] = button;
@@ -652,11 +678,22 @@ public class SubjectView {
 		
 	}
 
-	public void detallesAsignatura2() {
+	public void detallesAsignatura2(atributosSubject atributos) {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		String nombre = "";
+		String docente = "";
+		String descripcion = "";
+		
+		if (atributos!=null)
+		{
+			nombre = atributos.getNombre();
+			docente = atributos.getDocente();
+			descripcion= atributos.getDescripcion();
+		}
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
@@ -675,15 +712,17 @@ public class SubjectView {
 		lblNewLabel_28_1.setBounds(46, 70, 155, 25);
 		panel_1.add(lblNewLabel_28_1);
 		
-		JTextField textField_11 = new JTextField();
+		JTextField textField_11 = new JTextField(docente);
 		textField_11.setBounds(46, 40, 412, 19);
+		textField_11.setEditable(false);
 		textField_11.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_11);
 		textField_11.setColumns(10);
 		
-		JTextArea textField_12 = new JTextArea();
+		JTextArea textField_12 = new JTextArea(descripcion);
 		textField_12.setColumns(10);
 		textField_12.setBounds(46, 100, 412, 133);
+		textField_12.setEditable(false);
 		textField_12.setLineWrap(true);
 	    textField_12.setWrapStyleWord(true);
 		textField_12.setBackground(Color.decode("#D9D9D9"));
@@ -730,7 +769,7 @@ public class SubjectView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				buscarGrupo2();
+				buscarGrupo2(atributos);
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -745,7 +784,7 @@ public class SubjectView {
 			
 	}
 
-	public void buscarGrupo2() {
+	public void buscarGrupo2(atributosSubject atributos) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -755,7 +794,7 @@ public class SubjectView {
 		panel.add(scrollPane);		
 		frame.getContentPane().add(panel);
 
-		List<List> datos = control.get();
+		List<List> datos = medidor.asignaturaGrupo(atributos.getNombre());
 
 		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
@@ -819,7 +858,7 @@ public class SubjectView {
 				frame.remove(panel);
 				frame.dispose();
 
-				detallesAsignatura2();
+				detallesAsignatura2(atributos);
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -836,7 +875,7 @@ public class SubjectView {
 		
 	}
 
-	public void aisgnaturaInexistente2() {
+	public void aisgnaturaInexistente2(atributosSubject atributos) {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -874,7 +913,7 @@ public class SubjectView {
 
 				frame.remove(panel);
 				frame.dispose();
-				buscarGrupo2();
+				buscarGrupo2(atributos);
 			}
 		});
 		panel_1.add(btnNewButton_7);
@@ -885,7 +924,7 @@ public class SubjectView {
 		frame.revalidate();
 	}
 	
-	public void listaAlumnosPanel2() {
+	public void listaAlumnosPanel2(atributosSubject atributos) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -911,7 +950,7 @@ public class SubjectView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				buscarGrupo2();
+				buscarGrupo2(atributos);
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -972,7 +1011,7 @@ public class SubjectView {
 
 	
 	
-	public void crearAsignatura() {
+	public void crearAsignatura(atributosSubject atributos) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -995,6 +1034,14 @@ public class SubjectView {
 		textField_12.setBounds(31, 173, 345, 19);
 		textField_12.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_12);
+		
+		JTextArea areaT = new JTextArea();
+		areaT.setLineWrap(true);
+		areaT.setWrapStyleWord(true);
+		areaT.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_12);
+		areaT.setBounds(412, 76, 209, 80);
+		panel_1.add(areaT);		
 
 		JButton btnNewButton_26 = new JButton("Agregar grupo");
 		btnNewButton_26.setFont(new Font("Inter", Font.BOLD, 11));
@@ -1005,9 +1052,13 @@ public class SubjectView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				atributos.setNombre(textField_11.getText());
+				atributos.setDocente(textField_12.getText());
+				atributos.setDescripcion(areaT.getText());
 				frame.remove(panel);
 				frame.dispose();
-				agregarGrupo();
+				agregarGrupo(atributos);
 			
 				
 			}
@@ -1029,13 +1080,6 @@ public class SubjectView {
 		lblNewLabel_28_1_1.setBounds(412, 41, 141, 25);
 		panel_1.add(lblNewLabel_28_1_1);
 
-		JTextArea areaT = new JTextArea();
-		areaT.setLineWrap(true);
-		areaT.setWrapStyleWord(true);
-		areaT.setBackground(Color.decode("#D9D9D9"));
-		panel_1.add(textField_12);
-		areaT.setBounds(412, 76, 209, 80);
-		panel_1.add(areaT);		
 
 		JLabel lblNewLabel_15 = new JLabel("Crear asignatura");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 18));
@@ -1070,15 +1114,42 @@ public class SubjectView {
 			public void actionPerformed(ActionEvent e) {	
 				// TODO Auto-generated method stub
 	
-				frame.remove(panel);
-				frame.dispose();
-				asignaturaCreadaPanel();
+				
+				if (textField_11.getText().isEmpty() || textField_12.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
+
+				} else{
+					
+					String nombre = textField_11.getText();
+					String docente = textField_12.getText();
+					String descripcion = atributos.getDescripcion();
+					
+					medidor.crearAsignatura(nombre, docente, descripcion);
+					
+					for (String asignarGrupo : array) {
+						
+						control.asigrnarMateria(asignarGrupo, nombre);
+					}
+					
+					frame.remove(panel);
+					frame.dispose();
+					asignaturaCreadaPanel();
+					
+
+	
+				}
 			}
 		});
 		panel.add(btnNewButton_14);
 		
 
-		
+
+		if (atributos!=null)
+		{
+			textField_11.setText(atributos.getNombre());
+			textField_12.setText(atributos.getDocente());
+			areaT.setText(atributos.getDescripcion());
+		}
 
 
 		metodoMenu(panel);
@@ -1089,7 +1160,7 @@ public class SubjectView {
 		frame.revalidate();
 	}
 
-	public void agregarGrupo() {	
+	public void agregarGrupo(atributosSubject atributos) {	
 		JPanel panel = new JPanel();
 		panel.setForeground(new Color(0, 0, 0));
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -1117,12 +1188,9 @@ public class SubjectView {
 		textField_2.setBounds(80, 103, 300, 30);
 		textField_2.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_2);
-		textField_2.setColumns(10);
+		textField_2.setColumns(10);		
 		
-		//Donde guarda a los alumnos del grupo
-		
-		
-		JButton btnNewButton_14 = new JButton("Agregar Alumno");
+		JButton btnNewButton_14 = new JButton("Agregar grupo");
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
 		btnNewButton_14.setForeground(Color.white);
@@ -1132,9 +1200,35 @@ public class SubjectView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				crearAsignatura();
+				
+				if (textField_2.getText().equals("")) {
+				    JOptionPane.showMessageDialog(null, "Llenar campo");
+				} else {
+					
+				    // Busca al alumno en la base 0de datos
+					
+				    AtributosGroup grupo = control.datosDelGrupo(textField_2.getText());
+				    
+				    // Verifica si el alumno fue encontrado
+				    
+				    if (grupo != null) {
+				    	
+				    	JOptionPane.showMessageDialog(null, "Se ha agregado el grupo");
+				    	
+				    	
+				    	array.add(grupo.getNombre());	    	
+						frame.remove(panel);
+						frame.dispose();
+						crearAsignatura(atributos);
+						System.out.println("Se ha guardado el grupo en la materia");
+				        
+				    } else {
+				    	
+				        JOptionPane.showMessageDialog(null, "El GRUPO no existe");
+				    }
+				}
+				
+
 			}
 		});
 		panel_1.add(btnNewButton_14);
@@ -1150,7 +1244,7 @@ public class SubjectView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				crearAsignatura();
+				crearAsignatura(atributos);
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -1219,7 +1313,7 @@ public class SubjectView {
 	
 	
 	
-	public void buscarAsignatura2() {
+	public void buscarAsignatura2(atributosSubject atributos) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -1229,7 +1323,7 @@ public class SubjectView {
 		panel.add(scrollPane);		
 		frame.getContentPane().add(panel);
 
-		List<List> datos = control.get();
+		List<List> datos = medidor.get();
 
 		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
@@ -1247,9 +1341,10 @@ public class SubjectView {
 					// TODO Auto-generated method stub
 					String selectedId = id;
 					System.out.println("ID seleccionado: " + selectedId);
+					atributosSubject detalle = medidor.datosMateria(selectedId);
 					frame.remove(panel);
 					frame.dispose();
-					EditarAsignaturaPanel();
+					EditarAsignaturaPanel(detalle);
 				}
 			});
 			informacion[i][0] = button;
@@ -1310,10 +1405,23 @@ public class SubjectView {
 		frame.revalidate();
 	}
 
-	public void EditarAsignaturaPanel() {
+	public void EditarAsignaturaPanel(atributosSubject atributos) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		
+		String nombre = "";
+		String docente = "";
+		String descripcion = "";
+		
+		if (atributos!=null)
+		{
+			nombre = atributos.getNombre();
+			docente = atributos.getDocente();
+			descripcion= atributos.getDescripcion();
+		}
+		
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
@@ -1322,17 +1430,26 @@ public class SubjectView {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JTextField textField_11 = new JTextField();
+		JTextField textField_11 = new JTextField(nombre);
 		textField_11.setBounds(31, 83, 345, 19);
+		textField_11.setEditable(false);
 		textField_11.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_11);
 		textField_11.setColumns(10);
 
-		JTextField textField_12 = new JTextField();
+		JTextField textField_12 = new JTextField(docente);
 		textField_12.setColumns(10);
 		textField_12.setBounds(31, 173, 345, 19);
 		textField_12.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_12);
+		
+		JTextArea areaT = new JTextArea(descripcion);
+		areaT.setLineWrap(true);
+		areaT.setWrapStyleWord(true);
+		areaT.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_12);
+		areaT.setBounds(412, 76, 209, 80);
+		panel_1.add(areaT);	
 
 		JButton btnNewButton_26 = new JButton("Agregar grupo");
 		btnNewButton_26.setFont(new Font("Inter", Font.BOLD, 11));
@@ -1343,9 +1460,13 @@ public class SubjectView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				atributos.setNombre(textField_11.getText());
+				atributos.setDocente(textField_12.getText());
+				atributos.setDescripcion(areaT.getText());
 				frame.remove(panel);
 				frame.dispose();
-				agregarGrupo2();
+				agregarGrupo2(atributos);
 			
 				
 			}
@@ -1365,15 +1486,7 @@ public class SubjectView {
 		JLabel lblNewLabel_28_1_1 = new JLabel("Descripcion");
 		lblNewLabel_28_1_1.setFont(new Font("Inter", Font.BOLD, 16));
 		lblNewLabel_28_1_1.setBounds(412, 41, 141, 25);
-		panel_1.add(lblNewLabel_28_1_1);
-
-		JTextArea areaT = new JTextArea();
-		areaT.setLineWrap(true);
-		areaT.setWrapStyleWord(true);
-		areaT.setBackground(Color.decode("#D9D9D9"));
-		panel_1.add(textField_12);
-		areaT.setBounds(412, 76, 209, 80);
-		panel_1.add(areaT);		
+		panel_1.add(lblNewLabel_28_1_1);	
 
 		JLabel lblNewLabel_15 = new JLabel("Editar asignatura");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 18));
@@ -1391,7 +1504,7 @@ public class SubjectView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				buscarAsignatura2();				
+				buscarAsignatura2(atributos);				
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -1406,18 +1519,45 @@ public class SubjectView {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				grupoEditadoPanel();
+				
+				
+				if (textField_11.getText().isEmpty() || textField_12.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
+
+				} else{
+					
+					String nombre = textField_11.getText();
+					String docente = textField_12.getText();
+					String descripcion = atributos.getDescripcion();
+					
+					medidor.editarAsignatura(nombre, docente, descripcion);
+					
+					for (String asignarGrupo : array) {
+						
+						control.asigrnarMateria(asignarGrupo, nombre);
+					}
+					
+					frame.remove(panel);
+					frame.dispose();
+					grupoEditadoPanel();
+					
+
+	
+				}
+
 			}
 		});
+		
+		
+		if (atributos!=null)
+		{
+			textField_11.setText(atributos.getNombre());
+			textField_12.setText(atributos.getDocente());
+			areaT.setText(atributos.getDescripcion());
+		}
+
 		panel.add(btnNewButton_14);
 		
-
-		
-
-
 		metodoMenu(panel);
 
 		frame.getContentPane().add(panel);
@@ -1427,7 +1567,7 @@ public class SubjectView {
 
 	}
 
-	public void agregarGrupo2() {	
+	public void agregarGrupo2(atributosSubject atributos) {	
 		JPanel panel = new JPanel();
 		panel.setForeground(new Color(0, 0, 0));
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -1456,11 +1596,8 @@ public class SubjectView {
 		textField_2.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_2);
 		textField_2.setColumns(10);
-		
-		//Donde guarda a los alumnos del grupo
-		
-		
-		JButton btnNewButton_14 = new JButton("Agregar Alumno");
+
+		JButton btnNewButton_14 = new JButton("Agregar grupo");
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
 		btnNewButton_14.setForeground(Color.white);
@@ -1470,9 +1607,35 @@ public class SubjectView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				EditarAsignaturaPanel();
+				
+				if (textField_2.getText().equals("")) {
+				    JOptionPane.showMessageDialog(null, "Llenar campo");
+				} else {
+					
+				    // Busca al alumno en la base de datos
+					
+				    AtributosGroup grupo = control.datosDelGrupo(textField_2.getText());
+				    
+				    // Verifica si el alumno fue encontrado
+				    
+				    if (grupo != null) {
+				    	medidor.asignarGrupoMateria(textField_2.getText(), atributos.getNombre());
+				    	JOptionPane.showMessageDialog(null, "Se ha agregado el grupo");
+				    	array.add(grupo.getNombre());	    	
+						frame.remove(panel);
+						frame.dispose();
+						EditarAsignaturaPanel(atributos);
+						System.out.println("Se ha guardado el grupo en la materia");
+				        
+				    } else {
+				    	
+				        // Si el alumno no fue encontrado, muestra una advertencia
+				    	
+				        JOptionPane.showMessageDialog(null, "El GRUPO no existe");
+				    }
+				}
+
+				
 			}
 		});
 		panel_1.add(btnNewButton_14);
@@ -1488,7 +1651,7 @@ public class SubjectView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				EditarAsignaturaPanel();
+				EditarAsignaturaPanel(atributos);
 			}
 		});
 		panel.add(btnNewButton_15);
@@ -1565,7 +1728,7 @@ public class SubjectView {
 		panel.add(scrollPane);		
 		frame.getContentPane().add(panel);
 
-		List<List> datos = control.get();
+		List<List> datos = medidor.get();
 
 		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
@@ -1583,9 +1746,10 @@ public class SubjectView {
 					// TODO Auto-generated method stub
 					String selectedId = id;
 					System.out.println("ID seleccionado: " + selectedId);
+					atributosSubject detalle = medidor.datosMateria(selectedId);
 					frame.remove(panel);
 					frame.dispose();
-					eliminarPanel();
+					eliminarPanel(detalle);
 				}
 			});
 			informacion[i][0] = button;
@@ -1646,10 +1810,25 @@ public class SubjectView {
 		frame.revalidate();
 	}
 
-	public void eliminarPanel() {
+	public void eliminarPanel(atributosSubject atributos) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		String nombre = "";
+		String docente = "";
+		String descripcion = "";
+		
+		if (atributos!=null)
+		{
+			nombre = atributos.getNombre();
+			docente = atributos.getDocente();
+			descripcion= atributos.getDescripcion();
+		}
+		
+		System.out.println(nombre);
+		System.out.println(docente);
+		System.out.println(descripcion);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
@@ -1668,22 +1847,23 @@ public class SubjectView {
 		lblNewLabel_28_1.setBounds(28, 70, 155, 25);
 		panel_1.add(lblNewLabel_28_1);
 		
-		JTextField textField_11 = new JTextField();
+		JTextField textField_11 = new JTextField(nombre);
 		textField_11.setBounds(28, 40, 303, 19);
+		textField_11.setEditable(false);
 		textField_11.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_11);
 		textField_11.setColumns(10);
 		
-		JTextArea textField_12 = new JTextArea();
+		JTextArea textField_12 = new JTextArea(descripcion);
 		textField_12.setColumns(10);
 		textField_12.setBounds(28, 100, 593, 133);
-		textField_12.setLineWrap(true);
-	    textField_12.setWrapStyleWord(true);
+		textField_12.setEditable(false);
 		textField_12.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_12);
 		
-		JTextArea textArea = new JTextArea();
+		JTextArea textArea = new JTextArea(descripcion);
 		textArea.setBounds(46, 105, 5, 22);
+		textArea.setEditable(false);
 		panel_1.add(textArea);
 		
 		JLabel lblNewLabel_28_2 = new JLabel("Docente");
@@ -1691,8 +1871,9 @@ public class SubjectView {
 		lblNewLabel_28_2.setBounds(379, 10, 155, 25);
 		panel_1.add(lblNewLabel_28_2);
 		
-		JTextField textField_14 = new JTextField();
+		JTextField textField_14 = new JTextField(docente);
 		textField_14.setColumns(10);
+		textField_14.setEditable(false);
 		textField_14.setBackground(new Color(217, 217, 217));
 		textField_14.setBounds(382, 40, 239, 19);
 		panel_1.add(textField_14);
@@ -1733,7 +1914,7 @@ public class SubjectView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				confirmarEliminarPanel();
+				confirmarEliminarPanel(atributos);
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -1748,7 +1929,7 @@ public class SubjectView {
 
 	}
 	
-	public void confirmarEliminarPanel() {
+	public void confirmarEliminarPanel(atributosSubject atributos) {
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -1785,7 +1966,7 @@ public class SubjectView {
 				frame.remove(panel);
 				frame.dispose();
 
-				eliminarPanel();
+				eliminarPanel(atributos);
 			}
 		});
 		panel_1.add(btnNewButton_7);
@@ -1806,9 +1987,11 @@ public class SubjectView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				medidor.eliminarAsignatura(atributos.getNombre());
 				frame.remove(panel);
 				frame.dispose();
 				asignaturaEliminadaPanel();
+				
 
 
 			}
