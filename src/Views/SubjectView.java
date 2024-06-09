@@ -976,7 +976,7 @@ public class SubjectView {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
 		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
@@ -984,53 +984,64 @@ public class SubjectView {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_28 = new JLabel("Nombre");
-		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28.setBounds(28, 10, 155, 25);
-		panel_1.add(lblNewLabel_28);
-		
-		JLabel lblNewLabel_28_1 = new JLabel("Descripción");
-		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_1.setBounds(28, 70, 155, 25);
-		panel_1.add(lblNewLabel_28_1);
-		
 		JTextField textField_11 = new JTextField();
-		textField_11.setBounds(28, 40, 303, 19);
+		textField_11.setBounds(31, 83, 345, 19);
 		textField_11.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_11);
 		textField_11.setColumns(10);
-		
-		JTextArea textField_12 = new JTextArea();
+
+		JTextField textField_12 = new JTextField();
 		textField_12.setColumns(10);
-		textField_12.setBounds(28, 100, 593, 133);
-		textField_12.setLineWrap(true);
-	    textField_12.setWrapStyleWord(true);
+		textField_12.setBounds(31, 173, 345, 19);
 		textField_12.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_12);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(46, 105, 5, 22);
-		panel_1.add(textArea);
-		
-		JLabel lblNewLabel_28_2 = new JLabel("Docente");
-		lblNewLabel_28_2.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_2.setBounds(379, 10, 155, 25);
-		panel_1.add(lblNewLabel_28_2);
-		
-		JTextField textField_14 = new JTextField();
-		textField_14.setColumns(10);
-		textField_14.setBackground(new Color(217, 217, 217));
-		textField_14.setBounds(382, 40, 239, 19);
-		panel_1.add(textField_14);
-		frame.getContentPane().add(panel);		
-		
-		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
-		
+
+		JButton btnNewButton_26 = new JButton("Agregar grupo");
+		btnNewButton_26.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_26.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_26.setBounds(412, 173, 209, 19);
+		btnNewButton_26.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				agregarGrupo();
+			
+				
+			}
+		});
+		panel_1.add(btnNewButton_26);
+
+		JLabel lblNewLabel_28 = new JLabel("Nombre de la asigatura");
+		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28.setBounds(31, 44, 209, 25);
+		panel_1.add(lblNewLabel_28);
+
+		JLabel lblNewLabel_28_1 = new JLabel("Docente asignado");
+		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28_1.setBounds(31, 134, 155, 25);
+		panel_1.add(lblNewLabel_28_1);
+
+		JLabel lblNewLabel_28_1_1 = new JLabel("Descripcion");
+		lblNewLabel_28_1_1.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28_1_1.setBounds(412, 41, 141, 25);
+		panel_1.add(lblNewLabel_28_1_1);
+
+		JTextArea areaT = new JTextArea();
+		areaT.setLineWrap(true);
+		areaT.setWrapStyleWord(true);
+		areaT.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_12);
+		areaT.setBounds(412, 76, 209, 80);
+		panel_1.add(areaT);		
+
 		JLabel lblNewLabel_15 = new JLabel("Crear asignatura");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 18));
-		lblNewLabel_15.setBounds(300, 90, 282, 30);
+		lblNewLabel_15.setBounds(300, 86, 282, 30);
 		panel.add(lblNewLabel_15);
-		
+
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
@@ -1042,16 +1053,80 @@ public class SubjectView {
 				// TODO Auto-generated method stub
 				frame.dispose();
 				home = new HomeController();
-				home.asignaturasPanel();
+				home.asignaturasPanel();				
 			}
 		});
 		panel.add(btnNewButton_15);
-		
+
+
 		JButton btnNewButton_14 = new JButton("Crear asignatura");
 		btnNewButton_14.setForeground(new Color(255, 255, 255));
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
-		btnNewButton_14.setBounds(229, 384, 300, 30);
+		btnNewButton_14.setBounds(236, 384, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {	
+				// TODO Auto-generated method stub
+	
+				frame.remove(panel);
+				frame.dispose();
+				asignaturaCreadaPanel();
+			}
+		});
+		panel.add(btnNewButton_14);
+		
+
+		
+
+
+		metodoMenu(panel);
+
+		frame.getContentPane().add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+	}
+
+	public void agregarGrupo() {	
+		JPanel panel = new JPanel();
+		panel.setForeground(new Color(0, 0, 0));
+		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+
+		JLabel lblNewLabel_15 = new JLabel("Agregar asignatura a grupo");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 18));
+		lblNewLabel_15.setBounds(282, 89, 269, 30);
+		panel.add(lblNewLabel_15);
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(170, 125, 450, 267);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+
+		JLabel lblNewLabel_16 = new JLabel("Nombre de grupo");
+		lblNewLabel_16.setFont(new Font("Inter", Font.BOLD, 24));
+		lblNewLabel_16.setBounds(125, 53, 224, 30);
+		panel_1.add(lblNewLabel_16);
+
+		JTextField textField_2 = new JTextField();
+		textField_2.setBounds(80, 103, 300, 30);
+		textField_2.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_2);
+		textField_2.setColumns(10);
+		
+		//Donde guarda a los alumnos del grupo
+		
+		
+		JButton btnNewButton_14 = new JButton("Agregar Alumno");
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setForeground(Color.white);
+		btnNewButton_14.setBounds(80, 168, 300, 30);
 		btnNewButton_14.addActionListener(new ActionListener() {
 
 			@Override
@@ -1059,19 +1134,34 @@ public class SubjectView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				asignaturaCreadaPanel();
+				crearAsignatura();
 			}
 		});
-		panel.add(btnNewButton_14);
+		panel_1.add(btnNewButton_14);
 
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(59, 50, 110, 25);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				crearAsignatura();
+			}
+		});
+		panel.add(btnNewButton_15);
 
 		metodoMenu(panel);
-		
+
 		frame.getContentPane().add(panel);
 		frame.setVisible(true);
 		frame.repaint();
 		frame.revalidate();
-		
+
 	}
 	
 	public void asignaturaCreadaPanel() {
@@ -1224,7 +1314,7 @@ public class SubjectView {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
 		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
@@ -1232,53 +1322,64 @@ public class SubjectView {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_28 = new JLabel("Nombre");
-		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28.setBounds(28, 10, 155, 25);
-		panel_1.add(lblNewLabel_28);
-		
-		JLabel lblNewLabel_28_1 = new JLabel("Descripción");
-		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_1.setBounds(28, 70, 155, 25);
-		panel_1.add(lblNewLabel_28_1);
-		
 		JTextField textField_11 = new JTextField();
-		textField_11.setBounds(28, 40, 303, 19);
+		textField_11.setBounds(31, 83, 345, 19);
 		textField_11.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_11);
 		textField_11.setColumns(10);
-		
-		JTextArea textField_12 = new JTextArea();
+
+		JTextField textField_12 = new JTextField();
 		textField_12.setColumns(10);
-		textField_12.setBounds(28, 100, 593, 133);
-		textField_12.setLineWrap(true);
-	    textField_12.setWrapStyleWord(true);
+		textField_12.setBounds(31, 173, 345, 19);
 		textField_12.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_12);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(46, 105, 5, 22);
-		panel_1.add(textArea);
-		
-		JLabel lblNewLabel_28_2 = new JLabel("Docente");
-		lblNewLabel_28_2.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_2.setBounds(379, 10, 155, 25);
-		panel_1.add(lblNewLabel_28_2);
-		
-		JTextField textField_14 = new JTextField();
-		textField_14.setColumns(10);
-		textField_14.setBackground(new Color(217, 217, 217));
-		textField_14.setBounds(382, 40, 239, 19);
-		panel_1.add(textField_14);
-		frame.getContentPane().add(panel);		
-		
-		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
-		
+
+		JButton btnNewButton_26 = new JButton("Agregar grupo");
+		btnNewButton_26.setFont(new Font("Inter", Font.BOLD, 11));
+		btnNewButton_26.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_26.setBounds(412, 173, 209, 19);
+		btnNewButton_26.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				agregarGrupo2();
+			
+				
+			}
+		});
+		panel_1.add(btnNewButton_26);
+
+		JLabel lblNewLabel_28 = new JLabel("Nombre de la asignatura");
+		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28.setBounds(31, 44, 209, 25);
+		panel_1.add(lblNewLabel_28);
+
+		JLabel lblNewLabel_28_1 = new JLabel("Docente asignado");
+		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28_1.setBounds(31, 134, 155, 25);
+		panel_1.add(lblNewLabel_28_1);
+
+		JLabel lblNewLabel_28_1_1 = new JLabel("Descripcion");
+		lblNewLabel_28_1_1.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28_1_1.setBounds(412, 41, 141, 25);
+		panel_1.add(lblNewLabel_28_1_1);
+
+		JTextArea areaT = new JTextArea();
+		areaT.setLineWrap(true);
+		areaT.setWrapStyleWord(true);
+		areaT.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_12);
+		areaT.setBounds(412, 76, 209, 80);
+		panel_1.add(areaT);		
+
 		JLabel lblNewLabel_15 = new JLabel("Editar asignatura");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 18));
 		lblNewLabel_15.setBounds(300, 90, 282, 30);
 		panel.add(lblNewLabel_15);
-		
+
 		JButton btnNewButton_15 = new JButton("Volver");
 		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
 		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
@@ -1290,11 +1391,12 @@ public class SubjectView {
 				// TODO Auto-generated method stub
 				frame.remove(panel);
 				frame.dispose();
-				buscarAsignatura2();
+				buscarAsignatura2();				
 			}
 		});
 		panel.add(btnNewButton_15);
-		
+
+
 		JButton btnNewButton_14 = new JButton("Editar asignatura");
 		btnNewButton_14.setForeground(new Color(255, 255, 255));
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
@@ -1311,10 +1413,13 @@ public class SubjectView {
 			}
 		});
 		panel.add(btnNewButton_14);
+		
+
+		
 
 
 		metodoMenu(panel);
-		
+
 		frame.getContentPane().add(panel);
 		frame.setVisible(true);
 		frame.repaint();
@@ -1322,6 +1427,82 @@ public class SubjectView {
 
 	}
 
+	public void agregarGrupo2() {	
+		JPanel panel = new JPanel();
+		panel.setForeground(new Color(0, 0, 0));
+		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+
+		JLabel lblNewLabel_15 = new JLabel("Agregar asignatura a grupo");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 18));
+		lblNewLabel_15.setBounds(282, 89, 269, 30);
+		panel.add(lblNewLabel_15);
+
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(170, 125, 450, 267);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+
+		JLabel lblNewLabel_16 = new JLabel("Nombre de grupo");
+		lblNewLabel_16.setFont(new Font("Inter", Font.BOLD, 24));
+		lblNewLabel_16.setBounds(125, 53, 224, 30);
+		panel_1.add(lblNewLabel_16);
+
+		JTextField textField_2 = new JTextField();
+		textField_2.setBounds(80, 103, 300, 30);
+		textField_2.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_2);
+		textField_2.setColumns(10);
+		
+		//Donde guarda a los alumnos del grupo
+		
+		
+		JButton btnNewButton_14 = new JButton("Agregar Alumno");
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setForeground(Color.white);
+		btnNewButton_14.setBounds(80, 168, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				EditarAsignaturaPanel();
+			}
+		});
+		panel_1.add(btnNewButton_14);
+
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(59, 50, 110, 25);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				EditarAsignaturaPanel();
+			}
+		});
+		panel.add(btnNewButton_15);
+
+		metodoMenu(panel);
+
+		frame.getContentPane().add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+
+	}
+	
+	
 	public void grupoEditadoPanel() {
 		
 		JPanel panel = new JPanel();
@@ -1404,7 +1585,7 @@ public class SubjectView {
 					System.out.println("ID seleccionado: " + selectedId);
 					frame.remove(panel);
 					frame.dispose();
-					confirmarEliminarPanel();
+					eliminarPanel();
 				}
 			});
 			informacion[i][0] = button;
@@ -1465,6 +1646,108 @@ public class SubjectView {
 		frame.revalidate();
 	}
 
+	public void eliminarPanel() {
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.decode("#C3E1F1"));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 255, 255));
+		panel_1.setBorder(BorderFactory.createLineBorder(Color.black , 1));
+		panel_1.setBounds(59, 128, 652, 243);
+		panel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_28 = new JLabel("Nombre");
+		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28.setBounds(28, 10, 155, 25);
+		panel_1.add(lblNewLabel_28);
+		
+		JLabel lblNewLabel_28_1 = new JLabel("Descripción");
+		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28_1.setBounds(28, 70, 155, 25);
+		panel_1.add(lblNewLabel_28_1);
+		
+		JTextField textField_11 = new JTextField();
+		textField_11.setBounds(28, 40, 303, 19);
+		textField_11.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_11);
+		textField_11.setColumns(10);
+		
+		JTextArea textField_12 = new JTextArea();
+		textField_12.setColumns(10);
+		textField_12.setBounds(28, 100, 593, 133);
+		textField_12.setLineWrap(true);
+	    textField_12.setWrapStyleWord(true);
+		textField_12.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_12);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(46, 105, 5, 22);
+		panel_1.add(textArea);
+		
+		JLabel lblNewLabel_28_2 = new JLabel("Docente");
+		lblNewLabel_28_2.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28_2.setBounds(379, 10, 155, 25);
+		panel_1.add(lblNewLabel_28_2);
+		
+		JTextField textField_14 = new JTextField();
+		textField_14.setColumns(10);
+		textField_14.setBackground(new Color(217, 217, 217));
+		textField_14.setBounds(382, 40, 239, 19);
+		panel_1.add(textField_14);
+		frame.getContentPane().add(panel);		
+		
+		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
+		
+		JLabel lblNewLabel_15 = new JLabel("Eliminar asignatura");
+		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 18));
+		lblNewLabel_15.setBounds(300, 90, 282, 30);
+		panel.add(lblNewLabel_15);
+		
+		JButton btnNewButton_15 = new JButton("Volver");
+		btnNewButton_15.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_15.setBackground(Color.decode("#D9D9D9"));
+		btnNewButton_15.setBounds(59, 50, 110, 25);
+		btnNewButton_15.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				buscarAsignatura3();
+			}
+		});
+		panel.add(btnNewButton_15);
+		
+		JButton btnNewButton_14 = new JButton("Eliminar asignatura");
+		btnNewButton_14.setForeground(new Color(255, 255, 255));
+		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
+		btnNewButton_14.setBackground(Color.decode("#4A85A4"));
+		btnNewButton_14.setBounds(229, 384, 300, 30);
+		btnNewButton_14.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				frame.remove(panel);
+				frame.dispose();
+				confirmarEliminarPanel();
+			}
+		});
+		panel.add(btnNewButton_14);
+
+
+		metodoMenu(panel);
+		
+		frame.getContentPane().add(panel);
+		frame.setVisible(true);
+		frame.repaint();
+		frame.revalidate();
+
+	}
+	
 	public void confirmarEliminarPanel() {
 
 		JPanel panel = new JPanel();
@@ -1502,7 +1785,7 @@ public class SubjectView {
 				frame.remove(panel);
 				frame.dispose();
 
-				buscarAsignatura3();
+				eliminarPanel();
 			}
 		});
 		panel_1.add(btnNewButton_7);
