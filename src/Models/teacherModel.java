@@ -16,6 +16,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
@@ -156,92 +157,94 @@ public class teacherModel {
 		return null;
 
 	}
+	
 	public void generarPDFDatos(String idDocentes) {
 
 
-		atributosTeacher docente = buscarDocentes(idDocentes);
+	    atributosTeacher alumno = buscarDocentes(idDocentes);
 
-		if (docente == null) {
-			JOptionPane.showMessageDialog(null, "No se encontraron datos del docente.");
-			return;
-		}
+	    if (alumno == null) {
+	        JOptionPane.showMessageDialog(null, "No se encontraron datos del alumno.");
+	        return;
+	    }
 
-		Document document = new Document(PageSize.A4.rotate());
-		JFileChooser chooser = new JFileChooser();
-		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		chooser.setAcceptAllFileFilterUsed(false);
-		FileNameExtensionFilter pdfs = new FileNameExtensionFilter("Documentos PDF", "pdf");
-		chooser.addChoosableFileFilter(pdfs);
-		chooser.setFileFilter(pdfs);
+	    Document document = new Document(PageSize.A4.rotate());
+	    JFileChooser chooser = new JFileChooser();
+	    chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+	    chooser.setAcceptAllFileFilterUsed(false);
+	    FileNameExtensionFilter pdfs = new FileNameExtensionFilter("Documentos PDF", "pdf");
+	    chooser.addChoosableFileFilter(pdfs);
+	    chooser.setFileFilter(pdfs);
 
-		if (JFileChooser.CANCEL_OPTION == chooser.showDialog(null, "Generar PDF")) {
-			JOptionPane.showMessageDialog(null, "No se generó el PDF.");
-			return;
-		}
+	    if (JFileChooser.CANCEL_OPTION == chooser.showDialog(null, "Generar PDF")) {
+	        JOptionPane.showMessageDialog(null, "No se generó el PDF.");
+	        return;
+	    }
 
-		try {
-			PdfWriter.getInstance(document, new FileOutputStream(chooser.getSelectedFile() + ".pdf"));
-			document.open();
+	    try {
+	        PdfWriter.getInstance(document, new FileOutputStream(chooser.getSelectedFile() + ".pdf"));
+	        document.open();
 
-			// Agrega contenido al documento
-			document.add(new Paragraph("Información del docente"));
+	        Paragraph title = new Paragraph("Información del docente", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 24));
+	        title.setSpacingBefore(20); // Espacio antes del título
+	        title.setSpacingAfter(20);
+	        title.setAlignment(Element.ALIGN_CENTER);
+	        document.add(title);
 
-			// Crea la tabla
-			// Crea la tabla
-			PdfPTable table = new PdfPTable(new float[]{1, 1, 1, 1, 1, 1, 1, 1});
-			table.setWidthPercentage(100);
+	        // Crea la tabla con 2 columnas
+	        PdfPTable table = new PdfPTable(2);
+	        table.setWidthPercentage(100);
 
-			// Agrega encabezados a la tabla
-			PdfPCell nombresHeader = new PdfPCell(new Phrase("ID del docente"));
-			nombresHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-			PdfPCell apellidosHeader = new PdfPCell(new Phrase("Apellido paterno"));
-			apellidosHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-			PdfPCell idHeader = new PdfPCell(new Phrase("Apellido materno"));
-			idHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-			PdfPCell nacimientoHeader = new PdfPCell(new Phrase("Nombre"));
-			nacimientoHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-			PdfPCell emailHeader = new PdfPCell(new Phrase("Fecha de nacimiento"));
-			emailHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-			PdfPCell estudiosHeader = new PdfPCell(new Phrase("Correo electronico"));
-			estudiosHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-			PdfPCell telefonoHeader = new PdfPCell(new Phrase("Grado academico"));
-			telefonoHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
-			PdfPCell direccionHeader = new PdfPCell(new Phrase("Telefono"));
-			direccionHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        // Agrega filas a la tabla utilizando los datos obtenidos de alumno
+	        Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20);
+	        Font dataFont = FontFactory.getFont(FontFactory.HELVETICA, 20);
 
+	        // Agregar celda de encabezado y datos para cada campo
+	        table.addCell(createCell("ID del docente", headerFont));
+	        table.addCell(createCell(alumno.getDocentesId(), dataFont));
 
-			table.addCell(nombresHeader);
-			table.addCell(apellidosHeader);
-			table.addCell(idHeader);
-			table.addCell(nacimientoHeader);
-			table.addCell(emailHeader);
-			table.addCell(estudiosHeader);
-			table.addCell(telefonoHeader);
-			table.addCell(direccionHeader);
+	        table.addCell(createCell("Apellido paterno", headerFont));
+	        table.addCell(createCell(alumno.getApellidoPaterno(), dataFont));
 
+	        table.addCell(createCell("Apellido materno", headerFont));
+	        table.addCell(createCell(alumno.getApellidoMaterno(), dataFont));
 
-			// Agrega fila a la tabla utilizando los datos obtenidos de docente
-			table.addCell(docente.getDocentesId());
-			table.addCell(docente.getApellidoPaterno());
-			table.addCell(docente.getApellidoMaterno());
-			table.addCell(docente.getNombre());
-			table.addCell(docente.getNacimiento());
-			table.addCell(docente.getEmail());
-			table.addCell(docente.getEstudios());
-			table.addCell(docente.getTelefono()); // Reemplaza con el dato real
+	        table.addCell(createCell("Nombre", headerFont));
+	        table.addCell(createCell(alumno.getNombre(), dataFont));
+
+	        table.addCell(createCell("Fecha de nacimiento", headerFont));
+	        table.addCell(createCell(alumno.getNacimiento(), dataFont));
+
+	        table.addCell(createCell("Correo electrónico", headerFont));
+	        table.addCell(createCell(alumno.getEmail(), dataFont));
+
+	        table.addCell(createCell("Grado académico", headerFont));
+	        table.addCell(createCell(alumno.getEstudios(), dataFont));
+
+	        table.addCell(createCell("Teléfono", headerFont));
+	        table.addCell(createCell(alumno.getTelefono(), dataFont));
 
 
-			// Agrega la tabla al documento
-			document.add(table);
 
-			// Cierra el documento
-			document.close();
+	        // Agrega la tabla al documento
+	        document.add(table);
 
-		} catch (FileNotFoundException | DocumentException e) {
-			e.printStackTrace();
-			System.out.println("No se genero");
-		}
+	        // Cierra el documento
+	        document.close();
+
+	    } catch (FileNotFoundException | DocumentException e) {
+	        e.printStackTrace();
+	        System.out.println("No se generó el PDF.");
+	    }
 	}
+	
+
+	private PdfPCell createCell(String text, Font font) {
+	    PdfPCell cell = new PdfPCell(new Phrase(text, font));
+	    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	    return cell;
+	}
+
 	
 	public void generarCredencial (String idDocentes)
 	{
