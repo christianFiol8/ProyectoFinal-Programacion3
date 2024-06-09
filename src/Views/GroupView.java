@@ -52,6 +52,8 @@ public class GroupView {
 	
 	StudentModel model = new StudentModel();
 	GroupModel control = new GroupModel();
+	teacherModel metodos = new teacherModel();
+	
 	private JFrame frame;
 	AtributosGroup grupo = new AtributosGroup("", "", "");
 	ArrayList<String> array = new ArrayList<String>();
@@ -531,6 +533,7 @@ public class GroupView {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
+		
 		JTextField textField_11 = new JTextField();
 		textField_11.setBounds(31, 78, 412, 19);
 		textField_11.setBackground(Color.decode("#D9D9D9"));
@@ -636,10 +639,14 @@ public class GroupView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				
+				
 				if (textField_11.getText().isEmpty() || textField_12.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
 
-				} else{
+				} 
+				else if (metodos.buscarDocentesgrupo(textField_12.getText())!= null)
+				{
 					String nombre = textField_11.getText();
 					String docente = textField_12.getText();
 					String avatar = atributos.getLetraDeGrupo();
@@ -653,6 +660,10 @@ public class GroupView {
 					frame.remove(panel);
 					frame.dispose();
 					grupoCreadoPanel();
+				}
+				
+				else{
+					JOptionPane.showMessageDialog(null, "Docente inexistente");
 
 				}
 	
@@ -1113,24 +1124,34 @@ public class GroupView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				
-				String nombre = textField_11.getText();
-				String docente = textField_12.getText();
-				String letraAvatar = atributos.getLetraDeGrupo();
-				
-				
-				control.editarGrupo(nombre, docente, letraAvatar);
-				frame.remove(panel);
-				frame.dispose();
-				
-				for (String idAlumno : array) {
-					
-					model.agregarGrupoAlumnos(nombre,idAlumno);
-				}
+				if (textField_11.getText().isEmpty() || textField_12.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
 
+				} 
+				else if (metodos.buscarDocentesgrupo(textField_12.getText())!= null)
+				{
+					String nombre = textField_11.getText();
+					String docente = textField_12.getText();
+					String avatar = atributos.getLetraDeGrupo();
+					control.editarGrupo(nombre, docente, avatar);
+					
+					for (String idAlumno : array) {
+						
+						model.agregarGrupoAlumnos(nombre,idAlumno);
+					}
+	
+					frame.remove(panel);
+					frame.dispose();
+					grupoEditadoPanel();
+				}
+				
+				else{
+					JOptionPane.showMessageDialog(null, "Docente inexistente");
+
+				}
 				
 				
-				grupoEditadoPanel();
+				
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -1884,16 +1905,6 @@ public class GroupView {
 		frame.repaint();
 		frame.revalidate();
 	}
-
-
-
-
-
-
-
-
-
-
 
 
 

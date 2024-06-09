@@ -50,7 +50,7 @@ public class StudentView {
 	public StudentController student;
 	public SubjectController subject;
 	StudentModel model = new StudentModel();
-	atributosStudent texto = new atributosStudent("", "", "", "", "", "", "", "","");
+	atributosStudent texto = new atributosStudent("", "", "", "", "", "", "", "","","");
 	public AuthController view;
 	public JTable table;
 

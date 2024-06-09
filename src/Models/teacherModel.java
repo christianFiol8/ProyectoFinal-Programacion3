@@ -117,6 +117,45 @@ public class teacherModel {
 		return null;
 	}
 
+	
+	public atributosTeacher buscarDocentesgrupo (String idDocente)
+	{
+		try {
+
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(URL,USER,CLAVE);
+			Statement stmt=con.createStatement();
+
+			//Con este se busca al docente
+			ResultSet rs = stmt.executeQuery("SELECT * FROM `docentes` where nombres = '"+idDocente+"'");
+
+			while (rs.next()) {
+
+				String apellidoPaterno = rs.getString("apellidoPaterno");
+				String apellidoMaterno = rs.getString("apellidoMaterno");
+				String nombre = rs.getString("nombres");
+				String fechaDeNaciminto = rs.getString("fechaDeNacimiento");
+				String correoElectronico = rs.getString("correoElectronico");
+				String gradoDeEstudio = rs.getString("gradoDeEstudios");
+				String telefono = rs.getString("telefono");
+				String avatar = rs.getString("Avatar");
+
+				//Crea un objeto en el cual va a guardar los datos
+				atributosTeacher informacion = new atributosTeacher(idDocente, apellidoPaterno, apellidoMaterno, nombre, fechaDeNaciminto, correoElectronico, gradoDeEstudio, telefono,avatar);
+
+
+				return informacion;
+
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+
+			JOptionPane.showMessageDialog(null,"No se encontro docente" );
+		}
+
+		return null;
+
+	}
 	public void generarPDFDatos(String idDocentes) {
 
 

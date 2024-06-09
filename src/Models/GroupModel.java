@@ -162,7 +162,7 @@ public class GroupModel {
 
 			st.setString(1, Docente);
 			st.setString(2, Letra);
-			st.setString(4, Nombre);
+			st.setString(3, Nombre);
 
 
 			int filasAfectadas = st.executeUpdate();
@@ -234,6 +234,11 @@ public class GroupModel {
 		        try {
 		            PdfWriter.getInstance(document, new FileOutputStream(chooser.getSelectedFile() + ".pdf"));
 		            document.open();
+		            
+		            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14);
+		            Paragraph title = new Paragraph("Grupo: " + grupo, titleFont);
+		            title.setAlignment(Element.ALIGN_CENTER);
+		            document.add(title);
 
 		            // Crear la tabla con 3 columnas para los datos de los estudiantes
 		            PdfPTable table = new PdfPTable(4);

@@ -38,6 +38,7 @@ import Models.StudentModel;
 import Models.SubjectModel;
 import Models.atributosStudent;
 import Models.atributosSubject;
+import Models.teacherModel;
 
 public class SubjectView {
 
@@ -51,6 +52,7 @@ public class SubjectView {
 	GroupModel control = new GroupModel();
 	SubjectModel medidor = new SubjectModel();
 	ArrayList<String> array = new ArrayList<String>();
+	teacherModel metodos = new teacherModel();
 	public AuthController view;
 
 	public SubjectView() {
@@ -1125,8 +1127,10 @@ public class SubjectView {
 				if (textField_11.getText().isEmpty() || textField_12.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
 
-				} else{
-					
+				} 
+				
+				else if (metodos.buscarDocentesgrupo(textField_12.getText())!= null)
+				{
 					String nombre = textField_11.getText();
 					String docente = textField_12.getText();
 					String descripcion = atributos.getDescripcion();
@@ -1141,7 +1145,10 @@ public class SubjectView {
 					frame.remove(panel);
 					frame.dispose();
 					asignaturaCreadaPanel();
-					
+				}
+				else{
+
+					JOptionPane.showMessageDialog(null, "Docente inexistente");
 
 	
 				}
@@ -1531,8 +1538,9 @@ public class SubjectView {
 				if (textField_11.getText().isEmpty() || textField_12.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
 
-				} else{
-					
+				} 
+				else if (metodos.buscarDocentesgrupo(textField_12.getText())!= null)
+				{
 					String nombre = textField_11.getText();
 					String docente = textField_12.getText();
 					String descripcion = atributos.getDescripcion();
@@ -1548,7 +1556,11 @@ public class SubjectView {
 					frame.dispose();
 					grupoEditadoPanel();
 					
+				}
+				
+				else{
 
+					JOptionPane.showMessageDialog(null, "Docente inexistente");
 	
 				}
 
