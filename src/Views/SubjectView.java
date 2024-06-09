@@ -566,6 +566,8 @@ public class SubjectView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				control.datosGruposPDF(grupo);
 			}
 		});
 		panel.add(btnNewButton_14);
@@ -814,6 +816,7 @@ public class SubjectView {
 					System.out.println("ID seleccionado: " + selectedId);
 					frame.remove(panel);
 					frame.dispose();
+					listaAlumnosPanel2(atributos, selectedId);
 				
 				}
 			});
@@ -924,7 +927,7 @@ public class SubjectView {
 		frame.revalidate();
 	}
 	
-	public void listaAlumnosPanel2(atributosSubject atributos) {
+	public void listaAlumnosPanel2(atributosSubject atributos, String nombre) {
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(Color.decode("#C3E1F1"));
@@ -955,7 +958,7 @@ public class SubjectView {
 		});
 		panel.add(btnNewButton_15);
 
-		List<List> datos = model.get();
+		List<List> datos = model.alumnosGrupo(nombre);
 
 		// Columnas de la tabla
 		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
@@ -963,7 +966,9 @@ public class SubjectView {
 		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][3];
 		for (int i = 0; i < datos.size(); i++) {
-			informacion[i][0] = datos.get(i).get(0);
+			informacion[i][0] = datos.get(i).get(1);
+			informacion[i][1] = datos.get(i).get(2);
+			informacion[i][2] = datos.get(i).get(3);
 
 		}
 
@@ -996,6 +1001,8 @@ public class SubjectView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				control.datosGruposPDF(nombre);
 			}
 		});
 		panel.add(btnNewButton_14);
