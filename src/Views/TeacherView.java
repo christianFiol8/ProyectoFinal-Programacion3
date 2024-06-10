@@ -36,6 +36,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.Arrays;
 import Controllers.AuthController;
 import Controllers.GroupController;
@@ -948,7 +950,33 @@ public class TeacherView {
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 16));
 		lblNewLabel_15.setBounds(59, 92, 118, 30);
 		panel.add(lblNewLabel_15);
+		
+		ImageIcon iconoDetallesMini = new ImageIcon(getClass().getResource("/Imagenes/Signo_Detalles.png"));
 
+		JButton btnNewButton_29 = new JButton(iconoDetallesMini);
+		btnNewButton_29.setBounds(449, 157, 24, 19);
+		btnNewButton_29.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(null, "Formato de correo electrónico: Ejemplo: usuario@gmail.com");
+			}
+		});
+		panel_1.add(btnNewButton_29);
+		
+		JButton btnNewButton_29_1 = new JButton(iconoDetallesMini);
+		btnNewButton_29_1.setBounds(449, 127, 24, 19);
+		btnNewButton_29_1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(null, "Formato de fecha de cumpleaños: Ejemplo: dd/mm/aaaa");
+			}
+		});
+		panel_1.add(btnNewButton_29_1);
+		
 		JButton btnNewButton_14 = new JButton("Crear Docente");
 		btnNewButton_14.setForeground(Color.white);
 		btnNewButton_14.setOpaque(true);
@@ -972,13 +1000,21 @@ public class TeacherView {
 					}
 				}
 
+				
+				
 				if (textField_3.getText().isEmpty() || textField_4.getText().isEmpty() || 
 						textField_5.getText().isEmpty() || textField_6.getText().isEmpty() || 
 						textField_7.getText().isEmpty() || textField_8.getText().isEmpty() || 
 						textField_9.getText().isEmpty() || textField_10.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
-
-				} else{
+				} else if (!esCorreoValido(textField_8.getText())||!esFechaValida(textField_7.getText())) 
+				{
+					textField_7.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+					textField_8.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+					JOptionPane.showMessageDialog(null, "Formato de correo electrónico o fecha de nacimiento incorrecto");
+						
+				}else {
+					
 					String idDocente = textField_3.getText();
 					String apellidoPaterno = textField_4.getText();
 					String apellidoMaterno = textField_5.getText();
@@ -1051,6 +1087,18 @@ public class TeacherView {
 		frame.revalidate();
 	}
 
+	private boolean esCorreoValido(String correo) {
+		Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{3,3})$");
+		Matcher mather = pattern.matcher(correo);
+		return mather.find();
+	}
+	
+	private boolean esFechaValida(String fecha) {
+		Pattern pattern = Pattern.compile("^([0-2][0-9]|(3)[0-1])/((0)[0-9]|(1)[0-2])/((19|20)\\d\\d)$");
+		Matcher mather = pattern.matcher(fecha);
+		return mather.find();
+	}
+	
 	public void seleccionAvatar(atributosTeacher atributos) {
 
 
@@ -1470,6 +1518,32 @@ public class TeacherView {
 		etiquetaAvatar.setOpaque(true);
 		etiquetaAvatar.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(etiquetaAvatar);
+		
+		ImageIcon iconoDetallesMini = new ImageIcon(getClass().getResource("/Imagenes/Signo_Detalles.png"));
+
+		JButton btnNewButton_29 = new JButton(iconoDetallesMini);
+		btnNewButton_29.setBounds(449, 157, 24, 19);
+		btnNewButton_29.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(null, "Formato de correo electrónico: Ejemplo: usuario@gmail.com");
+			}
+		});
+		panel_1.add(btnNewButton_29);
+		
+		JButton btnNewButton_29_1 = new JButton(iconoDetallesMini);
+		btnNewButton_29_1.setBounds(449, 127, 24, 19);
+		btnNewButton_29_1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(null, "Formato de fecha de cumpleaños: Ejemplo: dd/mm/aaaa");
+			}
+		});
+		panel_1.add(btnNewButton_29_1);
 
 		JButton btnNewButton_14 = new JButton("Confirmar cambios");
 		btnNewButton_14.setForeground(Color.white);
@@ -1501,7 +1575,13 @@ public class TeacherView {
 
 
 					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
-				} else {
+				} else if (!esCorreoValido(textField_8.getText())||!esFechaValida(textField_7.getText())) 
+				{
+					textField_7.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+					textField_8.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+					JOptionPane.showMessageDialog(null, "Formato de correo electrónico o fecha de nacimiento incorrecto");
+						
+				}else {
 					String idTexto = textField_3.getText();
 					String apellidoPaterno = textField_4.getText();
 					String apellidoMaterno = textField_5.getText();
@@ -2362,7 +2442,7 @@ public class TeacherView {
 		mnNewMenu.setFont(new Font("Inter", Font.BOLD, 12));
 		menuBar.add(mnNewMenu);
 
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Descargar Información");
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Consultar registros");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 
 			@Override
@@ -2377,7 +2457,7 @@ public class TeacherView {
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Consultar");
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Detalles");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 
 			@Override
@@ -2440,7 +2520,7 @@ public class TeacherView {
 		mnNewMenu_1.setFont(new Font("Inter", Font.BOLD, 12));
 		menuBar.add(mnNewMenu_1);
 
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Descargar Información");
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Consultar registros");
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 
 			@Override
@@ -2453,7 +2533,7 @@ public class TeacherView {
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_6);
 
-		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Consultar");
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Detalles");
 		mntmNewMenuItem_7.addActionListener(new ActionListener() {
 
 			@Override
@@ -2514,7 +2594,7 @@ public class TeacherView {
 		mnNewMenu_2.setFont(new Font("Inter", Font.BOLD, 12));
 		menuBar.add(mnNewMenu_2);
 
-		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Descargar información");
+		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Consultar registros");
 		mntmNewMenuItem_11.addActionListener(new ActionListener() {
 
 			@Override
@@ -2527,7 +2607,7 @@ public class TeacherView {
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_11);
 
-		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Consultar");
+		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Detalles");
 		mntmNewMenuItem_12.addActionListener(new ActionListener() {
 
 			@Override
@@ -2588,7 +2668,7 @@ public class TeacherView {
 		mnNewMenu_3.setFont(new Font("Inter", Font.BOLD, 12));
 		menuBar.add(mnNewMenu_3);
 
-		JMenuItem mntmNewMenuItem_16 = new JMenuItem("Descargar información");
+		JMenuItem mntmNewMenuItem_16 = new JMenuItem("Consultar registros");
 		mntmNewMenuItem_16.addActionListener(new ActionListener() {
 
 			@Override
@@ -2601,7 +2681,7 @@ public class TeacherView {
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_16);
 
-		JMenuItem mntmNewMenuItem_17 = new JMenuItem("Consultar");
+		JMenuItem mntmNewMenuItem_17 = new JMenuItem("Detalles");
 		mntmNewMenuItem_17.addActionListener(new ActionListener() {
 
 			@Override

@@ -10,6 +10,8 @@ import java.awt.GridLayout;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -23,6 +25,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
 
 import Models.AuthModel;
 
@@ -118,16 +121,9 @@ public class AuthView {
 		});
 		panel2.add(btnNewButton);
 
-		JCheckBox chckbxNewCheckBox = new JCheckBox();
-		chckbxNewCheckBox.setFont(new Font("Inter", Font.BOLD, 10));
-		chckbxNewCheckBox.setText("Recordarme");
-		chckbxNewCheckBox.setBounds(14, 238, 97, 21);
-		chckbxNewCheckBox.setOpaque(false);
-		panel2.add(chckbxNewCheckBox);
-
 		JButton btnNewButton_1 = new JButton("¿Olvidaste tu contraseña?");
 		btnNewButton_1.setFont(new Font("Inter", Font.BOLD, 10));
-		btnNewButton_1.setBounds(130, 237, 183, 21);
+		btnNewButton_1.setBounds(66, 237, 183, 21);
 		btnNewButton_1.setBorderPainted(false);
 		btnNewButton_1.setContentAreaFilled(false);
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -259,10 +255,25 @@ public class AuthView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				JTextField[] textFields = {textField, textField2, textField3};
+
+				for (JTextField textField : textFields) {
+					if (textField.getText().isEmpty()) {
+						textField.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+
+					} else {
+						textField.setBorder(BorderFactory.createLineBorder(Color.green, 2));
+					}
+				}
 
 				if (textField.getText().equals("") || textField2.getText().equals("") || textField3.getText().equals(""))
 				{
 					JOptionPane.showMessageDialog(null, "Ingrese los datos");
+				}else if (!esCorreoValido(textField2.getText())) 
+				{
+					textField2.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+		            JOptionPane.showMessageDialog(null, "Formato de correo electrónico incorrecto. Ejemplo: usuario@gmail.com");
 				}
 
 				else if (!chckbxNewCheckBox.isSelected() ){
@@ -326,7 +337,13 @@ public class AuthView {
 		frame.repaint();
 		frame.revalidate();
 	}
-
+	
+	private boolean esCorreoValido(String correo) {
+		Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{3,3})$");
+		Matcher mather = pattern.matcher(correo);
+		return mather.find();
+	}
+	
 	public void recuperarContraseñaPanel() {
 
 		JPanel panelRecuperarContraseña = new JPanel();
