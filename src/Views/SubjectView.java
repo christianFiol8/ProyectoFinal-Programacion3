@@ -99,7 +99,6 @@ public class SubjectView {
 
 		List<List> datos = medidor.get();
 
-		// Columnas de la tabla
 		String[] columnNames = {"Nombre"};
 
 		// Datos de la tabla
@@ -109,13 +108,10 @@ public class SubjectView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(90);
 
@@ -173,10 +169,8 @@ public class SubjectView {
 
 		List<List> datos = medidor.get();
 
-		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
 
-		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
 			String id = datos.get(i).get(0).toString();
@@ -200,13 +194,10 @@ public class SubjectView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(90);
 
@@ -371,10 +362,8 @@ public class SubjectView {
 
 		ArrayList<String> datos = control.tiraDeMaterias(atributos.getNombre());
 
-		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
 
-		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
 			String id = datos.get(i).toString();
@@ -398,13 +387,10 @@ public class SubjectView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(90);
 
@@ -532,10 +518,8 @@ public class SubjectView {
 
 		List<List> datos = model.alumnosGrupo(grupo);
 
-		// Columnas de la tabla
 		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
 
-		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][3];
 		for (int i = 0; i < datos.size(); i++) {
 			informacion[i][0] = datos.get(i).get(1);
@@ -544,13 +528,10 @@ public class SubjectView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(80);
 		table.getColumnModel().getColumn(1).setPreferredWidth(80);
@@ -606,10 +587,8 @@ public class SubjectView {
 
 		List<List> datos = medidor.get();
 
-		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
 
-		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
 			String id = datos.get(i).get(0).toString();
@@ -633,13 +612,10 @@ public class SubjectView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(90);
 
@@ -806,10 +782,8 @@ public class SubjectView {
 
 		ArrayList<String> datos = control.tiraDeMaterias(atributos.getNombre());
 
-		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
 
-		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
 			String id = datos.get(i).toString();
@@ -833,13 +807,10 @@ public class SubjectView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(90);
 
@@ -970,10 +941,8 @@ public class SubjectView {
 
 		List<List> datos = model.alumnosGrupo(nombre);
 
-		// Columnas de la tabla
 		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
 
-		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][3];
 		for (int i = 0; i < datos.size(); i++) {
 			informacion[i][0] = datos.get(i).get(1);
@@ -982,13 +951,10 @@ public class SubjectView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(80);
 		table.getColumnModel().getColumn(1).setPreferredWidth(80);
@@ -1157,7 +1123,7 @@ public class SubjectView {
 				{
 					String nombre = textField_11.getText();
 					String docente = textField_12.getText();
-					String descripcion = atributos.getDescripcion();
+					String descripcion = areaT.getText();
 					
 					medidor.crearAsignatura(nombre, docente, descripcion);
 					
@@ -1247,11 +1213,9 @@ public class SubjectView {
 				    JOptionPane.showMessageDialog(null, "Llenar campo");
 				} else {
 					
-				    // Busca al alumno en la base 0de datos
 					
 				    AtributosGroup grupo = control.datosDelGrupo(textField_2.getText());
 				    
-				    // Verifica si el alumno fue encontrado
 				    
 				    if (grupo != null) {
 				    	
@@ -1595,7 +1559,10 @@ public class SubjectView {
 				{
 					String nombre = textField_11.getText();
 					String docente = textField_12.getText();
-					String descripcion = atributos.getDescripcion();
+					String descripcion = areaT.getText();
+					System.out.println(nombre);
+					System.out.println(docente);
+					System.out.println(descripcion);
 					
 					medidor.editarAsignatura(nombre, docente, descripcion);
 					
@@ -1945,10 +1912,8 @@ public class SubjectView {
 
 		ArrayList<String> datos = control.tiraDeMaterias(atributos.getNombre());
 
-		// Columnas de la tabla
 		String[] columnNames = {"Nombre"};
 
-		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
 			informacion[i][0] = datos.get(i);
@@ -1957,10 +1922,8 @@ public class SubjectView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
 		// Configuración de la tabla

@@ -96,10 +96,8 @@ public class StudentView {
 
 		List<List> datos = model.get();
 
-		// Columnas de la tabla
 		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre(s)", "ID"};
 
-		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][4];
 		for (int i = 0; i < datos.size(); i++) {
 			informacion[i][0] = datos.get(i).get(1);
@@ -109,13 +107,10 @@ public class StudentView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(90);
 		table.getColumnModel().getColumn(1).setPreferredWidth(90);

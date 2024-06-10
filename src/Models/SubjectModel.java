@@ -79,7 +79,7 @@ public class SubjectModel {
 
 	
 	public List<List> get() {
-		List<List> datos = new ArrayList<>(); // Define el tipo de lista correctamente
+		List<List> datos = new ArrayList<>(); 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection(URL, USER, CLAVE);
@@ -87,7 +87,7 @@ public class SubjectModel {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM `asignaturas`");
 
 			while (rs.next()) {
-				// Obtén los datos de la fila actual
+				
 				String id = rs.getString(1);
 
 				String [] docentes = {id};
@@ -95,10 +95,10 @@ public class SubjectModel {
 				datos.add(info);
 			}
 			con.close();
-			return datos; // Devuelve la lista de datos
+			return datos; 
 
 		} catch (Exception e) {
-			e.printStackTrace(); // Maneja adecuadamente las excepciones
+			e.printStackTrace(); 
 		}
 		return null;
 	}
@@ -126,7 +126,7 @@ public class SubjectModel {
 		}
 	}
 	
-	public void editarAsignatura (String Nombre,String Docente,String Letra ) {
+	public void editarAsignatura (String Nombre,String Docente,String Descripcion ) {
 
 		String consulta = "UPDATE asignaturas SET Docente = ?, Descripcion = ? WHERE Nombre = ?";
 
@@ -134,12 +134,13 @@ public class SubjectModel {
 				PreparedStatement st = conexion.prepareStatement(consulta)) {
 
 			st.setString(1, Docente);
-			st.setString(2, Letra);
+			st.setString(2, Descripcion);
 			st.setString(3, Nombre);
-
+		
 
 			int filasAfectadas = st.executeUpdate();
 			if (filasAfectadas > 0) {
+				System.out.println("Paso la consulta");
 
 			} else {
 				JOptionPane.showMessageDialog(null, "No se encontró el docente con el ID especificado.");

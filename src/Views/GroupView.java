@@ -101,23 +101,21 @@ public class GroupView {
 
 		List<List> datos = control.get();
 
-		// Columnas de la tabla
 		String[] columnNames = {"Nombre"};
 
-		// Datos de la tabla
+	
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
 			informacion[i][0] = datos.get(i).get(0);
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
+		
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
+		
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(90);
 		table.setFont(new Font("Inter", Font.BOLD, 13));
@@ -201,13 +199,11 @@ public class GroupView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
+		
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(90);
 
@@ -267,10 +263,8 @@ public class GroupView {
 
 		List<List> datos = control.get();
 
-		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
 
-		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
 			String id = datos.get(i).get(0).toString();
@@ -294,13 +288,10 @@ public class GroupView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(90);
 
@@ -381,10 +372,8 @@ public class GroupView {
 
 		List<List> datos = model.alumnosGrupo(nombre);
 
-		// Columnas de la tabla
 		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
 
-		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][3];
 		for (int i = 0; i < datos.size(); i++) {
 			informacion[i][0] = datos.get(i).get(1);
@@ -393,10 +382,8 @@ public class GroupView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
 		// Configuración de la tabla
@@ -469,10 +456,8 @@ public class GroupView {
 
 		List<List> datos = model.alumnosGrupo(grupo);
 
-		// Columnas de la tabla
 		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
 
-		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][3];
 		for (int i = 0; i < datos.size(); i++) {
 			informacion[i][0] = datos.get(i).get(1);
@@ -481,13 +466,10 @@ public class GroupView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(80);
 		table.getColumnModel().getColumn(1).setPreferredWidth(80);
@@ -885,18 +867,12 @@ public class GroupView {
 				    JOptionPane.showMessageDialog(null, "Llenar campo");
 				} else {
 					
-				    // Busca al alumno en la base de datos
 					
 				    atributosStudent alumno = model.buscarAlumno(textField_2.getText());
-				    
-				    // Verifica si el alumno fue encontrado
-				    
+				    				    
 				    if (alumno != null) {
-				    	
-				        // Si el alumno fue encontrado, procede con la siguiente operación
 			    	
-				    	array.add(alumno.getAlumnoId());
-				    	
+				    	array.add(alumno.getAlumnoId());   	
 		
 				    	JOptionPane.showMessageDialog(null, "Se ha agregado el alumno");
 				    	
@@ -905,9 +881,7 @@ public class GroupView {
 				        crearGrupo(atributos);
 				        
 				    } else {
-				    	
-				        // Si el alumno no fue encontrado, muestra una advertencia
-				    	
+				    					    	
 				        JOptionPane.showMessageDialog(null, "El alumno no existe");
 				    }
 				}
@@ -956,10 +930,8 @@ public class GroupView {
 
 		List<List> datos = control.get();
 
-		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
 
-		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
 			String id = datos.get(i).get(0).toString();
@@ -988,13 +960,10 @@ public class GroupView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(90);
 
@@ -1366,14 +1335,11 @@ public class GroupView {
 				if (textField_2.getText().equals("")) {
 				    JOptionPane.showMessageDialog(null, "Llenar campo");
 				} else {
-				    // Busca al alumno en la base de datos
 				    atributosStudent alumno = model.buscarAlumno(textField_2.getText());
 				    
-				    // Verifica si el alumno fue encontrado
 				    if (alumno != null) {
 				    	
 				    	array.add(alumno.getAlumnoId());
-				        // Si el alumno fue encontrado, procede con la siguiente operación
 				        frame.remove(panel);
 				        frame.dispose();
 				        editarGrupo(atributos);
@@ -1381,7 +1347,6 @@ public class GroupView {
 				    	
 				        
 				    } else {
-				        // Si el alumno no fue encontrado, muestra una advertencia
 				        JOptionPane.showMessageDialog(null, "El alumno no existe");
 				    }
 				}
@@ -1481,10 +1446,8 @@ public class GroupView {
 
 		List<List> datos = control.get();
 
-		// Columnas de la tabla
 		String[] columnNames = {"Grupos"};
 
-		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
 			String id = datos.get(i).get(0).toString();
@@ -1508,13 +1471,10 @@ public class GroupView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(90);
 
@@ -1629,10 +1589,8 @@ public class GroupView {
 
 		List<List> datos = model.alumnosGrupo(nombre);
 
-		// Columnas de la tabla
 		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
 
-		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][3];
 		for (int i = 0; i < datos.size(); i++) {
 			informacion[i][0] = datos.get(i).get(1);
@@ -1641,13 +1599,10 @@ public class GroupView {
 
 		}
 
-		// Crear el modelo de tabla con los datos obtenidos
 		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
 
-		// Crear la tabla con el modelo
 		JTable table = new JTable(tableModel);
 
-		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(80);
 		table.getColumnModel().getColumn(1).setPreferredWidth(80);

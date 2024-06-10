@@ -384,7 +384,7 @@ public class AuthView {
 		panel_1.add(textField_1);
 		textField_1.setColumns(10);
 		
-		JTextField textField_15 = new JTextField("");
+		JPasswordField textField_15 = new JPasswordField("");
 		textField_15.setColumns(10);
 		textField_15.setBackground(new Color(217, 217, 217));
 		textField_15.setBounds(53, 200, 345, 23);

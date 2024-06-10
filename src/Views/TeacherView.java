@@ -2063,7 +2063,7 @@ public class TeacherView {
 		textField_3.setFont(new Font("Inter", Font.BOLD, 13));
 		textField_3.setBorder(null);
 		textField_3.setOpaque(false);
-		textField_3.setEditable(false); // No editable
+		textField_3.setEditable(false); 
 		panel_1.add(textField_3);
 		textField_3.setColumns(10);
 
@@ -2073,7 +2073,7 @@ public class TeacherView {
 		textField_4.setFont(new Font("Inter", Font.BOLD, 13));
 		textField_4.setBorder(null);
 		textField_4.setOpaque(false);
-		textField_4.setEditable(false); // No editable
+		textField_4.setEditable(false); 
 		panel_1.add(textField_4);
 		textField_4.setColumns(10);
 
@@ -2083,7 +2083,7 @@ public class TeacherView {
 		textField_5.setFont(new Font("Inter", Font.BOLD, 13));
 		textField_5.setBorder(null);
 		textField_5.setOpaque(false);
-		textField_5.setEditable(false); // No editable
+		textField_5.setEditable(false);
 		panel_1.add(textField_5);
 		textField_5.setColumns(10);
 
@@ -2093,7 +2093,7 @@ public class TeacherView {
 		textField_6.setFont(new Font("Inter", Font.BOLD, 13));
 		textField_6.setBorder(null);
 		textField_6.setOpaque(false);
-		textField_6.setEditable(false); // No editable
+		textField_6.setEditable(false); 
 		panel_1.add(textField_6);
 		textField_6.setColumns(10);
 
@@ -2103,7 +2103,7 @@ public class TeacherView {
 		textField_7.setFont(new Font("Inter", Font.BOLD, 13));
 		textField_7.setBorder(null);
 		textField_7.setOpaque(false);
-		textField_7.setEditable(false); // No editable
+		textField_7.setEditable(false); 
 		panel_1.add(textField_7);
 		textField_7.setColumns(10);
 
@@ -2124,7 +2124,7 @@ public class TeacherView {
 		textField_9.setFont(new Font("Inter", Font.BOLD, 13));
 		textField_9.setBorder(null);
 		textField_9.setOpaque(false);
-		textField_9.setEditable(false); // No editable
+		textField_9.setEditable(false);
 		panel_1.add(textField_9);
 
 		JTextField textField_10 = new JTextField(telefono);
@@ -2134,7 +2134,7 @@ public class TeacherView {
 		textField_10.setFont(new Font("Inter", Font.BOLD, 13));
 		textField_10.setBorder(null);
 		textField_10.setOpaque(false);
-		textField_10.setEditable(false); // No editable
+		textField_10.setEditable(false); 
 		panel_1.add(textField_10);
 
 		metodoMenu(panel);
