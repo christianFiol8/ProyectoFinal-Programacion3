@@ -126,6 +126,7 @@ public class TeacherView {
 		table.getColumnModel().getColumn(0).setPreferredWidth(90);
 		table.getColumnModel().getColumn(1).setPreferredWidth(90);
 		table.getColumnModel().getColumn(2).setPreferredWidth(90);
+		table.setFont(new Font("Inter", Font.BOLD, 13));
 		table.setBounds(59, 128, 652, 243);
 		table.setRowHeight(50);
 
@@ -2265,7 +2266,6 @@ public class TeacherView {
 		frame.revalidate();
 	}
 
-
 	public void cerrarSesionPanel() {
 
 		JPanel panel = new JPanel();
@@ -2740,6 +2740,7 @@ class RenderTabla extends DefaultTableCellRenderer{
 
 
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+		setHorizontalAlignment(SwingConstants.CENTER);
 		if(value instanceof JButton) {
 			return (JButton) value;
 		}

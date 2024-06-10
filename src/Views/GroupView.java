@@ -7,6 +7,9 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,7 +120,7 @@ public class GroupView {
 		// Configuración de la tabla
 		table.setDefaultRenderer(Object.class, new RenderTabla());
 		table.getColumnModel().getColumn(0).setPreferredWidth(90);
-
+		table.setFont(new Font("Inter", Font.BOLD, 13));
 		table.setBounds(59, 128, 652, 243);
 		table.setRowHeight(50);
 
@@ -179,6 +182,7 @@ public class GroupView {
 		for (int i = 0; i < datos.size(); i++) {
 			String id = datos.get(i).get(0).toString();
 			JButton button = new JButton(id);
+			button.setFont(new Font("Inter", Font.BOLD, 13));
 			button.setBackground(Color.white);
 			button.addActionListener(new ActionListener() {
 
@@ -211,6 +215,7 @@ public class GroupView {
 		table.getColumnModel().getColumn(0).setCellRenderer(new RenderTabla());
 		table.getColumnModel().getColumn(0).setCellEditor(new ButtonEditor());
 		table.setRowHeight(50);
+		table.setFont(new Font("Inter", Font.BOLD, 13));
 		table.setTableHeader(null);
 
 		scrollPane.setViewportView(table);
@@ -271,6 +276,7 @@ public class GroupView {
 			String id = datos.get(i).get(0).toString();
 			JButton button = new JButton(id);
 			button.setBackground(Color.white);
+			button.setFont(new Font("Inter", Font.BOLD, 13));
 			button.addActionListener(new ActionListener() {
 
 				@Override
@@ -398,7 +404,7 @@ public class GroupView {
 		table.getColumnModel().getColumn(0).setPreferredWidth(80);
 		table.getColumnModel().getColumn(1).setPreferredWidth(80);
 		table.getColumnModel().getColumn(2).setPreferredWidth(100);
-
+		table.setFont(new Font("Inter", Font.BOLD, 13));
 		table.setBounds(184, 128, 414, 243);
 		table.setRowHeight(50);
 
@@ -486,7 +492,7 @@ public class GroupView {
 		table.getColumnModel().getColumn(0).setPreferredWidth(80);
 		table.getColumnModel().getColumn(1).setPreferredWidth(80);
 		table.getColumnModel().getColumn(2).setPreferredWidth(100);
-
+		table.setFont(new Font("Inter", Font.BOLD, 13));
 		table.setBounds(184, 128, 414, 243);
 		table.setRowHeight(50);
 
@@ -588,16 +594,13 @@ public class GroupView {
 		lblNewLabel_28.setBounds(31, 43, 155, 25);
 		panel_1.add(lblNewLabel_28);
 
-		JLabel lblNewLabel_28_1 = new JLabel("Docente de grupo");
+		JLabel lblNewLabel_28_1 = new JLabel("Docente de grupo (Nombre)");
 		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_1.setBounds(31, 140, 155, 25);
+		lblNewLabel_28_1.setBounds(31, 140, 250, 25);
 		panel_1.add(lblNewLabel_28_1);
 
-		
-
-
-
-
+		JTextField[] letrasTextFields = {textField_11, textField_12};
+		agregarFiltroLetrasATextFields(letrasTextFields, 40);
 
 		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource(atributos.getLetraDeGrupo()));
 		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
@@ -639,7 +642,16 @@ public class GroupView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				
+				JTextField[] textFields = {textField_11, textField_12};
+
+				for (JTextField textField : textFields) {
+					if (textField.getText().isEmpty()) {
+						textField.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+
+					} else {
+						textField.setBorder(BorderFactory.createLineBorder(Color.green, 2));
+					}
+				}
 				
 				if (textField_11.getText().isEmpty() || textField_12.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -663,8 +675,8 @@ public class GroupView {
 				}
 				
 				else{
+					textField_12.setBorder(BorderFactory.createLineBorder(Color.red, 2));
 					JOptionPane.showMessageDialog(null, "Docente inexistente");
-
 				}
 	
 			}
@@ -805,7 +817,7 @@ public class GroupView {
 		                crearGrupo(atributos);
 		                
 		            } else {
-		                JOptionPane.showMessageDialog(frame, "Por favor, seleccione un avatar.", "Error", JOptionPane.ERROR_MESSAGE);
+		                JOptionPane.showMessageDialog(frame, "Por favor, seleccione una letra.", "Error", JOptionPane.ERROR_MESSAGE);
 		            }
 
 					
@@ -848,18 +860,11 @@ public class GroupView {
 		JTextField textField_2 = new JTextField();
 		textField_2.setBounds(80, 103, 300, 30);
 		textField_2.setBackground(Color.decode("#D9D9D9"));
-		/*textField_2.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				frame.remove(panel);
-				frame.dispose();
-				//descargarInformacionAlumno(panel);
-			}
-		});*/
 		panel_1.add(textField_2);
 		textField_2.setColumns(10);
+		
+		JTextField[] caracteres2TextFields = {textField_2};
+		agregarFiltroNumerosATextFields(caracteres2TextFields, 10);
 		
 		//Donde guarda a los alumnos del grupo
 		
@@ -960,6 +965,7 @@ public class GroupView {
 			String id = datos.get(i).get(0).toString();
 			JButton button = new JButton(id);
 			button.setBackground(Color.white);
+			button.setFont(new Font("Inter", Font.BOLD, 13));
 			button.addActionListener(new ActionListener() {
 
 				@Override
@@ -1064,9 +1070,9 @@ public class GroupView {
 		lblNewLabel_28.setBounds(31, 43, 155, 25);
 		panel_1.add(lblNewLabel_28);
 
-		JLabel lblNewLabel_28_1 = new JLabel("Docente de grupo");
+		JLabel lblNewLabel_28_1 = new JLabel("Docente de grupo (Nombre)");
 		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_1.setBounds(31, 140, 155, 25);
+		lblNewLabel_28_1.setBounds(31, 140, 250, 25);
 		panel_1.add(lblNewLabel_28_1);
 
 		JTextField textField_11 = new JTextField(nombre);
@@ -1112,7 +1118,9 @@ public class GroupView {
 		});
 		panel.add(btnNewButton_15);
 
-
+		JTextField[] letrasTextFields = {textField_12};
+		agregarFiltroLetrasATextFields(letrasTextFields, 40);
+		
 		JButton btnNewButton_14 = new JButton("Confirmar cambios");
 		btnNewButton_14.setForeground(new Color(255, 255, 255));
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
@@ -1123,6 +1131,17 @@ public class GroupView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				JTextField[] textFields = {textField_12};
+
+				for (JTextField textField : textFields) {
+					if (textField.getText().isEmpty()) {
+						textField.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+
+					} else {
+						textField.setBorder(BorderFactory.createLineBorder(Color.green, 2));
+					}
+				}
 				
 				if (textField_11.getText().isEmpty() || textField_12.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1146,6 +1165,7 @@ public class GroupView {
 				}
 				
 				else{
+					textField_12.setBorder(BorderFactory.createLineBorder(Color.red, 2));
 					JOptionPane.showMessageDialog(null, "Docente inexistente");
 
 				}
@@ -1271,7 +1291,7 @@ public class GroupView {
 		                frame.dispose();
 		                editarGrupo(atributos);
 		            } else {
-		                JOptionPane.showMessageDialog(frame, "Por favor, seleccione un avatar.", "Error", JOptionPane.ERROR_MESSAGE);
+		                JOptionPane.showMessageDialog(frame, "Por favor, seleccione una letra.", "Error", JOptionPane.ERROR_MESSAGE);
 		            }
 
 
@@ -1329,6 +1349,9 @@ public class GroupView {
 		});
 		panel_1.add(textField_2);
 		textField_2.setColumns(10);
+		
+		JTextField[] caracteres2TextFields = {textField_2};
+		agregarFiltroNumerosATextFields(caracteres2TextFields, 10);
 
 		JButton btnNewButton_14 = new JButton("Agregar Alumno");
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
@@ -1467,6 +1490,7 @@ public class GroupView {
 			String id = datos.get(i).get(0).toString();
 			JButton button = new JButton(id);
 			button.setBackground(Color.white);
+			button.setFont(new Font("Inter", Font.BOLD, 13));
 			button.addActionListener(new ActionListener() {
 
 				@Override
@@ -1561,19 +1585,24 @@ public class GroupView {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 
+
 		JLabel lblNewLabel_28 = new JLabel("Nombre del grupo");
-		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28.setBounds(31, 43, 155, 25);
+		lblNewLabel_28.setFont(new Font("Inter", Font.PLAIN, 16));
+		lblNewLabel_28.setBounds(31, 10, 155, 25);
 		panel_1.add(lblNewLabel_28);
 
 		JLabel lblNewLabel_28_1 = new JLabel("Docente de grupo");
-		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_1.setBounds(31, 140, 155, 25);
+		lblNewLabel_28_1.setFont(new Font("Inter", Font.PLAIN, 16));
+		lblNewLabel_28_1.setBounds(31, 70, 155, 25);
 		panel_1.add(lblNewLabel_28_1);
 
+		JLabel lblNewLabel_28_1_1 = new JLabel("Lista de alumnos");
+		lblNewLabel_28_1_1.setFont(new Font("Inter", Font.PLAIN, 16));
+		lblNewLabel_28_1_1.setBounds(31, 130, 155, 25);
+		panel_1.add(lblNewLabel_28_1_1);
 
 		JTextField textField_11 = new JTextField(nombre);
-		textField_11.setBounds(31, 78, 412, 19);
+		textField_11.setBounds(31, 40, 412, 19);
 		textField_11.setBackground(Color.decode("#D9D9D9"));
 		textField_11.setFont(new Font("Inter", Font.BOLD, 13));
 		textField_11.setBorder(null);
@@ -1584,7 +1613,7 @@ public class GroupView {
 
 		JTextField textField_12 = new JTextField(docente);
 		textField_12.setColumns(10);
-		textField_12.setBounds(31, 175, 412, 20);
+		textField_12.setBounds(31, 100, 412, 20);
 		textField_12.setBackground(Color.decode("#D9D9D9"));
 		textField_12.setFont(new Font("Inter", Font.BOLD, 13));
 		textField_12.setBorder(null);
@@ -1593,12 +1622,48 @@ public class GroupView {
 		panel_1.add(textField_12);
 		textField_12.setColumns(10);
 
-		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(31, 160, 412, 70);
+		panel_1.add(scrollPane);		
+		frame.getContentPane().add(panel);
+
+		List<List> datos = model.alumnosGrupo(nombre);
+
+		// Columnas de la tabla
+		String[] columnNames = {"Apellido Paterno", "Apellido Materno", "Nombre"};
+
+		// Datos de la tabla
+		Object[][] informacion = new Object[datos.size()][3];
+		for (int i = 0; i < datos.size(); i++) {
+			informacion[i][0] = datos.get(i).get(1);
+			informacion[i][1] = datos.get(i).get(2);
+			informacion[i][2] = datos.get(i).get(3);
+
+		}
+
+		// Crear el modelo de tabla con los datos obtenidos
+		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
+
+		// Crear la tabla con el modelo
+		JTable table = new JTable(tableModel);
+
+		// Configuración de la tabla
+		table.setDefaultRenderer(Object.class, new RenderTabla());
+		table.getColumnModel().getColumn(0).setPreferredWidth(80);
+		table.getColumnModel().getColumn(1).setPreferredWidth(80);
+		table.getColumnModel().getColumn(2).setPreferredWidth(100);        
+		table.setBounds(31, 160, 412, 70);
+		table.setFont(new Font("Inter", Font.BOLD, 13));
+		table.setRowHeight(20);
+
+		scrollPane.setViewportView(table);
+
+		frame.setVisible(true);
 
 		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource(avatar));
 		JLabel etiquetaAvatar = new JLabel(iconoDescargar);
 		etiquetaAvatar.setHorizontalAlignment(SwingConstants.CENTER);
-		etiquetaAvatar.setBounds(467, 43, 154, 77);
+		etiquetaAvatar.setBounds(467, 17, 154, 77);
 		etiquetaAvatar.setOpaque(true);
 		etiquetaAvatar.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(etiquetaAvatar);
@@ -2034,6 +2099,66 @@ public class GroupView {
 	}
 
 
+	private void limitarEntradaANumeros(KeyEvent evt, JTextField textField, int longitud) {
+		// TODO Auto-generated method stub
+		char key = evt.getKeyChar();
+
+		boolean esNumero = Character.isDigit(key);
+
+		boolean esBorrarOEnviar = key == KeyEvent.VK_BACK_SPACE || key == KeyEvent.VK_ENTER;
+
+		if (!esNumero && !esBorrarOEnviar) {
+			evt.consume();
+
+			JOptionPane.showMessageDialog(null, "Solo números", "Advertencia", JOptionPane.WARNING_MESSAGE);
+		}
+
+
+		if (textField.getText().length() >= longitud) {
+			evt.consume();
+		}
+	}
+
+	private void agregarFiltroNumerosATextFields(JTextField[] textFields, int longitud) {
+		for (JTextField textField : textFields) {
+			textField.addKeyListener((KeyListener) new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent evt) {
+					limitarEntradaANumeros(evt, textField, longitud);
+				}
+			});
+		}
+	}
+
+	private void limitarEntradaALetras(KeyEvent evt, JTextField textField, int longitud) {
+		int key = evt.getKeyChar();
+
+		boolean mayusculas = key >= 65 && key <= 90;
+		boolean minusculas = key >= 97 && key <= 122;
+		boolean espacio = key == 32;
+		boolean esBorrarOEnviar = key == KeyEvent.VK_BACK_SPACE || key == KeyEvent.VK_ENTER;
+
+		if (!(minusculas || mayusculas || espacio|| esBorrarOEnviar))
+		{
+			evt.consume();
+			JOptionPane.showMessageDialog(null, "Solo letras", "Advertencia", JOptionPane.WARNING_MESSAGE);
+		}
+
+		if (textField.getText().length() >= longitud) {
+			evt.consume();
+		}
+	}
+
+	private void agregarFiltroLetrasATextFields(JTextField[] textFields, int longitud) {
+		for (JTextField textField : textFields) {
+			textField.addKeyListener((KeyListener) new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent evt) {
+					limitarEntradaALetras(evt, textField, longitud);
+				}
+			});
+		}
+	}
 
 
 	public void metodoMenu(JPanel panel) {

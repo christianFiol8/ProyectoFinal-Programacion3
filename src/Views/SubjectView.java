@@ -6,6 +6,9 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,7 +121,7 @@ public class SubjectView {
 
 		table.setBounds(59, 128, 652, 243);
 		table.setRowHeight(50);
-
+		table.setFont(new Font("Inter", Font.BOLD, 13));
 		scrollPane.setViewportView(table);
 
 		frame.setVisible(true);
@@ -179,6 +182,7 @@ public class SubjectView {
 			String id = datos.get(i).get(0).toString();
 			JButton button = new JButton(id);
 			button.setBackground(Color.white);
+			button.setFont(new Font("Inter", Font.BOLD, 13));
 			button.addActionListener(new ActionListener() {
 
 				@Override
@@ -376,6 +380,7 @@ public class SubjectView {
 			String id = datos.get(i).toString();
 			JButton button = new JButton(id);
 			button.setBackground(Color.white);
+			button.setFont(new Font("Inter", Font.BOLD, 13));
 			button.addActionListener(new ActionListener() {
 
 				@Override
@@ -550,7 +555,7 @@ public class SubjectView {
 		table.getColumnModel().getColumn(0).setPreferredWidth(80);
 		table.getColumnModel().getColumn(1).setPreferredWidth(80);
 		table.getColumnModel().getColumn(2).setPreferredWidth(100);
-
+		table.setFont(new Font("Inter", Font.BOLD, 13));
 		table.setBounds(184, 128, 414, 243);
 		table.setRowHeight(50);
 
@@ -609,6 +614,7 @@ public class SubjectView {
 		for (int i = 0; i < datos.size(); i++) {
 			String id = datos.get(i).get(0).toString();
 			JButton button = new JButton(id);
+			button.setFont(new Font("Inter", Font.BOLD, 13));
 			button.setBackground(Color.white);
 			button.addActionListener(new ActionListener() {
 
@@ -808,6 +814,7 @@ public class SubjectView {
 		for (int i = 0; i < datos.size(); i++) {
 			String id = datos.get(i).toString();
 			JButton button = new JButton(id);
+			button.setFont(new Font("Inter", Font.BOLD, 13));
 			button.setBackground(Color.white);
 			button.addActionListener(new ActionListener() {
 
@@ -840,6 +847,7 @@ public class SubjectView {
 		table.getColumnModel().getColumn(0).setCellRenderer(new RenderTabla());
 		table.getColumnModel().getColumn(0).setCellEditor(new ButtonEditor());
 		table.setRowHeight(50);
+		table.setFont(new Font("Inter", Font.BOLD, 13));
 		table.setTableHeader(null);
 
 		scrollPane.setViewportView(table);
@@ -985,7 +993,7 @@ public class SubjectView {
 		table.getColumnModel().getColumn(0).setPreferredWidth(80);
 		table.getColumnModel().getColumn(1).setPreferredWidth(80);
 		table.getColumnModel().getColumn(2).setPreferredWidth(100);
-
+		table.setFont(new Font("Inter", Font.BOLD, 13));
 		table.setBounds(184, 128, 414, 243);
 		table.setRowHeight(50);
 
@@ -1079,9 +1087,9 @@ public class SubjectView {
 		lblNewLabel_28.setBounds(31, 44, 209, 25);
 		panel_1.add(lblNewLabel_28);
 
-		JLabel lblNewLabel_28_1 = new JLabel("Docente asignado");
+		JLabel lblNewLabel_28_1 = new JLabel("Docente asignado (Nombre)");
 		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_1.setBounds(31, 134, 155, 25);
+		lblNewLabel_28_1.setBounds(31, 134, 270, 25);
 		panel_1.add(lblNewLabel_28_1);
 
 		JLabel lblNewLabel_28_1_1 = new JLabel("Descripcion");
@@ -1123,10 +1131,26 @@ public class SubjectView {
 			public void actionPerformed(ActionEvent e) {	
 				// TODO Auto-generated method stub
 	
-				
-				if (textField_11.getText().isEmpty() || textField_12.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
+				JTextField[] textFields = {textField_11, textField_12};
 
+				for (JTextField textField : textFields) {
+					if (textField.getText().isEmpty()) {
+						textField.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+
+					} else {
+						textField.setBorder(BorderFactory.createLineBorder(Color.green, 2));
+					}
+				}
+				
+				if (areaT.getText().isEmpty()) {
+					areaT.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+
+				} else {
+					areaT.setBorder(BorderFactory.createLineBorder(Color.green, 2));
+				}
+				
+				if (textField_11.getText().isEmpty() || textField_12.getText().isEmpty() || areaT.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
 				} 
 				
 				else if (metodos.buscarDocentesgrupo(textField_12.getText())!= null)
@@ -1147,7 +1171,7 @@ public class SubjectView {
 					asignaturaCreadaPanel();
 				}
 				else{
-
+					textField_12.setBorder(BorderFactory.createLineBorder(Color.red, 2));
 					JOptionPane.showMessageDialog(null, "Docente inexistente");
 
 	
@@ -1156,7 +1180,11 @@ public class SubjectView {
 		});
 		panel.add(btnNewButton_14);
 		
-
+		JTextField[] letrasTextFields = {textField_11, textField_12};
+		agregarFiltroLetrasATextFields(letrasTextFields, 40);
+		
+		JTextArea[] logitudTextArea = {areaT};
+		agregarLimiteCaracteresATextArea(logitudTextArea, 160);
 
 		if (atributos!=null)
 		{
@@ -1238,7 +1266,7 @@ public class SubjectView {
 				        
 				    } else {
 				    	
-				        JOptionPane.showMessageDialog(null, "El GRUPO no existe");
+				        JOptionPane.showMessageDialog(null, "El grupo no existe");
 				    }
 				}
 				
@@ -1262,6 +1290,9 @@ public class SubjectView {
 			}
 		});
 		panel.add(btnNewButton_15);
+		
+		JTextField[] letrasTextFields = {textField_2};
+		agregarFiltroLetrasATextFields(letrasTextFields, 50);
 
 		metodoMenu(panel);
 
@@ -1492,9 +1523,9 @@ public class SubjectView {
 		lblNewLabel_28.setBounds(31, 44, 209, 25);
 		panel_1.add(lblNewLabel_28);
 
-		JLabel lblNewLabel_28_1 = new JLabel("Docente asignado");
+		JLabel lblNewLabel_28_1 = new JLabel("Docente asignado (Nombre)");
 		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_1.setBounds(31, 134, 155, 25);
+		lblNewLabel_28_1.setBounds(31, 134, 270, 25);
 		panel_1.add(lblNewLabel_28_1);
 
 		JLabel lblNewLabel_28_1_1 = new JLabel("Descripcion");
@@ -1523,7 +1554,12 @@ public class SubjectView {
 		});
 		panel.add(btnNewButton_15);
 
-
+		JTextField[] letrasTextFields = {textField_11, textField_12};
+		agregarFiltroLetrasATextFields(letrasTextFields, 40);
+		
+		JTextArea[] logitudTextArea = {areaT};
+		agregarLimiteCaracteresATextArea(logitudTextArea, 160);
+		
 		JButton btnNewButton_14 = new JButton("Editar asignatura");
 		btnNewButton_14.setForeground(new Color(255, 255, 255));
 		btnNewButton_14.setFont(new Font("Inter", Font.BOLD, 16));
@@ -1535,7 +1571,23 @@ public class SubjectView {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				if (textField_11.getText().isEmpty() || textField_12.getText().isEmpty()) {
+
+				
+					if (textField_12.getText().isEmpty()) {
+						textField_12.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+
+					} else {
+						textField_12.setBorder(BorderFactory.createLineBorder(Color.green, 2));
+					}
+				
+				if (areaT.getText().isEmpty()) {
+					areaT.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+
+				} else {
+					areaT.setBorder(BorderFactory.createLineBorder(Color.green, 2));
+				}
+				
+				if (textField_11.getText().isEmpty() || textField_12.getText().isEmpty() || areaT.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(frame, "Todos los campos deben estar llenos", "Error", JOptionPane.ERROR_MESSAGE);
 
 				} 
@@ -1559,7 +1611,7 @@ public class SubjectView {
 				}
 				
 				else{
-
+					textField_12.setBorder(BorderFactory.createLineBorder(Color.red, 2));
 					JOptionPane.showMessageDialog(null, "Docente inexistente");
 	
 				}
@@ -1650,7 +1702,7 @@ public class SubjectView {
 				    	
 				        // Si el alumno no fue encontrado, muestra una advertencia
 				    	
-				        JOptionPane.showMessageDialog(null, "El GRUPO no existe");
+				        JOptionPane.showMessageDialog(null, "El grupo no existe");
 				    }
 				}
 
@@ -1674,6 +1726,9 @@ public class SubjectView {
 			}
 		});
 		panel.add(btnNewButton_15);
+		
+		JTextField[] letrasTextFields = {textField_2};
+		agregarFiltroLetrasATextFields(letrasTextFields, 50);
 
 		metodoMenu(panel);
 
@@ -1857,48 +1912,97 @@ public class SubjectView {
 		panel_1.setLayout(null);
 		
 		JLabel lblNewLabel_28 = new JLabel("Nombre");
-		lblNewLabel_28.setFont(new Font("Inter", Font.BOLD, 16));
+		lblNewLabel_28.setFont(new Font("Inter", Font.PLAIN, 16));
 		lblNewLabel_28.setBounds(28, 10, 155, 25);
 		panel_1.add(lblNewLabel_28);
 		
 		JLabel lblNewLabel_28_1 = new JLabel("Descripción");
-		lblNewLabel_28_1.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_1.setBounds(28, 70, 155, 25);
+		lblNewLabel_28_1.setFont(new Font("Inter", Font.PLAIN, 16));
+		lblNewLabel_28_1.setBounds(412, 10, 155, 25);
 		panel_1.add(lblNewLabel_28_1);
 		
 		JTextField textField_11 = new JTextField(nombre);
 		textField_11.setBounds(28, 40, 303, 19);
 		textField_11.setEditable(false);
+		textField_11.setFont(new Font("Inter", Font.BOLD, 13));
+
+		textField_11.setBorder(null);
+		textField_11.setOpaque(false);
 		textField_11.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_11);
 		textField_11.setColumns(10);
 		
-		JTextArea textField_12 = new JTextArea(descripcion);
+		JTextField textField_12 = new JTextField(docente);
 		textField_12.setColumns(10);
-		textField_12.setBounds(28, 100, 593, 133);
+		textField_12.setBounds(28, 98, 303, 19);
 		textField_12.setEditable(false);
+		textField_12.setFont(new Font("Inter", Font.BOLD, 13));
+		textField_12.setBorder(null);
+		textField_12.setOpaque(false);
 		textField_12.setBackground(Color.decode("#D9D9D9"));
 		panel_1.add(textField_12);
 		
-		JTextArea textArea = new JTextArea(descripcion);
-		textArea.setBounds(46, 105, 5, 22);
-		textArea.setEditable(false);
-		panel_1.add(textArea);
+				
 		
-		JLabel lblNewLabel_28_2 = new JLabel("Docente");
-		lblNewLabel_28_2.setFont(new Font("Inter", Font.BOLD, 16));
-		lblNewLabel_28_2.setBounds(379, 10, 155, 25);
-		panel_1.add(lblNewLabel_28_2);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(31, 160, 370, 70);
+		panel_1.add(scrollPane);		
+		frame.getContentPane().add(panel);
+
+		 List<List> datos = model.get();
+
+		// Columnas de la tabla
+		String[] columnNames = {"Nombre"};
+
+		// Datos de la tabla
+		Object[][] informacion = new Object[datos.size()][1];
+		for (int i = 0; i < datos.size(); i++) {
+			informacion[i][0] = datos.get(i).get(0);
+			//informacion[i][1] = datos.get(i).get(2);
+			//informacion[i][2] = datos.get(i).get(3);
+
+		}
+
+		// Crear el modelo de tabla con los datos obtenidos
+		DefaultTableModel tableModel = new DefaultTableModel(informacion, columnNames);
+
+		// Crear la tabla con el modelo
+		JTable table = new JTable(tableModel);
+
+		// Configuración de la tabla
+		table.setDefaultRenderer(Object.class, new RenderTabla());
+		table.getColumnModel().getColumn(0).setPreferredWidth(80);
+		//table.getColumnModel().getColumn(1).setPreferredWidth(80);
+		//table.getColumnModel().getColumn(2).setPreferredWidth(100);        
+		table.setBounds(31, 160, 370, 70);
+		table.setFont(new Font("Inter", Font.BOLD, 13));
+		table.setRowHeight(20);
+
+		scrollPane.setViewportView(table);
+
+		frame.setVisible(true);
 		
-		JTextField textField_14 = new JTextField(docente);
-		textField_14.setColumns(10);
-		textField_14.setEditable(false);
-		textField_14.setBackground(new Color(217, 217, 217));
-		textField_14.setBounds(382, 40, 239, 19);
-		panel_1.add(textField_14);
-		frame.getContentPane().add(panel);		
+		JLabel lblNewLabel_28_22 = new JLabel("Docente");
+		lblNewLabel_28_22.setFont(new Font("Inter", Font.PLAIN, 16));
+		lblNewLabel_28_22.setBounds(28, 69, 155, 25);
+		panel_1.add(lblNewLabel_28_22);
 		
-		ImageIcon iconoDescargar = new ImageIcon(getClass().getResource("/Imagenes/Icono_Descargar.png"));
+		JTextArea areaT = new JTextArea(descripcion);
+		areaT.setLineWrap(true);
+		areaT.setWrapStyleWord(true);
+		areaT.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_12);
+		areaT.setFont(new Font("Inter", Font.BOLD, 13));
+		areaT.setBorder(null);
+		areaT.setOpaque(false);
+		areaT.setBounds(412, 37, 209, 80);
+		panel_1.add(areaT);		
+		
+		JLabel lblNewLabel_28_2_1 = new JLabel("Lista de grupos");
+		lblNewLabel_28_2_1.setFont(new Font("Inter", Font.PLAIN, 16));
+		lblNewLabel_28_2_1.setBounds(28, 127, 155, 25);
+		panel_1.add(lblNewLabel_28_2_1);
+		
 		
 		JLabel lblNewLabel_15 = new JLabel("Eliminar asignatura");
 		lblNewLabel_15.setFont(new Font("Inter", Font.BOLD, 18));
@@ -2212,8 +2316,84 @@ public class SubjectView {
 
 
 
+	private void limitarEntradaANumeros(KeyEvent evt, JTextField textField, int longitud) {
+		// TODO Auto-generated method stub
+		char key = evt.getKeyChar();
+
+		boolean esNumero = Character.isDigit(key);
+
+		boolean esBorrarOEnviar = key == KeyEvent.VK_BACK_SPACE || key == KeyEvent.VK_ENTER;
+
+		if (!esNumero && !esBorrarOEnviar) {
+			evt.consume();
+
+			JOptionPane.showMessageDialog(null, "Solo números", "Advertencia", JOptionPane.WARNING_MESSAGE);
+		}
 
 
+		if (textField.getText().length() >= longitud) {
+			evt.consume();
+		}
+	}
+
+	private void agregarFiltroNumerosATextFields(JTextField[] textFields, int longitud) {
+		for (JTextField textField : textFields) {
+			textField.addKeyListener((KeyListener) new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent evt) {
+					limitarEntradaANumeros(evt, textField, longitud);
+				}
+			});
+		}
+	}
+
+	private void limitarEntradaALetras(KeyEvent evt, JTextField textField, int longitud) {
+		int key = evt.getKeyChar();
+
+		boolean mayusculas = key >= 65 && key <= 90;
+		boolean minusculas = key >= 97 && key <= 122;
+		boolean espacio = key == 32;
+		boolean esBorrarOEnviar = key == KeyEvent.VK_BACK_SPACE || key == KeyEvent.VK_ENTER;
+
+		if (!(minusculas || mayusculas || espacio|| esBorrarOEnviar))
+		{
+			evt.consume();
+			JOptionPane.showMessageDialog(null, "Solo letras", "Advertencia", JOptionPane.WARNING_MESSAGE);
+		}
+
+		if (textField.getText().length() >= longitud) {
+			evt.consume();
+		}
+	}
+
+	private void agregarFiltroLetrasATextFields(JTextField[] textFields, int longitud) {
+		for (JTextField textField : textFields) {
+			textField.addKeyListener((KeyListener) new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent evt) {
+					limitarEntradaALetras(evt, textField, longitud);
+				}
+			});
+		}
+	}
+
+	private void limitarEntradaCaracteres(KeyEvent evt, JTextArea textField, int longitudMaxima) {
+
+		if (textField.getText().length() >= longitudMaxima) {
+			evt.consume();
+		}
+	}
+
+	private void agregarLimiteCaracteresATextArea(JTextArea[] textAreas, int longitud) {
+		for (JTextArea textArea : textAreas) {
+			textArea.addKeyListener((KeyListener) new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent evt) {
+					limitarEntradaCaracteres(evt, textArea, longitud);
+				}
+			});
+		}
+	}
 
 	public void metodoMenu(JPanel panel) {
 		JPanel panelCopia;
