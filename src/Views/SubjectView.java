@@ -2105,6 +2105,7 @@ public class SubjectView {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				medidor.eliminarAsignatura(atributos.getNombre());
+				medidor.eliminarMateriaLista(atributos.getNombre());
 				frame.remove(panel);
 				frame.dispose();
 				asignaturaEliminadaPanel();

@@ -67,7 +67,7 @@ public class GroupModel {
 	}
 	
 	public List<List> get() {
-		List<List> datos = new ArrayList<>(); // Define el tipo de lista correctamente
+		List<List> datos = new ArrayList<>(); 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection(URL, USER, CLAVE);
@@ -75,7 +75,7 @@ public class GroupModel {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM `Grupos`");
 
 			while (rs.next()) {
-				// Obtén los datos de la fila actual
+				
 				String id = rs.getString(1);
 
 				String [] docentes = {id};
@@ -83,14 +83,40 @@ public class GroupModel {
 				datos.add(info);
 			}
 			con.close();
-			return datos; // Devuelve la lista de datos
+			return datos; 
 
 		} catch (Exception e) {
-			e.printStackTrace(); // Maneja adecuadamente las excepciones
+			e.printStackTrace(); 
 		}
 		return null;
 	}
 
+    public List<List> getMateriasPorGrupo(String grupo) {
+        List<List> datos = new ArrayList<>(); 
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USER, CLAVE);
+            String consulta = "SELECT idMateria FROM tiraDeMaterias WHERE idGrupo = ?";
+            PreparedStatement pstmt = con.prepareStatement(consulta);
+            pstmt.setString(1, grupo);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+              
+                String materia = rs.getString("idMateria"); 
+                
+                System.out.println("Materia encontrada: " + materia); 
+                
+                List<String> info = Arrays.asList(materia);
+                datos.add(info);
+            }
+            con.close();
+            return datos; 
+        } catch (Exception e) {
+            e.printStackTrace(); 
+        }
+        return null;
+    }
 	
 	public void asigrnarMateria (String materia, String grupo) {
 		
@@ -154,7 +180,7 @@ public class GroupModel {
 	
 	public void editarGrupo (String Nombre,String Docente,String Letra ) {
 
-		//Con este se busca al docente ya creado para editarlo
+	
 		String consulta = "UPDATE Grupos SET Docente = ?, Letra = ? WHERE Nombre = ?";
 
 		try (Connection conexion = DriverManager.getConnection(URL, USER, CLAVE);
@@ -181,7 +207,7 @@ public class GroupModel {
 	
 	public void eliminarGrupo (String nombre) {
 		
-		//Con este elimina el grupo de la base de datos
+		
 		try {
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -200,49 +226,72 @@ public class GroupModel {
 			// TODO: handle exception
 
 			JOptionPane.showMessageDialog(null,"No se pudo eliminar");
+		
 		}
-		
-		//Edita la tabla los alumnos que tenga el grupo
-		
 
 
 	}
 	
-	public void eliminarDeAlumnoGrupo (String nombre)
+	public void eliminarGrupoMateria (String nombre)
 	{
-		String consulta = "UPDATE alumnos SET Grupo = NULL WHERE Grupo = ?";
+		try {
+
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(URL,USER,CLAVE);
+			Statement stmt=con.createStatement();
+			int rowsAffected = stmt.executeUpdate("DELETE FROM tiraDeMaterias WHERE idGrupo = '" + nombre + "';");;
+			if (rowsAffected > 0) {
+
+			} else {
+
+			}
+
+			con.close();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+
+			JOptionPane.showMessageDialog(null,"No se pudo eliminar");
+		}
+		
+	}
+	
+	public void eliminarDelAlumno (String nombre)
+	{
+		String consulta = "UPDATE alumnos SET Grupo = ? WHERE Grupo = ?";
 
 		try (Connection conexion = DriverManager.getConnection(URL, USER, CLAVE);
 				PreparedStatement st = conexion.prepareStatement(consulta)) {
 
+			st.setString(1, "");
+			st.setString(2, nombre);
 
-			st.setString(1, nombre);
-		
+
 
 			int filasAfectadas = st.executeUpdate();
 			if (filasAfectadas > 0) {
 
 			} else {
-				JOptionPane.showMessageDialog(null, "No se edito de los alumnos.");
+				JOptionPane.showMessageDialog(null, "No se elimno del alumno el grupo");
 			}
 
 		} catch (Exception e) {
 			// TODO: handle exception
-			JOptionPane.showMessageDialog(null, "No se edito nada");
+			JOptionPane.showMessageDialog(null, "No paso la consulta");
 		}
 	}
 	
 	public void datosGruposPDF(String grupo) {
 	    try {
-	        List<List> datos = estudiante.alumnosGrupo(grupo);
+	        List<List> alumnos = estudiante.alumnosGrupo(grupo);
 	        AtributosGroup info = datosDelGrupo(grupo);
+	        List<List> materias = getMateriasPorGrupo(grupo);
 
-	        if (datos == null || datos.isEmpty()) {
+	        if (alumnos == null || alumnos.isEmpty()) {
 	            JOptionPane.showMessageDialog(null, "No se encontraron datos de alumnos para el grupo.");
 	            return;
 	        }
 
-	        // Tamaño de página (8.5 x 11 pulgadas)
 	        Rectangle pageSize = new Rectangle(8.5f * 72, 11f * 72);
 	        Document document = new Document(pageSize);
 
@@ -267,71 +316,79 @@ public class GroupModel {
 	            title.setAlignment(Element.ALIGN_CENTER);
 	            document.add(title);
 
-	            // Crear la tabla con 4 columnas para los datos de los estudiantes
+	            Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 8);
+
 	            PdfPTable table = new PdfPTable(4);
 	            table.setWidthPercentage(100);
 	            table.setSpacingBefore(10f);
 	            table.setSpacingAfter(10f);
 
-	            // Encabezados de la tabla
-	            Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 8);
-	            PdfPCell cell = new PdfPCell(new Phrase("Apellido Paterno", font));
-	            table.addCell(cell);
-	            cell = new PdfPCell(new Phrase("Apellido Materno", font));
-	            table.addCell(cell);
-	            cell = new PdfPCell(new Phrase("Nombre", font));
-	            table.addCell(cell);
-	            cell = new PdfPCell(new Phrase("No. Control", font));
-	            table.addCell(cell);
+	            PdfPCell cell2 = new PdfPCell(new Phrase("Apellido Paterno", font));
+	            table.addCell(cell2);
+	            cell2 = new PdfPCell(new Phrase("Apellido Materno", font));
+	            table.addCell(cell2);
+	            cell2 = new PdfPCell(new Phrase("Nombre", font));
+	            table.addCell(cell2);
+	            cell2 = new PdfPCell(new Phrase("No. Control", font));
+	            table.addCell(cell2);
 
-	            // Datos de la tabla
 	            font = FontFactory.getFont(FontFactory.HELVETICA, 8);
-	            for (List<String> alumno : datos) {
+	            for (List<String> alumno : alumnos) {
 	                table.addCell(new PdfPCell(new Phrase(alumno.get(1), font)));
 	                table.addCell(new PdfPCell(new Phrase(alumno.get(2), font)));
 	                table.addCell(new PdfPCell(new Phrase(alumno.get(3), font)));
 	                table.addCell(new PdfPCell(new Phrase(alumno.get(0), font)));
 	            }
 
-	            // Agregar la tabla de estudiantes al documento
 	            document.add(table);
 
-	            // Crear la tabla para la información del docente
 	            PdfPTable docenteTable = new PdfPTable(1);
 	            docenteTable.setWidthPercentage(30);
 	            docenteTable.setSpacingBefore(5f);
 	            docenteTable.setSpacingAfter(5f);
 
-	            // Encabezado de la tabla de docente
 	            font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10);
 	            PdfPCell docenteHeader = new PdfPCell(new Phrase("Docente del grupo", font));
 	            docenteHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
 	            docenteTable.addCell(docenteHeader);
 
-	            // Datos de la tabla de docente
 	            font = FontFactory.getFont(FontFactory.HELVETICA, 10);
 	            PdfPCell docenteCell = new PdfPCell(new Phrase(info.getDocente(), font));
 	            docenteCell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	            docenteTable.addCell(docenteCell);
 
-	            // Agregar la tabla de docente al documento
 	            document.add(docenteTable);
 
-	            // Crear la tabla para la letra del grupo y la imagen
 	            PdfPTable letraGrupoTable = new PdfPTable(1);
 	            letraGrupoTable.setWidthPercentage(10);
 	            letraGrupoTable.setSpacingBefore(5f);
 	            letraGrupoTable.setSpacingAfter(5f);
 
-	            // Encabezado de la tabla de letra del grupo
 	            PdfPCell letraGrupoHeader = new PdfPCell(new Phrase("Letra del Grupo", font));
 	            letraGrupoHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
 	            letraGrupoTable.addCell(letraGrupoHeader);
+	            
+	            PdfPTable materiasTable = new PdfPTable(1);
+	            materiasTable.setWidthPercentage(50);
+	            materiasTable.setSpacingBefore(10f);
+	            materiasTable.setSpacingAfter(10f);
 
-	            // Datos de la tabla de letra del grupo
+	            
+	            PdfPCell cell = new PdfPCell(new Phrase("Materias", font));
+	            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	            materiasTable.addCell(cell);
+
+	            font = FontFactory.getFont(FontFactory.HELVETICA, 8);
+	            for (List<String> materia : materias) {
+	                materiasTable.addCell(new PdfPCell(new Phrase(materia.get(0), font)));
+	            }
+
+	            document.add(materiasTable);
+
+
 	            try {
 	                Image groupImage = Image.getInstance(getClass().getResource(info.getLetraDeGrupo()));
-	                groupImage.scaleToFit(50, 50); // Ajusta el tamaño de la imagen
+	                groupImage.scaleToFit(50, 50);
 	                PdfPCell imageCell = new PdfPCell(groupImage, true);
 	                imageCell.setHorizontalAlignment(Element.ALIGN_CENTER);
 	                letraGrupoTable.addCell(imageCell);
@@ -341,10 +398,8 @@ public class GroupModel {
 	                letraGrupoTable.addCell(emptyCell);
 	            }
 
-	            // Agregar la tabla de letra del grupo al documento
 	            document.add(letraGrupoTable);
 
-	            // Cerrar el documento
 	            document.close();
 
 	        } catch (Exception e) {

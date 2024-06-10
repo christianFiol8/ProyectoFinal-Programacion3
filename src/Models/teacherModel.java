@@ -60,7 +60,7 @@ public class teacherModel {
 			Connection con = DriverManager.getConnection(URL,USER,CLAVE);
 			Statement stmt=con.createStatement();
 
-			//Con este se busca al docente
+			
 			ResultSet rs = stmt.executeQuery("SELECT * FROM `docentes` where idDocente = '"+idDocente+"'");
 
 			while (rs.next()) {
@@ -74,7 +74,7 @@ public class teacherModel {
 				String telefono = rs.getString("telefono");
 				String avatar = rs.getString("Avatar");
 
-				//Crea un objeto en el cual va a guardar los datos
+			
 				atributosTeacher informacion = new atributosTeacher(idDocente, apellidoPaterno, apellidoMaterno, nombre, fechaDeNaciminto, correoElectronico, gradoDeEstudio, telefono,avatar);
 
 
@@ -91,7 +91,7 @@ public class teacherModel {
 
 	}
 	public List<List> get() {
-		List<List> datos = new ArrayList<>(); // Define el tipo de lista correctamente
+		List<List> datos = new ArrayList<>(); 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection(URL, USER, CLAVE);
@@ -99,7 +99,7 @@ public class teacherModel {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM `docentes`");
 
 			while (rs.next()) {
-				// Obtén los datos de la fila actual
+				
 				String id = rs.getString(1);
 				String nombre = rs.getString(2);
 				String apellidoPaterno = rs.getString(3);
@@ -110,10 +110,9 @@ public class teacherModel {
 				datos.add(info);
 			}
 			con.close();
-			return datos; // Devuelve la lista de datos
-
+			return datos; 
 		} catch (Exception e) {
-			e.printStackTrace(); // Maneja adecuadamente las excepciones
+			e.printStackTrace(); 
 		}
 		return null;
 	}
@@ -186,20 +185,20 @@ public class teacherModel {
 	        document.open();
 
 	        Paragraph title = new Paragraph("Información del docente", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 24));
-	        title.setSpacingBefore(20); // Espacio antes del título
+	        title.setSpacingBefore(20); 
 	        title.setSpacingAfter(20);
 	        title.setAlignment(Element.ALIGN_CENTER);
 	        document.add(title);
 
-	        // Crea la tabla con 2 columnas
+	        
 	        PdfPTable table = new PdfPTable(2);
 	        table.setWidthPercentage(100);
 
-	        // Agrega filas a la tabla utilizando los datos obtenidos de alumno
+	    
 	        Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20);
 	        Font dataFont = FontFactory.getFont(FontFactory.HELVETICA, 20);
 
-	        // Agregar celda de encabezado y datos para cada campo
+	       
 	        table.addCell(createCell("ID del docente", headerFont));
 	        table.addCell(createCell(alumno.getDocentesId(), dataFont));
 
@@ -226,10 +225,10 @@ public class teacherModel {
 
 
 
-	        // Agrega la tabla al documento
+	        
 	        document.add(table);
 
-	        // Cierra el documento
+	      
 	        document.close();
 
 	    } catch (FileNotFoundException | DocumentException e) {
@@ -255,7 +254,7 @@ public class teacherModel {
 				return;
 			}
 
-			// Tamaño de credencial (3.37 x 2.13 pulgadas)
+		
 			Rectangle credencialSize = new Rectangle(8.56f * 28.35f, 5.41f * 28.35f);
 			Document document = new Document(credencialSize);
 
@@ -275,14 +274,13 @@ public class teacherModel {
 				PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(chooser.getSelectedFile() + ".pdf"));
 				document.open();
 
-				// Crear la tabla para la imagen
 				PdfPTable imageTable = new PdfPTable(1);
-				imageTable.setWidthPercentage(30); // Ajusta el ancho de la tabla de imagen
+				imageTable.setWidthPercentage(30); 
 
-				// Agregar la imagen del avatar
+			
 				try {
 					Image avatarImage = Image.getInstance(getClass().getResource(alumno.getAvatar()));
-					avatarImage.scaleToFit(60, 60); // Ajusta el tamaño de la imagen (más pequeña)
+					avatarImage.scaleToFit(60, 60); 
 					PdfPCell imageCell = new PdfPCell(avatarImage, true);
 					imageCell.setBorder(Rectangle.NO_BORDER);
 					imageTable.addCell(imageCell);
@@ -293,14 +291,10 @@ public class teacherModel {
 					imageTable.addCell(emptyCell);
 				}
 
-				// Crear la tabla para la información del alumno
+				
 				PdfPTable infoTable = new PdfPTable(1);
-				infoTable.setWidthPercentage(70); // Ajusta el ancho de la tabla de información
-
-				// Crear un Phrase para los datos del estudiante
-				Font font = FontFactory.getFont(FontFactory.HELVETICA, 7); // Tamaño de fuente
-
-				// Agregar las celdas con información del alumno
+				infoTable.setWidthPercentage(70); 
+				Font font = FontFactory.getFont(FontFactory.HELVETICA, 7); 
 				infoTable.addCell(createCell("Apellido Paterno: " + alumno.getApellidoPaterno(), font));
 				infoTable.addCell(createEmptyCell());
 
@@ -316,19 +310,15 @@ public class teacherModel {
 				infoTable.addCell(createCell("Número de Control: " + id, font));
 				infoTable.addCell(createEmptyCell());
 
-				// Agregar ambas tablas al documento
 				PdfPTable mainTable = new PdfPTable(2);
 				mainTable.setWidthPercentage(100);
-				mainTable.setWidths(new float[]{1, 2}); // Ajusta el ancho de las columnas de la tabla principal
+				mainTable.setWidths(new float[]{1, 2}); 
 
-				// Agregar las tablas de imagen e información a la tabla principal
 				mainTable.addCell(new PdfPCell(imageTable));
 				mainTable.addCell(new PdfPCell(infoTable));
 
-				// Agregar la tabla principal al documento
 				document.add(mainTable);
 
-				// Cerrar el documento
 				document.close();
 
 			} catch (FileNotFoundException | DocumentException e) {

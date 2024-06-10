@@ -1775,11 +1775,14 @@ public class GroupView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+
+				control.eliminarDelAlumno(nombre);
+				control.eliminarGrupo(nombre);
+				control.eliminarGrupoMateria(nombre);
+				
 				frame.remove(panel);
 				frame.dispose();
 				grupoEliminadoPanel(atributos);
-				control.eliminarGrupo(nombre);
-				control.eliminarDeAlumnoGrupo(nombre);
 
 
 			}

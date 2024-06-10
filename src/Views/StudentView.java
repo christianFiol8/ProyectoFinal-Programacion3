@@ -1215,7 +1215,7 @@ public class StudentView {
 	}
 
 	private boolean esCorreoValido(String correo) {
-		Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{3,3})$");
+		Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@(gmail\\.com|uabcs\\.mx|alu\\.uabcs\\.mx|yahoo\\.com|hotmail\\.com|outlook\\.com)$");
 		Matcher mather = pattern.matcher(correo);
 		return mather.find();
 	}

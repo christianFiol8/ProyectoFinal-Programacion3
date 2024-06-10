@@ -128,7 +128,6 @@ public class SubjectModel {
 	
 	public void editarAsignatura (String Nombre,String Docente,String Letra ) {
 
-		//Con este se busca al docente ya creado para editarlo
 		String consulta = "UPDATE asignaturas SET Docente = ?, Descripcion = ? WHERE Nombre = ?";
 
 		try (Connection conexion = DriverManager.getConnection(URL, USER, CLAVE);
@@ -153,9 +152,32 @@ public class SubjectModel {
 
 	}
 
+	public void eliminarMateriaLista (String nombre)
+	{
+		try {
+
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(URL,USER,CLAVE);
+			Statement stmt=con.createStatement();
+			int rowsAffected = stmt.executeUpdate("DELETE FROM tiraDeMaterias WHERE idMateria = '" + nombre + "';");;
+			if (rowsAffected > 0) {
+
+			} else {
+
+			}
+
+			con.close();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+
+			JOptionPane.showMessageDialog(null,"No se pudo eliminar");
+		}
+		
+	}
 	
 	public List<List> asignaturaGrupo(String grupo) {
-		List<List> datos = new ArrayList<>(); // Define el tipo de lista correctamente
+		List<List> datos = new ArrayList<>(); 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection(URL, USER, CLAVE);
@@ -163,7 +185,7 @@ public class SubjectModel {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM `Grupos` WHERE materia = '" + grupo + "';");
 
 			while (rs.next()) {
-				// Obtén los datos de la fila actual
+				
 
 				String id = rs.getString(1);
 				
@@ -173,10 +195,10 @@ public class SubjectModel {
 				datos.add(info);
 			}
 			con.close();
-			return datos; // Devuelve la lista de datos
+			return datos; 
 
 		} catch (Exception e) {
-			e.printStackTrace(); // Maneja adecuadamente las excepciones
+			e.printStackTrace(); 
 		}
 		return null;
 	}
