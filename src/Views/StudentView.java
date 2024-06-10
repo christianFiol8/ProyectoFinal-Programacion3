@@ -119,6 +119,7 @@ public class StudentView {
 		table.getColumnModel().getColumn(1).setPreferredWidth(90);
 		table.getColumnModel().getColumn(2).setPreferredWidth(90);
 		table.setBounds(59, 128, 652, 243);
+		table.setFont(new Font("Inter", Font.BOLD, 13));
 		table.setRowHeight(50);
 
 		scrollPane.setViewportView(table);
