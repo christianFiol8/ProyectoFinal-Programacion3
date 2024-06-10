@@ -1779,6 +1779,7 @@ public class GroupView {
 				frame.dispose();
 				grupoEliminadoPanel(atributos);
 				control.eliminarGrupo(nombre);
+				control.eliminarDeAlumnoGrupo(nombre);
 
 
 			}

@@ -180,7 +180,8 @@ public class GroupModel {
 	}
 	
 	public void eliminarGrupo (String nombre) {
-
+		
+		//Con este elimina el grupo de la base de datos
 		try {
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -200,88 +201,161 @@ public class GroupModel {
 
 			JOptionPane.showMessageDialog(null,"No se pudo eliminar");
 		}
+		
+		//Edita la tabla los alumnos que tenga el grupo
+		
+
 
 	}
 	
-	public void datosGruposPDF(String grupo) {
+	public void eliminarDeAlumnoGrupo (String nombre)
+	{
+		String consulta = "UPDATE alumnos SET Grupo = NULL WHERE Grupo = ?";
+
+		try (Connection conexion = DriverManager.getConnection(URL, USER, CLAVE);
+				PreparedStatement st = conexion.prepareStatement(consulta)) {
+
+
+			st.setString(1, nombre);
 		
-		try {
-			
-		
-		        List<List> datos = estudiante.alumnosGrupo(grupo);
 
-		        if (datos == null || datos.isEmpty()) {
-		            JOptionPane.showMessageDialog(null, "No se encontraron datos de alumnos para el grupo.");
-		            return;
-		        }
+			int filasAfectadas = st.executeUpdate();
+			if (filasAfectadas > 0) {
 
-		        // Tamaño de credencial (8.5 x 11 pulgadas)
-		        Rectangle pageSize = new Rectangle(8.5f * 72, 11f * 72);
-		        Document document = new Document(pageSize);
+			} else {
+				JOptionPane.showMessageDialog(null, "No se edito de los alumnos.");
+			}
 
-		        JFileChooser chooser = new JFileChooser();
-		        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		        chooser.setAcceptAllFileFilterUsed(false);
-		        FileNameExtensionFilter pdfs = new FileNameExtensionFilter("Documentos PDF", "pdf");
-		        chooser.addChoosableFileFilter(pdfs);
-		        chooser.setFileFilter(pdfs);
-
-		        if (JFileChooser.CANCEL_OPTION == chooser.showDialog(null, "Generar PDF")) {
-		            JOptionPane.showMessageDialog(null, "No se generó el PDF.");
-		            return;
-		        }
-
-		        try {
-		            PdfWriter.getInstance(document, new FileOutputStream(chooser.getSelectedFile() + ".pdf"));
-		            document.open();
-		            
-		            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14);
-		            Paragraph title = new Paragraph("Grupo: " + grupo, titleFont);
-		            title.setAlignment(Element.ALIGN_CENTER);
-		            document.add(title);
-
-		            // Crear la tabla con 3 columnas para los datos de los estudiantes
-		            PdfPTable table = new PdfPTable(4);
-		            table.setWidthPercentage(100);
-		            table.setSpacingBefore(10f);
-		            table.setSpacingAfter(10f);
-
-		            // Encabezados de la tabla
-		            Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 8);
-		            PdfPCell cell = new PdfPCell(new Phrase("Apellido Paterno", font));
-		            table.addCell(cell);
-		            cell = new PdfPCell(new Phrase("Apellido Materno", font));
-		            table.addCell(cell);
-		            cell = new PdfPCell(new Phrase("Nombre", font));
-		            table.addCell(cell);
-		            cell = new PdfPCell(new Phrase("No. Control", font));
-		            table.addCell(cell);
-
-		            // Datos de la tabla
-		            font = FontFactory.getFont(FontFactory.HELVETICA, 8);
-		            for (List<String> alumno : datos) {
-		                table.addCell(new PdfPCell(new Phrase(alumno.get(1), font)));
-		                table.addCell(new PdfPCell(new Phrase(alumno.get(2), font)));
-		                table.addCell(new PdfPCell(new Phrase(alumno.get(3), font)));
-		                table.addCell(new PdfPCell(new Phrase(alumno.get(0), font)));
-		            }
-
-		            // Agregar la tabla al documento
-		            document.add(table);
-
-		            // Cerrar el documento
-		            document.close();
-
-		        } catch (Exception e) {
-		            e.printStackTrace();
-		            JOptionPane.showMessageDialog(null, "No se generó el PDF.");
-		        }
-			
 		} catch (Exception e) {
 			// TODO: handle exception
+			JOptionPane.showMessageDialog(null, "No se edito nada");
 		}
-		
-		
+	}
+	
+	public void datosGruposPDF(String grupo) {
+	    try {
+	        List<List> datos = estudiante.alumnosGrupo(grupo);
+	        AtributosGroup info = datosDelGrupo(grupo);
+
+	        if (datos == null || datos.isEmpty()) {
+	            JOptionPane.showMessageDialog(null, "No se encontraron datos de alumnos para el grupo.");
+	            return;
+	        }
+
+	        // Tamaño de página (8.5 x 11 pulgadas)
+	        Rectangle pageSize = new Rectangle(8.5f * 72, 11f * 72);
+	        Document document = new Document(pageSize);
+
+	        JFileChooser chooser = new JFileChooser();
+	        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+	        chooser.setAcceptAllFileFilterUsed(false);
+	        FileNameExtensionFilter pdfs = new FileNameExtensionFilter("Documentos PDF", "pdf");
+	        chooser.addChoosableFileFilter(pdfs);
+	        chooser.setFileFilter(pdfs);
+
+	        if (JFileChooser.CANCEL_OPTION == chooser.showDialog(null, "Generar PDF")) {
+	            JOptionPane.showMessageDialog(null, "No se generó el PDF.");
+	            return;
+	        }
+
+	        try {
+	            PdfWriter.getInstance(document, new FileOutputStream(chooser.getSelectedFile() + ".pdf"));
+	            document.open();
+
+	            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14);
+	            Paragraph title = new Paragraph("Grupo: " + grupo, titleFont);
+	            title.setAlignment(Element.ALIGN_CENTER);
+	            document.add(title);
+
+	            // Crear la tabla con 4 columnas para los datos de los estudiantes
+	            PdfPTable table = new PdfPTable(4);
+	            table.setWidthPercentage(100);
+	            table.setSpacingBefore(10f);
+	            table.setSpacingAfter(10f);
+
+	            // Encabezados de la tabla
+	            Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 8);
+	            PdfPCell cell = new PdfPCell(new Phrase("Apellido Paterno", font));
+	            table.addCell(cell);
+	            cell = new PdfPCell(new Phrase("Apellido Materno", font));
+	            table.addCell(cell);
+	            cell = new PdfPCell(new Phrase("Nombre", font));
+	            table.addCell(cell);
+	            cell = new PdfPCell(new Phrase("No. Control", font));
+	            table.addCell(cell);
+
+	            // Datos de la tabla
+	            font = FontFactory.getFont(FontFactory.HELVETICA, 8);
+	            for (List<String> alumno : datos) {
+	                table.addCell(new PdfPCell(new Phrase(alumno.get(1), font)));
+	                table.addCell(new PdfPCell(new Phrase(alumno.get(2), font)));
+	                table.addCell(new PdfPCell(new Phrase(alumno.get(3), font)));
+	                table.addCell(new PdfPCell(new Phrase(alumno.get(0), font)));
+	            }
+
+	            // Agregar la tabla de estudiantes al documento
+	            document.add(table);
+
+	            // Crear la tabla para la información del docente
+	            PdfPTable docenteTable = new PdfPTable(1);
+	            docenteTable.setWidthPercentage(30);
+	            docenteTable.setSpacingBefore(5f);
+	            docenteTable.setSpacingAfter(5f);
+
+	            // Encabezado de la tabla de docente
+	            font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10);
+	            PdfPCell docenteHeader = new PdfPCell(new Phrase("Docente del grupo", font));
+	            docenteHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+	            docenteTable.addCell(docenteHeader);
+
+	            // Datos de la tabla de docente
+	            font = FontFactory.getFont(FontFactory.HELVETICA, 10);
+	            PdfPCell docenteCell = new PdfPCell(new Phrase(info.getDocente(), font));
+	            docenteCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	            docenteTable.addCell(docenteCell);
+
+	            // Agregar la tabla de docente al documento
+	            document.add(docenteTable);
+
+	            // Crear la tabla para la letra del grupo y la imagen
+	            PdfPTable letraGrupoTable = new PdfPTable(1);
+	            letraGrupoTable.setWidthPercentage(10);
+	            letraGrupoTable.setSpacingBefore(5f);
+	            letraGrupoTable.setSpacingAfter(5f);
+
+	            // Encabezado de la tabla de letra del grupo
+	            PdfPCell letraGrupoHeader = new PdfPCell(new Phrase("Letra del Grupo", font));
+	            letraGrupoHeader.setHorizontalAlignment(Element.ALIGN_CENTER);
+	            letraGrupoTable.addCell(letraGrupoHeader);
+
+	            // Datos de la tabla de letra del grupo
+	            try {
+	                Image groupImage = Image.getInstance(getClass().getResource(info.getLetraDeGrupo()));
+	                groupImage.scaleToFit(50, 50); // Ajusta el tamaño de la imagen
+	                PdfPCell imageCell = new PdfPCell(groupImage, true);
+	                imageCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	                letraGrupoTable.addCell(imageCell);
+	            } catch (Exception e) {
+	                PdfPCell emptyCell = new PdfPCell(new Phrase("Imagen no disponible", font));
+	                emptyCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+	                letraGrupoTable.addCell(emptyCell);
+	            }
+
+	            // Agregar la tabla de letra del grupo al documento
+	            document.add(letraGrupoTable);
+
+	            // Cerrar el documento
+	            document.close();
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            JOptionPane.showMessageDialog(null, "No se generó el PDF.");
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(null, "No se generó el PDF.");
+	    }
 	}
 	
 	public ArrayList<String> tiraDeMaterias (String asignatura)
