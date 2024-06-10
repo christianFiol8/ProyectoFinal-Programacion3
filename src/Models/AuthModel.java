@@ -82,7 +82,32 @@ public class AuthModel {
 		}
 	}
 
+	public boolean cambiarContraseña (String correo, String contraseña) {
+		
+		String consulta = "UPDATE UsuariosRegistrados SET Contraseña = ? WHERE Correos = ?";
 
+		try (Connection conexion = DriverManager.getConnection(URL, USER, CLAVE);
+				PreparedStatement st = conexion.prepareStatement(consulta)) {
+			
+			
+			st.setString(1, contraseña);
+			st.setString(2, correo);
+
+			int filasAfectadas = st.executeUpdate();
+			if (filasAfectadas > 0) {
+				
+				return true;
+
+			} else {
+				
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			
+		}
+		return false;
+	}
 
 
 }

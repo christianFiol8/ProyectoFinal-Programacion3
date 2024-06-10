@@ -338,70 +338,107 @@ public class StudentModel {
 	    return cell;
 	}
 
-	public void generarCredencial (String id)
-	{
-		atributosStudent alumno = buscarAlumno(id);
+	public void generarCredencial(String id) {
+		{
+			atributosStudent alumno = buscarAlumno(id);
 
-		if (alumno == null) {
-		    JOptionPane.showMessageDialog(null, "No se encontraron datos del alumno.");
-		    return;
+			if (alumno == null) {
+				JOptionPane.showMessageDialog(null, "No se encontraron datos del alumno.");
+				return;
+			}
+
+			// Tamaño de credencial (3.37 x 2.13 pulgadas)
+			Rectangle credencialSize = new Rectangle(8.56f * 28.35f, 5.41f * 28.35f);
+			Document document = new Document(credencialSize);
+
+			JFileChooser chooser = new JFileChooser();
+			chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			chooser.setAcceptAllFileFilterUsed(false);
+			FileNameExtensionFilter pdfs = new FileNameExtensionFilter("Documentos PDF", "pdf");
+			chooser.addChoosableFileFilter(pdfs);
+			chooser.setFileFilter(pdfs);
+
+			if (JFileChooser.CANCEL_OPTION == chooser.showDialog(null, "Generar PDF")) {
+				JOptionPane.showMessageDialog(null, "No se generó el PDF.");
+				return;
+			}
+
+			try {
+				PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(chooser.getSelectedFile() + ".pdf"));
+				document.open();
+
+				// Crear la tabla para la imagen
+				PdfPTable imageTable = new PdfPTable(1);
+				imageTable.setWidthPercentage(30); // Ajusta el ancho de la tabla de imagen
+
+				// Agregar la imagen del avatar
+				try {
+					Image avatarImage = Image.getInstance(getClass().getResource(alumno.getAvatar()));
+					avatarImage.scaleToFit(60, 60); // Ajusta el tamaño de la imagen (más pequeña)
+					PdfPCell imageCell = new PdfPCell(avatarImage, true);
+					imageCell.setBorder(Rectangle.NO_BORDER);
+					imageTable.addCell(imageCell);
+				} catch (Exception e) {
+					System.err.println("Error al cargar la imagen del avatar: " + e.getMessage());
+					PdfPCell emptyCell = new PdfPCell();
+					emptyCell.setBorder(Rectangle.NO_BORDER);
+					imageTable.addCell(emptyCell);
+				}
+
+				// Crear la tabla para la información del alumno
+				PdfPTable infoTable = new PdfPTable(1);
+				infoTable.setWidthPercentage(70); // Ajusta el ancho de la tabla de información
+
+				// Crear un Phrase para los datos del estudiante
+				Font font = FontFactory.getFont(FontFactory.HELVETICA, 7); // Tamaño de fuente
+
+				// Agregar las celdas con información del alumno
+				infoTable.addCell(createCell("Apellido Paterno: " + alumno.getApellidoPaterno(), font));
+				infoTable.addCell(createEmptyCell());
+
+				infoTable.addCell(createCell("Apellido Materno: " + alumno.getApellidoMaterno(), font));
+				infoTable.addCell(createEmptyCell());
+
+				infoTable.addCell(createCell("Nombre: " + alumno.getNombre(), font));
+				infoTable.addCell(createEmptyCell());
+
+				infoTable.addCell(createCell("Estudios: " + alumno.getEstudios(), font));
+				infoTable.addCell(createEmptyCell());
+
+				infoTable.addCell(createCell("Número de Control: " + id, font));
+				infoTable.addCell(createEmptyCell());
+
+				// Agregar ambas tablas al documento
+				PdfPTable mainTable = new PdfPTable(2);
+				mainTable.setWidthPercentage(100);
+				mainTable.setWidths(new float[]{1, 2}); // Ajusta el ancho de las columnas de la tabla principal
+
+				// Agregar las tablas de imagen e información a la tabla principal
+				mainTable.addCell(new PdfPCell(imageTable));
+				mainTable.addCell(new PdfPCell(infoTable));
+
+				// Agregar la tabla principal al documento
+				document.add(mainTable);
+
+				// Cerrar el documento
+				document.close();
+
+			} catch (FileNotFoundException | DocumentException e) {
+				e.printStackTrace();
+				System.out.println("No se generó el PDF.");
+			}
 		}
 
-		// Tamaño de credencial (3.37 x 2.13 pulgadas)
-		Rectangle credencialSize = new Rectangle(8.56f * 28.35f, 5.41f * 28.35f);
-		Document document = new Document(credencialSize);
-
-		JFileChooser chooser = new JFileChooser();
-		chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		chooser.setAcceptAllFileFilterUsed(false);
-		FileNameExtensionFilter pdfs = new FileNameExtensionFilter("Documentos PDF", "pdf");
-		chooser.addChoosableFileFilter(pdfs);
-		chooser.setFileFilter(pdfs);
-
-		if (JFileChooser.CANCEL_OPTION == chooser.showDialog(null, "Generar PDF")) {
-		    JOptionPane.showMessageDialog(null, "No se generó el PDF.");
-		    return;
-		}
-
-		try {
-		    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(chooser.getSelectedFile() + ".pdf"));
-		    document.open();
-
-		    // Crear un Phrase para los datos del estudiante
-		    Font font = FontFactory.getFont(FontFactory.HELVETICA, 7); // Tamaño de fuente
-		    Phrase studentInfo = new Phrase();
-		    studentInfo.add(new Chunk("Apellido Paterno: ", font));
-		    studentInfo.add(new Chunk(""+alumno.getApellidoPaterno(), font));
-		    studentInfo.add(Chunk.NEWLINE);
-		    studentInfo.add(new Chunk("Apellido Materno: ", font));
-		    studentInfo.add(new Chunk(""+alumno.getApellidoMaterno(), font));
-		    studentInfo.add(Chunk.NEWLINE);
-		    studentInfo.add(new Chunk("Nombre: ", font));
-		    studentInfo.add(new Chunk(""+alumno.getNombre(), font));
-		    studentInfo.add(Chunk.NEWLINE);
-		    studentInfo.add(new Chunk("Número de Control: " + id, font));
-
-		    // Agregar el Phrase al documento
-		    document.add(studentInfo);
-
-		    // Agregar la imagen del avatar
-		    try {
-		        Image avatarImage = Image.getInstance(getClass().getResource(alumno.getAvatar()));
-		        avatarImage.scaleToFit(20, 20); // Ajusta el tamaño de la imagen (más pequeña)
-		        document.add(avatarImage);
-		    } catch (Exception e) {
-		        System.err.println("Error al cargar la imagen del avatar: " + e.getMessage());
-		    }
-
-		    // Cierra el documento
-		    document.close();
-
-
-		} catch (FileNotFoundException | DocumentException e) {
-		    e.printStackTrace();
-		    System.out.println("No se generó");
-		}
 	}
+
+
+	private PdfPCell createEmptyCell() {
+		PdfPCell cell = new PdfPCell();
+		cell.setBorder(Rectangle.NO_BORDER);
+		return cell;
+
+	}
+
 
 }
 

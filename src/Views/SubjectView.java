@@ -1257,7 +1257,7 @@ public class SubjectView {
 				    	
 				    	JOptionPane.showMessageDialog(null, "Se ha agregado el grupo");
 				    	
-				    	
+				    	medidor.asignarGrupoMateria(textField_2.getText(), atributos.getNombre());
 				    	array.add(grupo.getNombre());	    	
 						frame.remove(panel);
 						frame.dispose();
@@ -1682,13 +1682,9 @@ public class SubjectView {
 				if (textField_2.getText().equals("")) {
 				    JOptionPane.showMessageDialog(null, "Llenar campo");
 				} else {
-					
-				    // Busca al alumno en la base de datos
-					
+								
 				    AtributosGroup grupo = control.datosDelGrupo(textField_2.getText());
-				    
-				    // Verifica si el alumno fue encontrado
-				    
+	    
 				    if (grupo != null) {
 				    	medidor.asignarGrupoMateria(textField_2.getText(), atributos.getNombre());
 				    	JOptionPane.showMessageDialog(null, "Se ha agregado el grupo");
@@ -1699,8 +1695,6 @@ public class SubjectView {
 						System.out.println("Se ha guardado el grupo en la materia");
 				        
 				    } else {
-				    	
-				        // Si el alumno no fue encontrado, muestra una advertencia
 				    	
 				        JOptionPane.showMessageDialog(null, "El grupo no existe");
 				    }
@@ -1949,7 +1943,7 @@ public class SubjectView {
 		panel_1.add(scrollPane);		
 		frame.getContentPane().add(panel);
 
-		 List<List> datos = model.get();
+		ArrayList<String> datos = control.tiraDeMaterias(atributos.getNombre());
 
 		// Columnas de la tabla
 		String[] columnNames = {"Nombre"};
@@ -1957,7 +1951,7 @@ public class SubjectView {
 		// Datos de la tabla
 		Object[][] informacion = new Object[datos.size()][1];
 		for (int i = 0; i < datos.size(); i++) {
-			informacion[i][0] = datos.get(i).get(0);
+			informacion[i][0] = datos.get(i);
 			//informacion[i][1] = datos.get(i).get(2);
 			//informacion[i][2] = datos.get(i).get(3);
 

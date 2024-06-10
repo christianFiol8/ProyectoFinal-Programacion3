@@ -377,6 +377,18 @@ public class AuthView {
 		lblNewLabel_9.setFont(new Font("Inter", Font.BOLD, 12));
 		lblNewLabel_9.setBounds(53, 127, 60, 13);
 		panel_1.add(lblNewLabel_9);
+		
+		JTextField textField_1 = new JTextField("");
+		textField_1.setBounds(53, 147, 345, 23);
+		textField_1.setBackground(Color.decode("#D9D9D9"));
+		panel_1.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JTextField textField_15 = new JTextField("");
+		textField_15.setColumns(10);
+		textField_15.setBackground(new Color(217, 217, 217));
+		textField_15.setBounds(53, 200, 345, 23);
+		panel_1.add(textField_15);
 
 		JButton btnNewButton_3 = new JButton("RECUPERAR CONTRASEÑA");
 		btnNewButton_3.setForeground(new Color(255, 255, 255));
@@ -388,8 +400,20 @@ public class AuthView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				frame.remove(panelRecuperarContraseña);
-				loginPanel();
+				
+			    if (textField_1.getText().isEmpty() || textField_15.getText().isEmpty()) {
+			        JOptionPane.showMessageDialog(null, "Llenar todos los campos");
+			    } else {
+			        boolean exito = model.cambiarContraseña(textField_1.getText(), textField_15.getText());
+			        if (exito) {
+			        	
+			        	JOptionPane.showMessageDialog(null, "Se ha editado correctamente");
+			            frame.remove(panelRecuperarContraseña);
+			            loginPanel();
+			        } else {
+			            JOptionPane.showMessageDialog(null, "Correo no encontrado. Intente de nuevo.");
+			        }
+			    }
 			}
 		});
 
@@ -400,12 +424,6 @@ public class AuthView {
 		lblNewLabel_9_1.setBounds(53, 180, 130, 13);
 		panel_1.add(lblNewLabel_9_1);
 		
-		JTextField textField_15 = new JTextField();
-		textField_15.setColumns(10);
-		textField_15.setBackground(new Color(217, 217, 217));
-		textField_15.setBounds(53, 200, 345, 23);
-		panel_1.add(textField_15);
-
 		JButton btnNewButton_4 = new JButton("Olvídalo,la he recordado");
 		btnNewButton_4.setFont(new Font("Inter", Font.BOLD, 10));
 		btnNewButton_4.setBounds(142, 259, 181, 21);
@@ -423,11 +441,7 @@ public class AuthView {
 			}});
 		panel_1.add(btnNewButton_4);
 
-		JTextField textField_1 = new JTextField();
-		textField_1.setBounds(53, 147, 345, 23);
-		textField_1.setBackground(Color.decode("#D9D9D9"));
-		panel_1.add(textField_1);
-		textField_1.setColumns(10);
+
 
 		frame.getContentPane().add(panelRecuperarContraseña);
 		frame.setVisible(true);
