@@ -371,11 +371,23 @@ public class AuthView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				frame.remove(panelRecuperarContraseña);
+				loginPanel();
 			}
 		});
 
 		panel_1.add(btnNewButton_3);
+		
+		JLabel lblNewLabel_9_1 = new JLabel("Contraseña nueva");
+		lblNewLabel_9_1.setFont(new Font("Inter", Font.BOLD, 12));
+		lblNewLabel_9_1.setBounds(53, 180, 130, 13);
+		panel_1.add(lblNewLabel_9_1);
+		
+		JTextField textField_15 = new JTextField();
+		textField_15.setColumns(10);
+		textField_15.setBackground(new Color(217, 217, 217));
+		textField_15.setBounds(53, 200, 345, 23);
+		panel_1.add(textField_15);
 
 		JButton btnNewButton_4 = new JButton("Olvídalo,la he recordado");
 		btnNewButton_4.setFont(new Font("Inter", Font.BOLD, 10));
@@ -397,14 +409,6 @@ public class AuthView {
 		JTextField textField_1 = new JTextField();
 		textField_1.setBounds(53, 147, 345, 23);
 		textField_1.setBackground(Color.decode("#D9D9D9"));
-		textField_1.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				contraseñaNueva(panel_1);
-
-			}});
 		panel_1.add(textField_1);
 		textField_1.setColumns(10);
 
@@ -414,24 +418,7 @@ public class AuthView {
 		frame.revalidate();
 	}
 	
-	public void contraseñaNueva(JPanel panel)
-	{
-		
-		JLabel lblNewLabel_9_1 = new JLabel("Contraseña nueva");
-		lblNewLabel_9_1.setFont(new Font("Inter", Font.BOLD, 12));
-		lblNewLabel_9_1.setBounds(53, 180, 130, 13);
-		panel.add(lblNewLabel_9_1);
-		
-		JTextField textField_15 = new JTextField();
-		textField_15.setColumns(10);
-		textField_15.setBackground(new Color(217, 217, 217));
-		textField_15.setBounds(53, 200, 345, 23);
-		panel.add(textField_15);
-		
-		frame.setVisible(true);
-		frame.repaint();
-		frame.revalidate();
-	}
+	
 
 	public void seleccionAvatar() {
 
