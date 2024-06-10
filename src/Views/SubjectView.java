@@ -2434,7 +2434,7 @@ public class SubjectView {
 		mnNewMenu.setFont(new Font("Inter", Font.BOLD, 12));
 		menuBar.add(mnNewMenu);
 
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Descargar Información");
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Consultar registros");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 
 			@Override
@@ -2449,7 +2449,7 @@ public class SubjectView {
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Consultar");
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Detalles");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 
 			@Override
@@ -2512,7 +2512,7 @@ public class SubjectView {
 		mnNewMenu_1.setFont(new Font("Inter", Font.BOLD, 12));
 		menuBar.add(mnNewMenu_1);
 
-		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Descargar Información");
+		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Consultar registros");
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
 
 			@Override
@@ -2525,7 +2525,7 @@ public class SubjectView {
 		});
 		mnNewMenu_1.add(mntmNewMenuItem_6);
 
-		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Consultar");
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Detalles");
 		mntmNewMenuItem_7.addActionListener(new ActionListener() {
 
 			@Override
@@ -2586,7 +2586,7 @@ public class SubjectView {
 		mnNewMenu_2.setFont(new Font("Inter", Font.BOLD, 12));
 		menuBar.add(mnNewMenu_2);
 
-		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Descargar información");
+		JMenuItem mntmNewMenuItem_11 = new JMenuItem("Consultar registros");
 		mntmNewMenuItem_11.addActionListener(new ActionListener() {
 
 			@Override
@@ -2599,7 +2599,7 @@ public class SubjectView {
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_11);
 
-		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Consultar");
+		JMenuItem mntmNewMenuItem_12 = new JMenuItem("Detalles");
 		mntmNewMenuItem_12.addActionListener(new ActionListener() {
 
 			@Override
@@ -2660,7 +2660,7 @@ public class SubjectView {
 		mnNewMenu_3.setFont(new Font("Inter", Font.BOLD, 12));
 		menuBar.add(mnNewMenu_3);
 
-		JMenuItem mntmNewMenuItem_16 = new JMenuItem("Descargar información");
+		JMenuItem mntmNewMenuItem_16 = new JMenuItem("Consultar registros");
 		mntmNewMenuItem_16.addActionListener(new ActionListener() {
 
 			@Override
@@ -2673,7 +2673,7 @@ public class SubjectView {
 		});
 		mnNewMenu_3.add(mntmNewMenuItem_16);
 
-		JMenuItem mntmNewMenuItem_17 = new JMenuItem("Consultar");
+		JMenuItem mntmNewMenuItem_17 = new JMenuItem("Detalles");
 		mntmNewMenuItem_17.addActionListener(new ActionListener() {
 
 			@Override
